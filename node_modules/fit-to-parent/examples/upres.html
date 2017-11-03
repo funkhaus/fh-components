@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+    <head>
+        <title>fitToParent - Prevent Upres</title>
+        <link rel="stylesheet" type="text/css" media="all" href="style.css" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+        <script src="../fitToParent.min.js"></script>
+
+        <script type="text/javascript">
+            $(document).ready(function() {
+				$('.stage iframe').fitToParent({
+                    upres: false
+                });
+				$(window).resize(function() {
+					$('.stage iframe').fitToParent({
+                        upres: false
+                    });
+				});
+            });
+        </script>
+
+    </head>
+    <body>
+
+	    <div class="stage size-parent">
+
+            <div class="media">
+    			<iframe src="http://player.vimeo.com/video/85847275?title=&byline=0&portrait=0&color=ffffff&autoplay=1" width="720" height="405" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+            </div>
+
+	    </div>
+
+	    <div class="entry">
+		    <h2>
+			    Prevent Upres
+		    </h2>
+
+		    <p style="text-align: center;">
+                With the "upres" options set to false, fitToParent will not allow the element to exceed its native height and width. It can only scale down.
+		    </p>
+
+	    </div>
+
+    </body>
+</html>

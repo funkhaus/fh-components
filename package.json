@@ -1,0 +1,23 @@
+{
+  "name": "vp-components",
+  "version": "1.0.0",
+  "description": "Reusable Vuepress components.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/funkhaus/vp-components.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/funkhaus/vp-components/issues"
+  },
+  "homepage": "https://github.com/funkhaus/vp-components#readme",
+  "dependencies": {
+    "fit-to-parent": "^1.3.3"
+  }
+}
