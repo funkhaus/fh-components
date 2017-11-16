@@ -2,11 +2,11 @@
 
     <div class="video-player">
 
-        <div class="loading-wrap" :style="stageStyle" v-if="!embedHtml">
+        <div class="loading-wrap" v-if="!embedHtml">
             <slot name="loading"></slot>
         </div>
 
-        <div class="stage" v-else :style="stageStyle">
+        <div class="stage" v-else>
 
             <div class="iframe-wrap" v-html="embedHtml"></div>
 
@@ -23,7 +23,6 @@
 </template>
 
 <script>
-
 export default {
     props: {
         'vimeo-url': {
@@ -54,25 +53,6 @@ export default {
         }
     },
     computed: {
-        stageStyle(){
-            let splitMargins = this.margins.split(' ')
-            let allMargins = []
-            if( splitMargins.length == 1 ){
-                allMargins = [splitMargins[0], splitMargins[0], splitMargins[0], splitMargins[0]]
-            } else if( splitMargins.length == 2 ){
-                allMargins = [splitMargins[0], splitMargins[1], splitMargins[0], splitMargins[1]]
-            } else if( splitMargins.length == 3 ){
-                allMargins = [splitMargins[0], splitMargins[1], splitMargins[2], splitMargins[1]]
-            } else {
-                allMargins = splitMargins
-            }
-            return {
-                top: allMargins[0],
-                right: allMargins[1],
-                bottom: allMargins[2],
-                left: allMargins[3]
-            }
-        },
         metaWrapStyle(){
             return {
                 width: this.iframeWidth
@@ -80,19 +60,16 @@ export default {
         }
     },
     async mounted(){
-
         // attach resize listener
         this.$root.$on('throttled.resize', () => {
             this.updateIframeWidth()
         });
-
         if( this.vimeoEmbed ){
             // use specified embed HTML and render
             this.embedHtml = this.vimeoEmbed
             this.updateIframeWidth()
             return
         }
-
         // fetch HTML using Vimeo embed API (https://developer.vimeo.com/apis/oembed)
         this.embedHtml = await
             fetch(`https://vimeo.com/api/oembed.json?url=${ this.vimeoUrl || 'https://vimeo.com/' + this.vimeoId }`)
@@ -113,7 +90,6 @@ export default {
     methods: {
         updateIframeWidth(){
             const iframe = this.$el.querySelector('.stage')
-
             this.iframeWidth = iframe
                 ? iframe.getBoundingClientRect().width + 'px'
                 : '100%'
@@ -125,7 +101,6 @@ export default {
         }
     }
 }
-
 </script>
 
 <style scoped>
