@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack --progress --colors",
+    "dev": "webpack --progress --colors --watch",
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepare": "npm run build"
   },
@@ -13,9 +14,9 @@
     "url": "git+https://github.com/funkhaus/fh-components.git"
   },
   "keywords": [
-      "Vue",
-      "vuepress",
-      "Funkhaus"
+    "Vue",
+    "vuepress",
+    "Funkhaus"
   ],
   "author": "Funkhaus",
   "license": "ISC",

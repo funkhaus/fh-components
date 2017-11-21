@@ -14,7 +14,9 @@ const configs = getDirectories(resolve('src')).map(o => {
         entry: o.path,
         output: {
             path: resolve( `dist/${ o.name }` ),
-            filename: `${ o.name }.js`
+            filename: `index.js`,
+            library: 'fh-components',
+            libraryTarget: 'umd'
         },
         module: {
             rules: [
@@ -25,7 +27,7 @@ const configs = getDirectories(resolve('src')).map(o => {
                         loaders: {
                             'scss': 'vue-style-loader!css-loader!sass-loader'
                         },
-                        extractCSS: true,
+                        extractCSS: false,
                         preserveWhitespace: false,
                         postcss: [
                             require('autoprefixer')({
@@ -53,18 +55,10 @@ const configs = getDirectories(resolve('src')).map(o => {
                 },
                 {
                     test: /\.css$/,
-                    use: ExtractTextPlugin.extract({
-                            use: 'css-loader?minimize',
-                            fallback: 'vue-style-loader'
-                        })
+                    use: 'vue-style-loader'
                 }
             ]
-        },
-        plugins: [
-            new ExtractTextPlugin({
-                filename: `${ o.name }.css`
-            })
-        ]
+        }
     }
 })
 
