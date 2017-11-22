@@ -1,4 +1,4 @@
-import FlexText from './index.vue'
+import FlexText from './FlexText.vue'
 
 const install = (Vue) => {
     if (install.installed) return

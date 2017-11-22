@@ -1,4 +1,4 @@
-import VideoPlayer from './index.vue'
+import VideoPlayer from './VideoPlayer.vue'
 
 const install = function (Vue) {
     if (install.installed) return

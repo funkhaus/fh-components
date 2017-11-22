@@ -7,7 +7,7 @@
 </template>
 
 <script>
-    import imagesLoaded from 'imagesLoaded'
+    import imagesLoaded from 'imagesloaded'
     import _get from 'lodash/get'
 
     export default {
