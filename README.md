@@ -22,13 +22,18 @@ In your .vue files:
 * `href`: String, default empty. URL to link to.
 * `new-window`: Boolean, default `true`. If component renders as an `<a>` tag, open in a new window.
 
+**Classes**
+* `anchor-div`
+
 **Notes**:
 * Renders content in a `<router-to>` tag if `href` starts with `/`
 * Renders content in an `<a>` tag if `href` is a truthy value not starting with `/`
 * Renders content in a `<div>` if `href` is falsey.
-* Default classes: `anchor-div`
 
 ## `bg-image`
+**Props**
+* `object` - Serialized [Rest-Easy attachment](https://github.com/funkhaus/Rest-Easy#serializer-filters)
+
 
 ## `flex-text`
 
