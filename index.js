@@ -10,8 +10,6 @@ const isDirectory = o => lstatSync(o.path).isDirectory()
 const components = readdirSync(resolve('dist')).map(name => {
     return { path: path.join(source, name), name  }
 }).filter(isDirectory).reduce((acc, o) => {
-    console.log(o)
-
     acc[_camelCase(o.name)] = require(o.path).default
     return acc
 }, {})
