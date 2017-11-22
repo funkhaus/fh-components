@@ -14,7 +14,7 @@ const install = null
 const configs = getDirectories(resolve('src')).map(o => {
 
     // Get path to first .vue template in directory
-    const componentPath = o.path + '/' + (readdirSync(o.path).filter(f => f.includes('.vue')).pop())
+    const componentPath = o.path + '/' + (readdirSync(o.path).filter(f => f.includes('.vue')).shift())
 
     return {
         entry: componentPath,
