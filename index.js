@@ -2,7 +2,6 @@ const { lstatSync, readdirSync } = require('fs')
 const path = require( 'path' )
 const resolve = file => path.resolve( __dirname, file )
 const _camelCase = require('lodash/camelCase')
-const _upperFirst = require('lodash/upperFirst')
 
 const isDirectory = o => lstatSync(o.path).isDirectory()
 

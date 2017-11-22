@@ -6,12 +6,18 @@ const path = require( 'path' )
 
 const isDirectory = o => lstatSync(o.path).isDirectory()
 const getDirectories = source => {
-    return readdirSync(source).map(name => ({ path: path.join(source, name), name  })).filter(isDirectory)
+    return readdirSync(source).map(name => ({ path: path.join(source, name), name })).filter(isDirectory)
 }
 
+const install = null
+
 const configs = getDirectories(resolve('src')).map(o => {
+
+    // Get path to first .vue template in directory
+    const componentPath = o.path + '/' + (readdirSync(o.path).filter(f => f.includes('.vue')).pop())
+
     return {
-        entry: o.path,
+        entry: componentPath,
         output: {
             path: resolve( `dist/${ o.name }` ),
             filename: `index.js`,
