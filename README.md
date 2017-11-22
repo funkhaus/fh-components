@@ -32,8 +32,22 @@ In your .vue files:
 
 ## `bg-image`
 **Props**
-* `object` - Serialized [Rest-Easy attachment](https://github.com/funkhaus/Rest-Easy#serializer-filters)
+* `object` - Object, default `{}`. Serialized [Rest-Easy attachment](https://github.com/funkhaus/Rest-Easy#serializer-filters). Fills out the rest of these props automatically except `fit`.
+* `src` - String, default empty. Works like `<img src>`.
+* `height` - String or number, default empty. Natural image height in pixels.
+* `width` - String or number, default empty. Natural image width in pixels.
+* `aspect` - String or number, default empty. Aspect ratio of desired image, as a percentage. `aspect="56.25"` would evaluate to a 56.25% aspect ratio.
+* `size` - String, default `'full'`. WordPress image size.
+* `color` - String, default `'transparent'`. Background placeholder color. Any CSS-compatible color is valid.
+* `fit` - String, default `'cover'`. Object-fit value for the image - `cover` or `contain`.
 
+**Classes**
+* `bg-image-module`
+* `loading` - only active when image hasn't finished loading
+* `fit-${fit}` - Either `fit-cover` or `fit-contain`, depending on the `fit` prop.
+
+**Notes**
+* Creates and fades in an image. Adds a placeholder for the image with a given background-color to prevent content jumping when the image loads.
 
 ## `flex-text`
 
