@@ -9,8 +9,6 @@ const getDirectories = source => {
     return readdirSync(source).map(name => ({ path: path.join(source, name), name })).filter(isDirectory)
 }
 
-const install = null
-
 const configs = getDirectories(resolve('src')).map(o => {
 
     // Get path to first .vue template in directory
