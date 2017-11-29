@@ -18,7 +18,7 @@ export default {
 }
 
 // ...or a global one-liner
-Vue.component('component-name', require.default('fh-components/component-name'))
+Vue.component('component-name', require('fh-components/component-name').default)
 ```
 
 # Table of Contents
