@@ -9,6 +9,8 @@ const getDirectories = source => {
     return readdirSync(source).map(name => ({ path: path.join(source, name), name })).filter(isDirectory)
 }
 
+const nodeExternals = require('webpack-node-externals')
+
 const configs = getDirectories(resolve('src')).map(o => {
 
     // Get path to first .vue template in directory
@@ -16,9 +18,9 @@ const configs = getDirectories(resolve('src')).map(o => {
 
     return {
         entry: componentPath,
+        externals: [nodeExternals()],
         output: {
-            path: resolve( `dist/${ o.name }` ),
-            filename: `index.js`,
+            filename: `${ o.name }.js`,
             library: 'fh-components',
             libraryTarget: 'umd'
         },
