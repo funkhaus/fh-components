@@ -124,6 +124,7 @@ __fh-components__
 
 http://funkhaus.us
 
-Version: 1.0.0
+Version: 1.1.0
 
+* 1.1.0 - Ready for use in production
 * 1.0.0 - Initial release
