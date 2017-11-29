@@ -2,9 +2,20 @@ Reusable components and directives for [Vuepress](https://github.com/funkhaus/vu
 
 `npm install fh-components --save`
 
-In your .vue files:
+When you register components:
 
-`import { ComponentName } from 'fh-components' // this is the goal - doesn't work yet`
+```js
+import ComponentName from 'fh-components/component-name'
+
+// Global in main.js...
+Vue.component('component-name', ComponentName)
+// ...or local to a .vue file
+export default {
+    components: {
+        'component-name': ComponentName
+    }
+}
+```
 
 # Table of Contents
 1. [Components](#components)
