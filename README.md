@@ -26,6 +26,7 @@ Vue.component('component-name', require('fh-components/component-name').default)
     1. [a-div](#a-div)
     1. [bg-image](#bg-image)
     1. [flex-text](#flex-text)
+    1. [responsive-image](#responsive-image)
     1. [video-player](#video-player)
 1. [Directives](#directives)
 1. [Contributing](#contributing)
@@ -49,6 +50,11 @@ Vue.component('component-name', require('fh-components/component-name').default)
 * Renders content in a `<div>` if `href` is falsey.
 
 ## `bg-image`
+Deprecated - use [responsive-image](#responsive-image) instead.
+
+## `flex-text`
+
+## `responsive-image`
 **Props**
 * `object`: Object, default `{}`. Serialized [Rest-Easy attachment](https://github.com/funkhaus/Rest-Easy#serializer-filters). Fills out the rest of these props automatically except `fit`.
 * `src`: String, default empty. Works like `<img src>`.
@@ -57,6 +63,7 @@ Vue.component('component-name', require('fh-components/component-name').default)
 * `aspect`: String or number, default empty. Aspect ratio of desired image, as a percentage. `aspect="56.25"` would evaluate to a 56.25% aspect ratio.
 * `size`: String, default `'full'`. WordPress image size.
 * `color`: String, default `'transparent'`. Background placeholder color. Any CSS-compatible color is valid.
+* `fill-space`: Boolean, default `false`. When `true`, position absolutely and force the image to take up all available space; when `false`, use the image's natural aspect ratio.
 * `fit`: String, default `'cover'`. Object-fit value for the image - `cover` or `contain`.
 
 **Classes**
@@ -66,8 +73,6 @@ Vue.component('component-name', require('fh-components/component-name').default)
 
 **Notes**
 * Creates and fades in an image. Adds a placeholder for the image with a given background-color to prevent content jumping when the image loads.
-
-## `flex-text`
 
 ## `video-player`
 
