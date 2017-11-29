@@ -129,8 +129,10 @@ __fh-components__
 
 http://funkhaus.us
 
-Version: 1.1.1
+Version: 1.1.4
 
+* 1.1.4 - Updated responsive-image to be multipurpose replacement for bg-image
+* 1.1.2, 1.1.3 - Fixing installation bugs
 * 1.1.1 - Fixed one-liner Vue component registration
 * 1.1.0 - Ready for use in production
 * 1.0.0 - Initial release
