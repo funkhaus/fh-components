@@ -25,6 +25,18 @@
 <script>
 export default {
     props: {
+        'aspect': {
+            type: Number,
+            default: 0.5625
+        },
+        'autoplay': {
+            type: Boolean,
+            default: true
+        },
+        'margins': {
+            type: String,
+            default: '80px'
+        },
         'vimeo-url': {
             type: String,
             default: ''
@@ -36,14 +48,6 @@ export default {
         'vimeo-embed': {
             type: String,
             default: ''
-        },
-        'aspect': {
-            type: Number,
-            default: 0.5625
-        },
-        'margins': {
-            type: String,
-            default: '80px'
         }
     },
     data(){
@@ -72,7 +76,7 @@ export default {
         }
         // fetch HTML using Vimeo embed API (https://developer.vimeo.com/apis/oembed)
         this.embedHtml = await
-            fetch(`https://vimeo.com/api/oembed.json?url=${ this.vimeoUrl || 'https://vimeo.com/' + this.vimeoId }`)
+            fetch(`https://vimeo.com/api/oembed.json?url=${ this.vimeoUrl || 'https://vimeo.com/' + this.vimeoId }&autoplay=${ this.autoplay }`)
             .then( res => {
                 if( !res.ok ){
                     // fetch error handling:
