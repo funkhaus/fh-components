@@ -65,9 +65,8 @@ export default {
     },
     async mounted(){
         // attach resize listener
-        this.$root.$on('throttled.resize', () => {
-            this.updateIframeWidth()
-        });
+        this.$root.$on('throttled.resize', this.updateIframeWidth);
+
         if( this.vimeoEmbed ){
             // use specified embed HTML and render
             this.embedHtml = this.vimeoEmbed
@@ -90,6 +89,9 @@ export default {
                 return json.html
             } )
             .catch( err => console.log(err) )
+    },
+    beforeDestroy () {
+        this.$root.$off('throttled.resize', this.updateIframeWidth);
     },
     methods: {
         updateIframeWidth(){
