@@ -96,7 +96,7 @@
                 return this.imageWidth
             },
             aspectPadding () {
-                const calculatedAspect = (this.parsedWidth / this.parsedHeight) * 100
+                const calculatedAspect = (this.parsedHeight / this.parsedWidth) * 100
                 return this.aspect || calculatedAspect || 56.25
             },
             outerStyles () {
