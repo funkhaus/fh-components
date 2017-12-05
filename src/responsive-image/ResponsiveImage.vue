@@ -26,6 +26,7 @@
                     return {}
                 }
             },
+            html: String,
             src: String,
             height: [String, Number],
             width: [String, Number],
@@ -114,7 +115,9 @@
                 return {}
             },
             imageTag(){
-                return _get(this.object, `sizes.${ this.size }.html`)
+                // TODO: Add other img attributes
+                const fallback = `<img src="${ this.parsedSrc }">`
+                return _get(this.object, `sizes.${ this.size }.html`, this.html ? this.html : fallback)
             }
         }
     }
