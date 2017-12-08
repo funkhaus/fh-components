@@ -1,5 +1,23 @@
 Reusable components and directives for [Vuepress](https://github.com/funkhaus/vuepress).
 
+`fh-components` saves you the trouble of rewriting common components like images, video players, svgs, and several other elements. If you're looking at writing a custom component in Vuepress, check if one already exists here first!
+
+# Table of Contents
+1. [Installation](#installation)
+1. [Components](#components)
+    1. [a-div](#a-div)
+    1. [bg-image](#bg-image)
+    1. [flex-text](#flex-text)
+    1. [responsive-image](#responsive-image)
+    1. [svg-image](#svg-image)
+    1. [video-player](#video-player)
+1. [Directives](#directives)
+1. [Contributing](#contributing)
+    1. [Prep](#prep)
+    1. [New Components](#new-components)
+    1. [Documentation](#documentation)
+
+# Installation
 `npm install fh-components --save`
 
 When you register components:
@@ -17,22 +35,9 @@ export default {
     }
 }
 
-// ...or a global one-liner
+// ...or a global component one-liner (no `import` statement needed)
 Vue.component('component-name', require('fh-components/component-name').default)
 ```
-
-# Table of Contents
-1. [Components](#components)
-    1. [a-div](#a-div)
-    1. [bg-image](#bg-image)
-    1. [flex-text](#flex-text)
-    1. [responsive-image](#responsive-image)
-    1. [video-player](#video-player)
-1. [Directives](#directives)
-1. [Contributing](#contributing)
-    1. [Prep](#prep)
-    1. [New Components](#new-components)
-    1. [Documentation](#documentation)
 
 # Components
 
@@ -40,14 +45,16 @@ Vue.component('component-name', require('fh-components/component-name').default)
 **Props**
 * `href`: String, default empty. URL to link to.
 * `new-window`: Boolean, default `true`. If component renders as an `<a>` tag, open in a new window.
+* `replace-with`: String, default `div`. If the `href` isn't a link, render contents inside this tag instead.
 
 **Classes**
 * `anchor-div`
+* `a-${ replace-with }` (substitutes with the `replace-with` tag name)
 
 **Notes**:
 * Renders content in a `<router-to>` tag if `href` starts with `/`
 * Renders content in an `<a>` tag if `href` is a truthy value not starting with `/`
-* Renders content in a `<div>` if `href` is falsey.
+* Renders content in a given tag (`replace-with`, default `div`) if `href` is falsey.
 
 ## `bg-image`
 Deprecated - use [responsive-image](#responsive-image) instead.
@@ -74,6 +81,8 @@ Deprecated - use [responsive-image](#responsive-image) instead.
 
 **Notes**
 * Creates and fades in an image. Adds a placeholder for the image with a given background-color to prevent content jumping when the image loads.
+
+## `svg-image`
 
 ## `video-player`
 
@@ -130,10 +139,4 @@ __fh-components__
 
 http://funkhaus.us
 
-Version: 1.1.4
-
-* 1.1.4 - Updated responsive-image to be multipurpose replacement for bg-image
-* 1.1.2, 1.1.3 - Fixing installation bugs
-* 1.1.1 - Fixed one-liner Vue component registration
-* 1.1.0 - Ready for use in production
-* 1.0.0 - Initial release
+Version: 1.2.0

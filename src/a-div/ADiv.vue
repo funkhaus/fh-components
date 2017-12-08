@@ -1,7 +1,7 @@
 <template>
     <router-link
         v-if="isRelative"
-        class="anchor-div"
+        :class="['anchor-div', `a-${ replaceWith }`]"
         :to="href"
         :href="href">
         <slot />
@@ -9,7 +9,7 @@
 
     <a
         v-else-if="href"
-        class="anchor-div"
+        :class="['anchor-div', `a-${ replaceWith }`]"
         :href="href"
         :target="newWindow ? '_blank' : null"
         :rel="newWindow ? 'noopener noreferrer' : null"
@@ -17,9 +17,13 @@
         <slot />
     </a>
 
-    <div v-else class="anchor-div">
+    <component
+        :is="replaceWith"
+        v-else
+        :class="['anchor-div', `a-${ replaceWith }`]"
+        >
         <slot />
-    </div>
+    </component>
 </template>
 
 <script>
@@ -30,6 +34,10 @@ export default {
         'new-window': {
             type: Boolean,
             default: true
+        },
+        'replace-with': {
+            type: String,
+            default: 'div'
         }
     },
     computed: {
