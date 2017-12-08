@@ -1,7 +1,7 @@
 {
   "name": "fh-components",
-  "version": "1.2.01",
-  "description": "Reusable Vuepress components and directives.",
+  "version": "1.2.11",
+  "description": "Reusable Vuepress components.",
   "main": "index.js",
   "scripts": {
     "build": "webpack -p --progress --colors",
