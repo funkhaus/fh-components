@@ -65,9 +65,10 @@ Deprecated - use [responsive-image](#responsive-image) instead.
 * `color`: String, default `'transparent'`. Background placeholder color. Any CSS-compatible color is valid.
 * `fill-space`: Boolean, default `false`. When `true`, position absolutely and force the image to take up all available space; when `false`, use the image's natural aspect ratio.
 * `fit`: String, default `'cover'`. Object-fit value for the image - `cover` or `contain`.
+* `html`: String, default ''. Desired <img> element as an HTML string. Provides all the sizing, fade-in, etc. benefits of a regular responsive-image.
 
 **Classes**
-* `bg-image-module`
+* `image-module`
 * `loading`: only active when image hasn't finished loading
 * `fit-${fit}`: Either `fit-cover` or `fit-contain`, depending on the `fit` prop.
 
