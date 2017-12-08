@@ -12,6 +12,7 @@ Reusable components and directives for [Vuepress](https://github.com/funkhaus/vu
     1. [svg-image](#svg-image)
     1. [video-player](#video-player)
 1. [Directives](#directives)
+    1. [full-height](#full-height)
 1. [Contributing](#contributing)
     1. [Prep](#prep)
     1. [New Components](#new-components)
@@ -87,6 +88,11 @@ Deprecated - use [responsive-image](#responsive-image) instead.
 ## `video-player`
 
 # Directives
+Directives are declared as attributes. Remember to prefix `v-` to the directive name (so `full-height` becomes `v-full-height`)!
+
+## `full-height`
+**Notes**:
+* Sizes the element to 100% of the window height. Replacement for the occasionally buggy 100vh css value.
 
 # Contributing
 
