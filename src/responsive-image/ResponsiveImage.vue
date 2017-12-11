@@ -1,22 +1,14 @@
 <template>
-    <div
-        :class="['rsp-image-module', { loading }, { 'fill-space': fillSpace }]"
-        :style="outerStyles"
-    >
+    <div :class="classes" :style="outerStyles">
 
         <div
+            v-if="parsedSrc"
             class="image-sizer"
-            v-if="!videoSrc"
             :style="sizerStyles"
-            v-html="imageTag"
+            v-html="videoTag || imageTag || ''"
         />
-        <div
-            class="image-sizer video"
-            v-else="!videoSrc"
-            :style="sizerStyles"
-        >
-            <video :src="videoSrc" autoplay loop muted :poster="parsedSrc" />
-        </div>
+
+        <slot></slot>
 
     </div>
 </template>
@@ -44,6 +36,10 @@
                 type: String,
                 default: 'transparent'
             },
+            'respect-max': {
+                type: Boolean,
+                default: false
+            },
             'fill-space': {
                 type: Boolean,
                 default: false
@@ -56,7 +52,6 @@
         data () {
             return {
                 loading: true,
-                loadedImage: false,
                 imageWidth: 0,
                 imageHeight: 0
             }
@@ -71,11 +66,9 @@
                 this.imageHeight = _get(this.object, `sizes.${ this.size }.height`)
             }
 
+            // wait for image to load...
             imagesLoaded(img, () => {
                 this.loading = false
-
-                // save loaded image
-                this.loadedImage = img
 
                 // update stats
                 this.imageWidth = img.width
@@ -83,9 +76,14 @@
             })
         },
         computed: {
-            videoSrc () {
-                const alt = _get(this.object, 'alt', '')
-                return String(alt).includes('.mp4') ? alt : ''
+            classes () {
+                return [
+                    'rsp-image-module',
+                    `fit-${ this.fit }`,
+                    { 'loading': this.loading },
+                    { 'fill-space': this.fillSpace },
+                    { 'has-video': this.videoSrc }
+                ]
             },
             parsedSrc(){
                 if( this.src ) return this.src
@@ -94,25 +92,49 @@
             parsedHeight(){
                 // default to defined height
                 if( this.height ) return parseInt(this.height)
-
                 return this.imageHeight
             },
             parsedWidth(){
                 // default to defined width
                 if( this.width ) return parseInt(this.width)
-
                 return this.imageWidth
             },
+            parsedColor () {
+                return _get(this.object, 'primary_color') || this.color
+            },
             aspectPadding () {
+                // default to defined aspect, or calculate
                 const calculatedAspect = (this.parsedHeight / this.parsedWidth) * 100
                 return this.aspect || calculatedAspect || 56.25
             },
+            videoSrc () {
+                const metaString = _get(this.object, 'meta.video_url') || _get(this.object, 'alt', '')
+                return String(metaString).includes('.mp4') ? metaString : ''
+            },
+            videoTag () {
+                return this.videoSrc ? `<video src="${ this.videoSrc }" autoplay loop muted playsinline poster="${ this.parsedSrc }"></video>` : ''
+            },
             outerStyles () {
-                return {
-                    'background-color': _get(this.object, 'primary_color') || this.color,
-                    'max-width': this.respectMax ? `${ this.parsedWidth }px` : 'initial',
-                    'max-height': this.respectMax ? `${ this.parsedHeight }px` : 'initial'
+                const styles =  {}
+
+                // set max dims if needed
+                if ( this['respect-max'] ){
+                    styles['max-width'] = `${ this.parsedWidth }px`
+                    styles['max-height'] = `${ this.parsedHeight }px`
                 }
+
+                // add svg bg if needed
+                if ( this.parsedColor && this.parsedColor !== 'transparent' ) {
+
+                    // set color or SVG background depending on settings
+                    if ( this.fit == 'cover' ) styles['background-color'] = this.parsedColor
+                    else styles['background-image'] = `url("${ this.svgBG }")`
+
+                    // set fit
+                    styles['background-size'] = this.fit
+                }
+
+                return styles
             },
             sizerStyles () {
                 if( !this.fillSpace ){
@@ -126,6 +148,14 @@
                 // TODO: Add other img attributes
                 const fallback = `<img src="${ this.parsedSrc }">`
                 return _get(this.object, `sizes.${ this.size }.html`, this.html ? this.html : fallback)
+            },
+            svgBG() {
+                if ( !this.parsedColor || this.parsedColor == 'transparent' ) return ''
+                return `data:image/svg+xml;utf8,
+                    <svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'
+                        x='0px' y='0px' viewBox='0 0 ${ this.imageWidth } ${ this.imageHeight }' xml:space='preserve'>
+                        <rect fill='${ this.parsedColor }' width='${ this.imageWidth }' height='${ this.imageHeight }' />
+                    </svg>`.replace(/\r?\n|\r/g, '')
             }
         }
     }
@@ -134,6 +164,8 @@
 
 <style lang="scss">
     .rsp-image-module {
+        background-repeat: no-repeat;
+        background-position: center;
         position: relative;
         width: 100%;
 
@@ -142,14 +174,18 @@
             position: relative;
             overflow: hidden;
         }
-        .image-sizer img,
-        .image-sizer video {
+        .image-sizer > * {
             position: absolute;
             object-fit: cover;
             height: 100%;
             width: 100%;
             left: 0;
             top: 0;
+        }
+
+        // when set to contain
+        &.fit-contain .image-sizer > * {
+            object-fit: contain;
         }
 
         // fill-space state
@@ -163,6 +199,8 @@
         &.fill-space .image-sizer {
             height: 100%;
             width: 100%;
+            left: 0;
+            top: 0;
         }
 
         // loading state
