@@ -56,9 +56,13 @@
                 imageHeight: 0
             }
         },
-        mounted () {
+        created () {
             const img = new Image()
             img.src = this.parsedSrc
+
+            // image was already in cache,
+            // set loading var immediately
+            if ( img.complete ) this.loading = false
 
             // set up height/width if we have an object
             if( this.object ){
