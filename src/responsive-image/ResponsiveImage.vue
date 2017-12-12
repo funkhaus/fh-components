@@ -2,7 +2,7 @@
     <div :class="classes" :style="outerStyles">
 
         <div
-            v-if="parsedSrc"
+            v-if="parsedSrc || html"
             class="image-sizer"
             :style="sizerStyles"
             v-html="videoTag || imageTag || ''"
