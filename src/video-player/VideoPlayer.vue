@@ -74,8 +74,15 @@ export default {
             return
         }
         // fetch HTML using Vimeo embed API (https://developer.vimeo.com/apis/oembed)
+        let vimeoUrl = `https://vimeo.com/api/oembed.json?url=`
+        if( this.vimeoId != -1 ){
+            vimeoUrl += `https://vimeo.com/${ this.vimeoId }`
+        } else {
+            vimeoUrl += this.vimeoUrl
+        }
+        vimeoUrl += `&autoplay=${ this.autoplay }`
         this.embedHtml = await
-            fetch(`https://vimeo.com/api/oembed.json?url=${ this.vimeoUrl || 'https://vimeo.com/' + this.vimeoId }&autoplay=${ this.autoplay }`)
+            fetch(vimeoUrl)
             .then( res => {
                 if( !res.ok ){
                     // fetch error handling:
