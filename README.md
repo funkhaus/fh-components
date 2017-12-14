@@ -11,6 +11,7 @@ Reusable components and directives for [Vuepress](https://github.com/funkhaus/vu
     1. [responsive-image](#responsive-image)
     1. [svg-image](#svg-image)
     1. [video-player](#video-player)
+    1. [wp-content](#wp-content)
 1. [Directives](#directives)
     1. [full-height](#full-height)
 1. [Contributing](#contributing)
@@ -86,6 +87,18 @@ Deprecated - use [responsive-image](#responsive-image) instead.
 ## `svg-image`
 
 ## `video-player`
+
+## `wp-content`
+
+**Props**
+* `html`: String, default `''`. HTML that can function as a Vue template. The component will dynamically compile the contents, and inject the results into the vue component tree.
+
+**Classes**
+* `wp-content-placeholder`: only present when no html template is provided
+* `wp-content-rendered`: only present when an html template was provided and successfully rendered
+
+**Notes**
+* This was built to allow components to be used with the the contents of a Wordpress post. It's very effective for that purpose, but more generally can be used to compile any dynamically loaded template and render it into the component tree. Be aware that this should only ever be used when the template going into the `html` prop is trusted. 
 
 # Directives
 Directives are declared as attributes. Remember to prefix `v-` to the directive name (so `full-height` becomes `v-full-height`)!
