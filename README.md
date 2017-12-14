@@ -1,6 +1,6 @@
 Reusable components and directives for [Vuepress](https://github.com/funkhaus/vuepress).
 
-`fh-components` saves you the trouble of rewriting common components like images, video players, svgs, and several other elements. If you're looking at writing a custom component in Vuepress, check if one already exists here first!
+`fh-components` saves you the trouble of rewriting common components like images, video players, svgs, and several other elements. If you're looking at writing a custom component in Vuepress, check if one already exists here first - and if it doesn't, feel free to [contribute](#contributing)!
 
 # Table of Contents
 1. [Installation](#installation)
@@ -11,6 +11,7 @@ Reusable components and directives for [Vuepress](https://github.com/funkhaus/vu
     1. [responsive-image](#responsive-image)
     1. [svg-image](#svg-image)
     1. [video-player](#video-player)
+    1. [wp-content](#wp-content)
 1. [Directives](#directives)
     1. [full-height](#full-height)
 1. [Contributing](#contributing)
@@ -65,27 +66,63 @@ Deprecated - use [responsive-image](#responsive-image) instead.
 ## `responsive-image`
 **Props**
 * `object`: Object, default `{}`. Serialized [Rest-Easy attachment](https://github.com/funkhaus/Rest-Easy#serializer-filters). Fills out the rest of these props automatically except `fit`.
+* `html`: String, default ''. Desired <img> element as an HTML string. Provides all the sizing, fade-in, etc. benefits of a regular responsive-image.
 * `src`: String, default empty. Works like `<img src>`.
 * `height`: String or number, default empty. Natural image height in pixels.
 * `width`: String or number, default empty. Natural image width in pixels.
-* `aspect`: String or number, default empty. Aspect ratio of desired image, as a percentage. `aspect="56.25"` would evaluate to a 56.25% aspect ratio.
+* `aspect`: String or number, default empty. Aspect ratio of desired image, as a percentage. `aspect="56.25"` would evaluate to a 56.25% aspect ratio. Calculated from height and width if not explicitly stated.
 * `size`: String, default `'full'`. WordPress image size.
 * `color`: String, default `'transparent'`. Background placeholder color. Any CSS-compatible color is valid.
+* `respect-max`: Boolean, default `false`. Whether the image will have a `max-width` and `max-height` based on its natural dimensions.
 * `fill-space`: Boolean, default `false`. When `true`, position absolutely and force the image to take up all available space; when `false`, use the image's natural aspect ratio.
 * `fit`: String, default `'cover'`. Object-fit value for the image - `cover` or `contain`.
-* `html`: String, default ''. Desired <img> element as an HTML string. Provides all the sizing, fade-in, etc. benefits of a regular responsive-image.
 
 **Classes**
-* `image-module`
-* `loading`: only active when image hasn't finished loading
+* `rsp-image-module`
 * `fit-${fit}`: Either `fit-cover` or `fit-contain`, depending on the `fit` prop.
+* `loading`: only active when image hasn't finished loading
+* `fill-space`: only active if `fill-space` prop is set to `true`
+* `has-video`: only active if `videoSrc` is truthy (see notes below).
 
 **Notes**
 * Creates and fades in an image. Adds a placeholder for the image with a given background-color to prevent content jumping when the image loads.
-
-## `svg-image`
+* If you add a link to an .mp4 video in the "Alt" field in WordPress, this element will create and render a video, using the provided image as the poster (see "Poster" under "Attributes" [here](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video)).
 
 ## `video-player`
+**Props**
+* `aspect`: Number, default `0.5625`. Aspect ratio of video, as decimal.
+* `autoplay`: Boolean, default `true`. Whether or not the video will autoplay.
+* `margins`: String, default `80px`. Any CSS-valid value (including shortcuts like `80px 50px 40px` and units like `em`s, percentages, etc.) to use as a margin around the video.
+* `vimeo-url`: String, default `''`. The URL for a Vimeo video to play in this component.
+* `vimeo-id`: Number, default `-1`. The Vimeo video ID to play in this component.
+
+**Classes**
+* `video-player`
+
+**Notes**:
+* Video player that loads a Vimeo video and starts playing, if desired.
+
+## `wp-content`
+**Props**
+
+**Classes**
+
+**Notes**
+
+## `wp-menu`
+**Props**
+
+**Classes**
+
+**Notes**:
+
+## `wp-menu-item`
+**Props**
+
+**Classes**
+
+**Notes**
+
 
 # Directives
 Directives are declared as attributes. Remember to prefix `v-` to the directive name (so `full-height` becomes `v-full-height`)!
@@ -135,7 +172,7 @@ Reusable components are only helpful if they're easy to reuse! Fill in this temp
 * `always-applied`
 * `conditional`: explanation of when class will/won't be applied
 
-**Notes**:
+**Notes**
 * Miscellaneous notes and information here. Why add this custom component? When can it be used?
 ```
 
