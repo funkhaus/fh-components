@@ -102,13 +102,6 @@ Deprecated - use [responsive-image](#responsive-image) instead.
 **Notes**:
 * Video player that loads a Vimeo video and starts playing, if desired.
 
-## `wp-content`
-**Props**
-
-**Classes**
-
-**Notes**
-
 ## `wp-menu`
 **Props**
 
@@ -134,7 +127,7 @@ Deprecated - use [responsive-image](#responsive-image) instead.
 * `wp-content-rendered`: only present when an html template was provided and successfully rendered
 
 **Notes**
-* This was built to allow components to be used with the the contents of a Wordpress post. It's very effective for that purpose, but more generally can be used to compile any dynamically loaded template and render it into the component tree. Be aware that this should only ever be used when the template going into the `html` prop is trusted. 
+* This was built to allow components to be used with the the contents of a Wordpress post. It's very effective for that purpose, but more generally can be used to compile any dynamically loaded template and render it into the component tree. Be aware that this should only ever be used when the template going into the `html` prop is trusted.
 
 # Directives
 Directives are declared as attributes. Remember to prefix `v-` to the directive name (so `full-height` becomes `v-full-height`)!
