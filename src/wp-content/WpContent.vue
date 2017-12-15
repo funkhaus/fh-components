@@ -16,8 +16,7 @@
             }
         },
         render (h, context) {
-            const res = Vue.compile(this.htmlTemplate)
-            return res.render.apply(this, ...arguments)
+            return h({ template: this.htmlTemplate })
         }
     }
 
