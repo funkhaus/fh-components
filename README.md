@@ -8,6 +8,7 @@ Reusable components and directives for [Vuepress](https://github.com/funkhaus/vu
     1. [a-div](#a-div)
     1. [bg-image](#bg-image)
     1. [flex-text](#flex-text)
+    1. [hamburger-button](#hamburger-button)
     1. [responsive-image](#responsive-image)
     1. [svg-image](#svg-image)
     1. [video-player](#video-player)
@@ -62,6 +63,14 @@ Vue.component('component-name', require('fh-components/component-name').default)
 Deprecated - use [responsive-image](#responsive-image) instead.
 
 ## `flex-text`
+
+## `hamburger-button`
+**Classes**
+* `hamburger`
+* `activated`: when `$store.state.menuOpened` is `true`
+
+**Notes**
+* Lightweight hamburger SVG with open and closed states. Calls Vuepress's `'OPEN_MENU'` or `'CLOSE_MENU'` when clicked, depending on current `activated` state. Will also update correctly when menu is opened or closed elsewhere.
 
 ## `responsive-image`
 **Props**
