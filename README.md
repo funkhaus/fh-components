@@ -11,6 +11,7 @@ Reusable components and directives for [Vuepress](https://github.com/funkhaus/vu
     1. [hamburger-button](#hamburger-button)
     1. [responsive-image](#responsive-image)
     1. [svg-image](#svg-image)
+    1. [transition-fade](#transition-fade)
     1. [video-player](#video-player)
     1. [wp-content](#wp-content)
 1. [Directives](#directives)
@@ -96,6 +97,13 @@ Deprecated - use [responsive-image](#responsive-image) instead.
 **Notes**
 * Creates and fades in an image. Adds a placeholder for the image with a given background-color to prevent content jumping when the image loads.
 * If you add a link to an .mp4 video in the "Alt" field in WordPress, this element will create and render a video, using the provided image as the poster (see "Poster" under "Attributes" [here](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video)).
+
+## `transition-fade`
+**Classes**
+* [Transition classes](https://vuejs.org/v2/guide/transitions.html#Transition-Classes) applied to a transition called `fade`.
+
+**Notes**
+* Fades the contained element over 0.4 seconds.
 
 ## `video-player`
 **Props**
