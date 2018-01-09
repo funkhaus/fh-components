@@ -10,7 +10,7 @@ Reusable components and directives for [Vuepress](https://github.com/funkhaus/vu
     1. [flex-text](#flex-text)
     1. [hamburger-button](#hamburger-button)
     1. [responsive-image](#responsive-image)
-    1. [svg-image](#svg-image)
+    1. [split-text](#split-text)
     1. [transition-fade](#transition-fade)
     1. [video-player](#video-player)
     1. [wp-content](#wp-content)
@@ -97,6 +97,16 @@ Deprecated - use [responsive-image](#responsive-image) instead.
 **Notes**
 * Creates and fades in an image. Adds a placeholder for the image with a given background-color to prevent content jumping when the image loads.
 * If you add a link to an .mp4 video in the "Alt" field in WordPress, this element will create and render a video, using the provided image as the poster (see "Poster" under "Attributes" [here](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video)).
+
+## `split-text`
+**Props**
+* `elements`: String or Array, default `span`. Wrap each resulting line in this element with class `line-{ line number }`. If `elements` is an array, split-text will wrap each line in its respective element, using the last element for any extra lines.
+* `separator`: String, default ` - `. Splits text by this separator.
+* `text`: String, default empty. Text to split.
+* `wrapper`: String, default `span`. Element wrapping rendered lines.
+
+**Notes**
+* Splits given text according to a given separator. Useful for formatting titles, for example - `Title - More Title Information` will render as `<span>Title</span><span>More Title Information</span>`.
 
 ## `transition-fade`
 **Classes**
@@ -203,5 +213,3 @@ Reusable components are only helpful if they're easy to reuse! Fill in this temp
 __fh-components__
 
 http://funkhaus.us
-
-Version: 1.2
