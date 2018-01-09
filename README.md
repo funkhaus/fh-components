@@ -102,6 +102,7 @@ Deprecated - use [responsive-image](#responsive-image) instead.
 **Props**
 * `elements`: String or Array, default `span`. Wrap each resulting line in this element with class `line-{ line number }`. If `elements` is an array, split-text will wrap each line in its respective element, using the last element for any extra lines.
 * `separator`: String, default ` - `. Splits text by this separator.
+* `pieces`: Number or Array, default `-1`. Only include these zero-indexed pieces of the split text. If set to -1 (default), include the full split text.
 * `text`: String, default empty. Text to split.
 * `wrapper`: String, default `span`. Element wrapping rendered lines.
 

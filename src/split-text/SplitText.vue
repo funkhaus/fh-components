@@ -20,6 +20,10 @@
                 type: [String, Array],
                 default: 'span'
             },
+            pieces: {
+                type: [Number, Array],
+                default: -1
+            },
             separator: {
                 type: String,
                 default: ' - '
@@ -35,7 +39,13 @@
         },
         computed: {
             computedText(){
-                return this.text.split(this.separator)
+                const sourceArray = this.text.split(this.separator)
+
+                if( this.pieces === -1 ){
+                    return sourceArray
+                }
+
+                return sourceArray.filter( (line, i) => typeof this.pieces === 'number' ? this.pieces === i : this.pieces.includes(i) )
             }
         },
         methods: {
