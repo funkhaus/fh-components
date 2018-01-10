@@ -5,9 +5,9 @@
             v-for="(line, i) in computedText"
             :key="i"
             :class="`line-${ i + 1 }`"
-            :is="getTag(i)">
-            {{ line }}
-        </component>
+            :is="getTag(i)"
+            v-html="line"
+        />
     </component>
 
 </template>
@@ -26,7 +26,7 @@
             },
             separator: {
                 type: String,
-                default: ' - '
+                default: ' &#8211; '
             },
             text: {
                 type: String,
