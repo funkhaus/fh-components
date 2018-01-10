@@ -16,7 +16,7 @@ const configs = getDirectories(resolve('src')).map(o => {
     // Get path to first .vue template in directory
     const componentPath = o.path + '/' + (readdirSync(o.path).filter(f => f.includes('.vue')).shift())
 
-    return {
+    const config = {
         entry: componentPath,
         externals: [nodeExternals()],
         output: {
@@ -66,6 +66,8 @@ const configs = getDirectories(resolve('src')).map(o => {
             ]
         }
     }
+
+    return config
 })
 
 module.exports = configs

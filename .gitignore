@@ -1,6 +1,7 @@
 node_modules
 *.log
 /*.js
+/*.js.map
 !index.js
 !webpack.config.js
 .DS_Store

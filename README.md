@@ -109,6 +109,21 @@ Deprecated - use [responsive-image](#responsive-image) instead.
 **Notes**
 * Splits given text according to a given separator. Useful for formatting titles, for example - `Title - More Title Information` will render as `<span>Title</span><span>More Title Information</span>`.
 
+## `video-stage`
+**Props**
+* `src`: String, default `''`. The source of the video to embed. This can either be a full iframe code, or for Vimeo videos can just be a permalink to the video.
+* `autoplay`: Boolean, default `true`. Controls whether the component should attempt to autoplay the video. Only vimeo videos support autoplay at the moment.
+
+**Notes**
+* This component uses [`fitToParent`](https://github.com/funkhaus/fitToParent) to automatically scale and center the iframe within the dimensions of the nearest positioned parent element. Example usage:
+`<video-stage src="https://vimeo.com/123456789" @ended="goToNextPage" />`.
+
+**Events**
+* Events are only supported for Vimeo-based videos.
+* `ended`: fires once the video has reached the end.
+* `play`: fires any time the video begins playback
+* `pause`: fires any time the video is paused
+
 ## `transition-fade`
 **Classes**
 * [Transition classes](https://vuejs.org/v2/guide/transitions.html#Transition-Classes) applied to a transition called `fade`.
