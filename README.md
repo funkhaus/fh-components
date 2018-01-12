@@ -11,8 +11,8 @@ Reusable components and directives for [Vuepress](https://github.com/funkhaus/vu
     1. [hamburger-button](#hamburger-button)
     1. [responsive-image](#responsive-image)
     1. [split-text](#split-text)
+    1. [video-stage](#video-stage)
     1. [transition-fade](#transition-fade)
-    1. [video-player](#video-player)
     1. [wp-content](#wp-content)
 1. [Directives](#directives)
     1. [full-height](#full-height)
@@ -131,7 +131,10 @@ Deprecated - use [responsive-image](#responsive-image) instead.
 **Notes**
 * Fades the contained element over 0.4 seconds.
 
-## `video-player`
+## `video-player (deprecated)`
+**Notes**
+This component is deprecated in favor of `video-stage`. It will be removed in future versions.
+
 **Props**
 * `aspect`: Number, default `0.5625`. Aspect ratio of video, as decimal.
 * `autoplay`: Boolean, default `true`. Whether or not the video will autoplay.
@@ -141,9 +144,6 @@ Deprecated - use [responsive-image](#responsive-image) instead.
 
 **Classes**
 * `video-player`
-
-**Notes**:
-* Video player that loads a Vimeo video and starts playing, if desired.
 
 ## `wp-menu`
 **Props**
