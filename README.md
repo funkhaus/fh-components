@@ -78,6 +78,7 @@ Deprecated - use [responsive-image](#responsive-image) instead.
 * `object`: Object, default `{}`. Serialized [Rest-Easy attachment](https://github.com/funkhaus/Rest-Easy#serializer-filters). Fills out the rest of these props automatically except `fit`.
 * `html`: String, default ''. Desired <img> element as an HTML string. Provides all the sizing, fade-in, etc. benefits of a regular responsive-image.
 * `src`: String, default empty. Works like `<img src>`.
+* `video-src`: String, default empty. an optional video URL if the component should display a looping video rather than an image.
 * `height`: String or number, default empty. Natural image height in pixels.
 * `width`: String or number, default empty. Natural image width in pixels.
 * `aspect`: String or number, default empty. Aspect ratio of desired image, as a percentage. `aspect="56.25"` would evaluate to a 56.25% aspect ratio. Calculated from height and width if not explicitly stated.
