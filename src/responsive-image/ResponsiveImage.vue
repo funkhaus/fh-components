@@ -19,20 +19,21 @@
 
     export default {
         props: {
-            object: {
+            'object': {
                 type: Object,
                 default: () => ({})
             },
-            html: String,
-            src: String,
-            height: [String, Number],
-            width: [String, Number],
-            aspect: [String, Number],
-            size: {
+            'html': String,
+            'src': String,
+            'height': [String, Number],
+            'width': [String, Number],
+            'aspect': [String, Number],
+            'video-src': String,
+            'size': {
                 type: String,
                 default: 'full'
             },
-            color: {
+            'color': {
                 type: String,
                 default: 'transparent'
             },
@@ -44,7 +45,7 @@
                 type: Boolean,
                 default: false
             },
-            fit: {
+            'fit': {
                 type: String,
                 default: 'cover'
             }
@@ -86,7 +87,7 @@
                     `fit-${ this.fit }`,
                     { 'loading': this.loading },
                     { 'fill-space': this.fillSpace },
-                    { 'has-video': this.videoSrc }
+                    { 'has-video': this.parsedVideoSrc }
                 ]
             },
             parsedSrc(){
@@ -111,12 +112,13 @@
                 const calculatedAspect = (this.parsedHeight / this.parsedWidth) * 100
                 return this.aspect || calculatedAspect || 56.25
             },
-            videoSrc () {
+            parsedVideoSrc(){
                 const metaString = _get(this.object, 'meta.video_url') || _get(this.object, 'alt', '')
-                return String(metaString).includes('.mp4') ? metaString : ''
+                if( this.videoSrc ) return this.videoSrc
+                else return String(metaString).includes('.mp4') ? metaString : ''
             },
             videoTag () {
-                return this.videoSrc ? `<video src="${ this.videoSrc }" autoplay loop muted playsinline poster="${ this.parsedSrc }"></video>` : ''
+                return this.parsedVideoSrc ? `<video src="${ this.parsedVideoSrc }" autoplay loop muted playsinline poster="${ this.parsedSrc }"></video>` : ''
             },
             outerStyles () {
                 const styles =  {}
