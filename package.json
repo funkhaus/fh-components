@@ -6,7 +6,7 @@
   "scripts": {
     "build": "webpack -p --progress --colors",
     "dev": "webpack --progress --colors --watch",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "tap -Rspec tests/index.js",
     "prepare": "npm run build"
   },
   "repository": {
@@ -45,5 +45,12 @@
     "vue-template-compiler": "^2.5.3",
     "webpack": "^3.8.1",
     "webpack-node-externals": "^1.6.0"
+  },
+  "devDependencies": {
+    "@vue/test-utils": "^1.0.0-beta.10",
+    "babel-register": "^6.26.0",
+    "jsdom": "^11.5.1",
+    "jsdom-global": "^3.0.2",
+    "tap": "^11.0.1"
   }
 }

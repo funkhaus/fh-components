@@ -57,6 +57,11 @@
                 imageHeight: 0
             }
         },
+        watch: {
+            'object' () {
+                this.setObjectDimensions()
+            }
+        },
         created () {
             const img = new Image()
             img.src = this.parsedSrc
@@ -66,10 +71,7 @@
             if ( img.complete ) this.loading = false
 
             // set up height/width if we have an object
-            if( this.object ){
-                this.imageWidth = _get(this.object, `sizes.${ this.size }.width`)
-                this.imageHeight = _get(this.object, `sizes.${ this.size }.height`)
-            }
+            this.setObjectDimensions()
 
             // wait for image to load...
             imagesLoaded(img, () => {
@@ -79,6 +81,14 @@
                 this.imageWidth = img.width
                 this.imageHeight = img.height
             })
+        },
+        methods: {
+            setObjectDimensions () {
+                if( this.object ){
+                    this.imageWidth = _get(this.targetSize, `width`)
+                    this.imageHeight = _get(this.targetSize, `height`)
+                }
+            }
         },
         computed: {
             classes () {
@@ -92,7 +102,14 @@
             },
             parsedSrc(){
                 if( this.src ) return this.src
-                return _get(this.object, `sizes.${ this.size }.url`)
+                return _get(this.targetSize, `url`)
+            },
+            targetSize () {
+                // get sizes from image object
+                const sizes = _get(this.object, `sizes`, {})
+
+                // get specified size, or first available size
+                return _get(sizes, this.size) || sizes[_get(Object.keys(sizes), '[0]')]
             },
             parsedHeight(){
                 // default to defined height
@@ -153,7 +170,8 @@
             imageTag(){
                 // TODO: Add other img attributes
                 const fallback = `<img src="${ this.parsedSrc }">`
-                return _get(this.object, `sizes.${ this.size }.html`, this.html ? this.html : fallback)
+                if ( this.html ) return this.html
+                return _get(this.targetSize, `html`) || fallback
             },
             svgBG() {
                 if ( !this.parsedColor || this.parsedColor == 'transparent' ) return ''
