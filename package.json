@@ -6,7 +6,7 @@
   "scripts": {
     "build": "webpack -p --progress --colors",
     "dev": "webpack --progress --colors --watch",
-    "test": "npm run build && tap -Rspec tests/index.js",
+    "test": "tap -Rspec tests/index.js",
     "prepare": "npm run build"
   },
   "repository": {
