@@ -16,10 +16,12 @@ Reusable components and directives for [Vuepress](https://github.com/funkhaus/vu
     1. [wp-content](#wp-content)
 1. [Directives](#directives)
     1. [full-height](#full-height)
+1. [Testing](#testing)
 1. [Contributing](#contributing)
     1. [Prep](#prep)
     1. [New Components](#new-components)
     1. [Documentation](#documentation)
+    1. [Tests](#tests)
 
 # Installation
 `npm install fh-components --save`
@@ -180,6 +182,9 @@ Directives are declared as attributes. Remember to prefix `v-` to the directive 
 **Notes**:
 * Sizes the element to 100% of the window height. Replacement for the occasionally buggy 100vh css value.
 
+# Testing
+`npm test` to run the tests defined in the `tests` directory.
+
 # Contributing
 
 ## Prep
@@ -207,7 +212,7 @@ src
     +-- NewComponent.vue
 ```
 
-When you're ready to test your component, run `npm run build` in `fh-components`.
+When you're ready to build your component, run `npm run build` in `fh-components`.
 
 ## Documentation
 Reusable components are only helpful if they're easy to reuse! Fill in this template to start your documentation:
@@ -224,6 +229,34 @@ Reusable components are only helpful if they're easy to reuse! Fill in this temp
 **Notes**
 * Miscellaneous notes and information here. Why add this custom component? When can it be used?
 ```
+
+## Tests
+It's a good idea to include a test for your new component so that others can add onto it more easily.
+
+Tests each get a .js file in the `tests` directory, named the same as the component they test. Here's the template to start writing a new test:
+
+```js
+import ComponentName from '../component-name'
+import { mount } from '@vue/test-utils'
+import tap from 'tap'
+
+// mount component
+let wrapper = mount(ComponentName)
+
+tap.test('Component Name', t => {
+
+    // Tests using Tap and wrapper here
+    // ...
+
+    t.end()
+})
+```
+
+Note the following caveats:
+1. You'll need to require the component from its built .js file, not its .vue file. (Replacing the `ComponentName` and `component-name` in the template should do the trick.)
+1. fh-components uses the [node-tap](http://www.node-tap.org/) library to run its tests ([API](http://www.node-tap.org/api/)).
+
+When you add a new feature to an existing component, be sure to document and test it!
 
 --------
 

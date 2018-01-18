@@ -1,12 +1,12 @@
 {
   "name": "fh-components",
-  "version": "1.2.23",
+  "version": "1.2.24",
   "description": "Reusable Vuepress components.",
   "main": "index.js",
   "scripts": {
     "build": "webpack -p --progress --colors",
     "dev": "webpack --progress --colors --watch",
-    "test": "tap -Rspec tests/index.js",
+    "test": "npm run build && tap -Rspec tests/index.js",
     "prepare": "npm run build"
   },
   "repository": {
