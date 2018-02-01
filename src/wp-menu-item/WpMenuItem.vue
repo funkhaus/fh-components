@@ -5,16 +5,14 @@
             v-if="item.is_external"
             :href="item.permalink"
             target="_blank"
-        >
-            {{ item.title }}
-        </a>
+            v-html="item.title"
+        />
 
         <router-link
             v-else
             :to="item.relativePath"
-        >
-            {{ item.title }}
-        </router-link>
+            v-html="item.title"
+        />
 
         <ul v-if="item.children.length">
             <menu-item

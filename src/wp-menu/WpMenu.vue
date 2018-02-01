@@ -1,5 +1,5 @@
 <template>
-    <ul :class="['menu', slug]">
+    <ul :class="['menu', targetSlug]">
         <menu-item
             v-for="(item, i) in menuItems"
             :key="i"
