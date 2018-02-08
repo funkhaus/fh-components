@@ -1,6 +1,9 @@
 <template>
 
     <component :is="wrapper">
+
+        <slot name="before"/>
+
         <component
             v-for="(line, i) in computedText"
             :key="i"
@@ -8,6 +11,9 @@
             :is="getTag(i)"
             v-html="line"
         />
+
+        <slot name="after"/>
+        
     </component>
 
 </template>

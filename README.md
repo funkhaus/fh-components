@@ -111,6 +111,7 @@ Deprecated - use [responsive-image](#responsive-image) instead.
 
 **Notes**
 * Splits given text according to a given separator. Useful for formatting titles, for example - `Title - More Title Information` will render as `<span>Title</span><span>More Title Information</span>`.
+* Contains two slots, named `before` and `after`, that render their content before and after the split text.
 
 ## `video-stage`
 **Props**
