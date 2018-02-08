@@ -6,7 +6,6 @@ Reusable components and directives for [Vuepress](https://github.com/funkhaus/vu
 1. [Installation](#installation)
 1. [Components](#components)
     1. [a-div](#a-div)
-    1. [bg-image](#bg-image)
     1. [flex-text](#flex-text)
     1. [hamburger-button](#hamburger-button)
     1. [responsive-image](#responsive-image)
@@ -62,9 +61,6 @@ Vue.component('component-name', require('fh-components/component-name').default)
 * Renders content in a `<router-to>` tag if `href` starts with `/`
 * Renders content in an `<a>` tag if `href` is a truthy value not starting with `/`
 * Renders content in a given tag (`replace-with`, default `div`) if `href` is falsey.
-
-## `bg-image`
-Deprecated - use [responsive-image](#responsive-image) instead.
 
 ## `flex-text`
 
@@ -135,20 +131,6 @@ Deprecated - use [responsive-image](#responsive-image) instead.
 
 **Notes**
 * Fades the contained element over 0.4 seconds.
-
-## `video-player (deprecated)`
-**Notes**
-This component is deprecated in favor of `video-stage`. It will be removed in future versions.
-
-**Props**
-* `aspect`: Number, default `0.5625`. Aspect ratio of video, as decimal.
-* `autoplay`: Boolean, default `true`. Whether or not the video will autoplay.
-* `margins`: String, default `80px`. Any CSS-valid value (including shortcuts like `80px 50px 40px` and units like `em`s, percentages, etc.) to use as a margin around the video.
-* `vimeo-url`: String, default `''`. The URL for a Vimeo video to play in this component.
-* `vimeo-id`: Number, default `-1`. The Vimeo video ID to play in this component.
-
-**Classes**
-* `video-player`
 
 ## `wp-content`
 
