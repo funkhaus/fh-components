@@ -14,6 +14,7 @@ Reusable components and directives for [Vuepress](https://github.com/funkhaus/vu
     1. [video-stage](#video-stage)
     1. [transition-fade](#transition-fade)
     1. [wp-content](#wp-content)
+    1. [wp-menu](#wp-menu)
 1. [Directives](#directives)
     1. [full-height](#full-height)
 1. [Testing](#testing)
@@ -149,21 +150,6 @@ This component is deprecated in favor of `video-stage`. It will be removed in fu
 **Classes**
 * `video-player`
 
-## `wp-menu`
-**Props**
-
-**Classes**
-
-**Notes**:
-
-## `wp-menu-item`
-**Props**
-
-**Classes**
-
-**Notes**
-
-
 ## `wp-content`
 
 **Props**
@@ -175,6 +161,18 @@ This component is deprecated in favor of `video-stage`. It will be removed in fu
 
 **Notes**
 * This was built to allow components to be used with the the contents of a Wordpress post. It's very effective for that purpose, but more generally can be used to compile any dynamically loaded template and render it into the component tree. Be aware that this should only ever be used when the template going into the `html` prop is trusted.
+
+## `wp-menu`
+**Props**
+* `slug`: String, default `''`. The WordPress slug of the menu to fetch.
+* `name`: String, default `'Main Menu'`. The WordPress name of the menu to fetch.
+
+**Classes**
+* `menu`
+* `[slug]`: Either the `slug` prop or a kebab-cased version of the `name` prop, whichever is available.
+
+**Notes**
+* [Vuepress](https://github.com/funkhaus/vuepress)-specific component to build WordPress menus. Uses the `wp-menu-item` component internally.
 
 # Directives
 Directives are declared as attributes. Remember to prefix `v-` to the directive name (so `full-height` becomes `v-full-height`)!
