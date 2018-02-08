@@ -10,8 +10,8 @@ Reusable components and directives for [Vuepress](https://github.com/funkhaus/vu
     1. [hamburger-button](#hamburger-button)
     1. [responsive-image](#responsive-image)
     1. [split-text](#split-text)
-    1. [video-stage](#video-stage)
     1. [transition-fade](#transition-fade)
+    1. [video-stage](#video-stage)
     1. [wp-content](#wp-content)
     1. [wp-menu](#wp-menu)
 1. [Directives](#directives)
@@ -110,6 +110,13 @@ Vue.component('component-name', require('fh-components/component-name').default)
 * Splits given text according to a given separator. Useful for formatting titles, for example - `Title - More Title Information` will render as `<span>Title</span><span>More Title Information</span>`.
 * Contains two slots, named `before` and `after`, that render their content before and after the split text.
 
+## `transition-fade`
+**Classes**
+* [Transition classes](https://vuejs.org/v2/guide/transitions.html#Transition-Classes) applied to a transition called `fade`.
+
+**Notes**
+* Fades the contained element over 0.4 seconds.
+
 ## `video-stage`
 **Props**
 * `src`: String, default `''`. The source of the video to embed. This can either be a full iframe code, or for Vimeo videos can just be a permalink to the video.
@@ -124,13 +131,6 @@ Vue.component('component-name', require('fh-components/component-name').default)
 * `ended`: fires once the video has reached the end.
 * `play`: fires any time the video begins playback
 * `pause`: fires any time the video is paused
-
-## `transition-fade`
-**Classes**
-* [Transition classes](https://vuejs.org/v2/guide/transitions.html#Transition-Classes) applied to a transition called `fade`.
-
-**Notes**
-* Fades the contained element over 0.4 seconds.
 
 ## `wp-content`
 
