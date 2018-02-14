@@ -13,7 +13,7 @@
         />
 
         <slot name="after"/>
-        
+
     </component>
 
 </template>
@@ -31,7 +31,7 @@
                 default: -1
             },
             separator: {
-                type: String,
+                type: [String, Array],
                 default: ' &#8211; '
             },
             text: {
@@ -45,7 +45,22 @@
         },
         computed: {
             computedText(){
-                const sourceArray = this.text.split(this.separator)
+                let computedSeparator = this.separator
+
+                if( typeof computedSeparator != 'string' ){
+                    // find first instance where separator returns multiple values
+                    const firstSuccessfulSeparator = computedSeparator.find(sep => this.text.split(sep).length > 1)
+                    if( firstSuccessfulSeparator != undefined ){
+                        // if we found one, use it
+                        computedSeparator = firstSuccessfulSeparator
+                    } else {
+                        // otherwise, use the first separator in array
+                        computedSeparator = computedSeparator[0]
+                    }
+                }
+
+                // otherwise, slice text with working separator
+                const sourceArray = this.text.split(computedSeparator)
 
                 if( this.pieces === -1 ){
                     return sourceArray

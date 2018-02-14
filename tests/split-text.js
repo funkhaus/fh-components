@@ -36,5 +36,24 @@ tap.test('Split Text', t => {
     })
     t.ok(wrapper.findAll('h3').length == 6, 'Loops on final element when there are more matches than elements')
 
+    wrapper.setProps({
+        separator: ['xyz', ' - '],
+        text: 'Two xyz - matches - here',
+        elements: 'span'
+    })
+    t.ok(wrapper.findAll('span').length == 2, 'Returns the results of the first successful separator when separator set to array (first entry in array succeeds)')
+
+    wrapper.setProps({
+        text: 'Three - matches - here'
+    })
+    t.ok(wrapper.findAll('span').length == 3, 'Returns the results of the first successful separator when separator set to array (second entry in array succeeds)')
+
+    wrapper.setProps({
+        separator: ['xyz', '@'],
+        text: 'No - matches - here'
+    })
+    t.ok(wrapper.findAll('span').length == 1, 'Returns full string when no separators in array match')
+
+
     t.end()
 })
