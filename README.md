@@ -1,4 +1,4 @@
-Reusable components and directives for [Vuepress](https://github.com/funkhaus/vuepress).
+Reusable components and directives for Vue. Designed for [Vuepress](https://github.com/funkhaus/vuepress), but most components work in regular Vue apps.
 
 `fh-components` saves you the trouble of rewriting common components like images, video players, svgs, and several other elements. If you're looking at writing a custom component in Vuepress, check if one already exists here first - and if it doesn't, feel free to [contribute](#contributing)!
 
