@@ -16,6 +16,7 @@ Reusable components and directives for [Vuepress](https://github.com/funkhaus/vu
     1. [wp-menu](#wp-menu)
 1. [Directives](#directives)
     1. [full-height](#full-height)
+    1. [reverse-hover](#reverse-hover)
 1. [Testing](#testing)
 1. [Contributing](#contributing)
     1. [Prep](#prep)
@@ -159,9 +160,68 @@ Vue.component('component-name', require('fh-components/component-name').default)
 # Directives
 Directives are declared as attributes. Remember to prefix `v-` to the directive name (so `full-height` becomes `v-full-height`)!
 
+To use fh-components directives in your Vue app:
+
+```js
+import directiveName from 'fh-components/v-directive-name'
+Vue.directive('directive-name', directiveName)
+```
+
+To pass arguments to directives:
+```
+<my-component my-directive="{ key: 'value' }"/>
+```
+
+where `my-directive.key` is equal to `'value'`.
+
+
 ## `full-height`
 **Notes**:
 * Sizes the element to 100% of the window height. Replacement for the occasionally buggy 100vh css value.
+
+## `reverse-hover`
+**Arguments**
+* `containerActivatedClass`: String, default `rh-active-within`. When a triggering component is hovered over or focused, the target element will have this class added to it.
+* `elActivatedClass`: String, default `rh-active`. A triggering component that is hovered over or focused will have this class added to it.
+* `processedClass`: String, default `rh-processed`. Triggering components will have this class added to them. (Usually left alone - mainly for internal directive use.)
+* `selectors`: Array or String, default `['a']`. All children of the target element that match this selector will become triggering components, reverse-hover listeners attached.
+
+**Notes**
+* Allows for a "reverse hover" effect, where hovering over one element of a set affects all elements of a set. For example:
+
+```html
+<ul class="container" v-reverse-hover>
+    <li v-for="url in links">
+        <a class="link" :href="url">Link to {{ url }}</a>
+    </li>
+</ul>
+```
+
+```css
+.container.rh-active-within {
+    background-color: #ccc;
+}
+.rh-active-within .link:not(.rh-active) {
+    opacity: 0.5;
+}
+.link.rh-active {
+    font-weight: 700;
+}
+```
+
+When hovering/focusing over any `.link` element, the `.container` will receive the `rh-active-within` class (giving it a gray background) and all non-hovered/focused `.link`s will be reduced to 0.5 opacity. The element that triggered the reverse-hover (the original hovered/focused `.link`) will have its font-weight set to 700.
+
+* You can set the class names yourself by passing an object:
+
+```html
+<ul v-reverse-hover="{ containerActivatedClass: 'container-activated' /* etc... */ }">
+```
+
+* You can also choose which selectors will act as triggers:
+
+```html
+<ul v-reverse-hover="{ selectors: ['a', 'button'] /* <a> and <button> tags will trigger the reverse-hover */ }">
+```
 
 # Testing
 `npm test` to run the tests defined in the `tests` directory.
