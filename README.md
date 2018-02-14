@@ -169,11 +169,8 @@ Vue.directive('directive-name', directiveName)
 
 To pass arguments to directives:
 ```
-<my-component my-directive="{ key: 'value' }"/>
+<my-component v-my-directive="{ key: 'value' }"/>
 ```
-
-where `my-directive.key` is equal to `'value'`.
-
 
 ## `full-height`
 **Notes**:
