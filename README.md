@@ -16,6 +16,7 @@ Reusable components and directives for Vue. Designed for [Vuepress](https://gith
     1. [wp-menu](#wp-menu)
 1. [Directives](#directives)
     1. [full-height](#full-height)
+    1. [in-view](#in-view)
     1. [reverse-hover](#reverse-hover)
 1. [Testing](#testing)
 1. [Contributing](#contributing)
@@ -175,6 +176,15 @@ To pass arguments to directives:
 ## `full-height`
 **Notes**:
 * Sizes the element to 100% of the window height. Replacement for the occasionally buggy 100vh css value.
+
+## `in-view`
+**Arguments**
+* `above`: String, default `above-view`. Class when element is above the viewport.
+* `below`: String, default `below-view`. Class when element is below the viewport.
+* `inView`: String, default `in-view`. Class when element is within the viewport.
+
+**Notes**
+* Applies classes to an element based on its viewport visibility.
 
 ## `reverse-hover`
 **Arguments**
