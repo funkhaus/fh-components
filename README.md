@@ -124,6 +124,10 @@ Vue.component('component-name', require('fh-components/component-name').default)
 * `src`: String, default `''`. The source of the video to embed. This can either be a full iframe code, or for Vimeo videos can just be a permalink to the video.
 * `autoplay`: Boolean, default `true`. Controls whether the component should attempt to autoplay the video. Only vimeo videos support autoplay at the moment.
 
+**Slots**
+* `before`: Renders directly before the element that holds the iframe.
+* `after`: Renders directly after the element that holds the iframe.
+
 **Notes**
 * This component uses [`fitToParent`](https://github.com/funkhaus/fitToParent) to automatically scale and center the iframe within the dimensions of the nearest positioned parent element. Example usage:
 `<video-stage src="https://vimeo.com/123456789" @ended="goToNextPage" />`.
