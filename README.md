@@ -138,6 +138,18 @@ Vue.component('component-name', require('fh-components/component-name').default)
 
 **Props**
 * `html`: String, default `''`. HTML that can function as a Vue template. The component will dynamically compile the contents, and inject the results into the vue component tree.
+* `unwrap`: Array, default `['p > img', 'p > iframe']`. Array of CSS selectors describing elements to unwrap from their parent nodes. (WordPress automatically wraps newlines in `<p>` tags, so this is a useful feature to remove standalone media from those `<p>` tags.)
+* `replace`: Array, default `[]`. Array of objects containing:
+    * `selector` - String with CSS selector for elements to replace
+    * `callback` - Function describing what to replace old element with. Accepts one argument referring to the old element; should return a String or Node with the element's replacement.
+
+    This feature lets you replace items in `wp-content`. For example:
+
+    ```
+    <wp-content :html="contentHtml" :replace="[ { selector: 'img', callback: el => `<p>Image with source ${ el.src }</p>` } ]"
+    ```
+
+    This setting would replace all `img` tags with a `p` containing the text 'Image with source [element's source]'. Useful for modifying wp-content HTML before it is rendered on the DOM.
 
 **Classes**
 * `wp-content-placeholder`: only present when no html template is provided
