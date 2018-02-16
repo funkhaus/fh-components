@@ -1,9 +1,12 @@
 <template>
     <div
         v-if="iframeCode"
-        :class="['video-stage-module', { loading: loadingEmbed }]"
-        v-html="iframeCode || ''"
-    />
+        :class="['video-stage-module', 'size-parent', { loading: loadingEmbed }]"
+    >
+        <slot name="before" />
+        <div class="iframe" v-html="iframeCode || ''" />
+        <slot name="after" />
+    </div>
 </template>
 
 <script>
@@ -131,14 +134,14 @@
 
     .video-stage-module {
         position: absolute;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
         display: flex;
         bottom: 0;
         right: 0;
         left: 0;
         top: 0;
-    }
-    .video-stage-module iframe {
-        margin: auto;
     }
 
 </style>
