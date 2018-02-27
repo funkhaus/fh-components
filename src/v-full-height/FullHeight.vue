@@ -1,10 +1,12 @@
 <script>
 
     export default {
-        inserted (el) {
-            el.style.height = `${ window.innerHeight }px`
+        inserted (el, binding) {
+            const property = binding.modifiers.min ? 'min-height' : 'height'
+
+            el.style[property] = `${ window.innerHeight }px`
             window.addEventListener('resize', () => {
-                el.style.height = `${ window.innerHeight }px`
+                el.style[property] = `${ window.innerHeight }px`
             })
         }
     }
