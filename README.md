@@ -189,9 +189,17 @@ To pass arguments to directives:
 <my-component v-my-directive="{ key: 'value' }"/>
 ```
 
+Directives may also have "modifiers" to go with them. Modifiers can be used like this:
+```
+<my-component v-my-directive.example />
+```
+
 ## `full-height`
 **Notes**:
 * Sizes the element to 100% of the window height. Replacement for the occasionally buggy 100vh css value.
+
+**Modifiers**
+* `min`: If provided, directive will use the `min-height` css property rather than `height`.
 
 ## `in-view`
 **Arguments**
