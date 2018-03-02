@@ -143,6 +143,7 @@ Vue.component('component-name', require('fh-components/component-name').default)
 **Props**
 * `html`: String, default `''`. HTML that can function as a Vue template. The component will dynamically compile the contents, and inject the results into the vue component tree.
 * `unwrap`: Array, default `['p > img', 'p > iframe']`. Array of CSS selectors describing elements to unwrap from their parent nodes. (WordPress automatically wraps newlines in `<p>` tags, so this is a useful feature to remove standalone media from those `<p>` tags.)
+* `fitvids`: Boolean, default `true`. When set to true, the component will run fitvids on all content inside.
 * `replace`: Array, default `[]`. Array of objects containing:
     * `selector` - String with CSS selector for elements to replace
     * `callback` - Function describing what to replace old element with. Accepts one argument referring to the old element; should return a String or Node with the element's replacement.
