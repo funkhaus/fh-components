@@ -130,8 +130,8 @@
                 return this.aspect || calculatedAspect || 56.25
             },
             parsedVideoSrc(){
-                const metaString = _get(this.object, 'meta.video_url') || _get(this.object, 'alt', '')
-                if( this.videoSrc ) return this.videoSrc
+                const metaString = _get(this.object, 'meta.custom_video_url') || _get(this.object, 'alt', '')
+                if( this.videoSrc || this.videoSrc === false ) return this.videoSrc
                 else return String(metaString).includes('.mp4') ? metaString : ''
             },
             videoTag () {
