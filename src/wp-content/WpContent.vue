@@ -1,5 +1,5 @@
 <script>
-
+    import fitvids from 'fitvids'
     import Vue from 'vue'
 
     const unwrap = el => {
@@ -19,28 +19,42 @@
                 default: ``
             },
             unwrap: {
-                type: Array,
+                type: [String, Array, Boolean],
                 default: () => ['p > img', 'p > iframe']
             },
             replace: {
                 type: Array,
                 default: () => []
+            },
+            fitvids: {
+                type: Boolean,
+                default: true
             }
         },
+        mounted () { this.runFitvids() },
+        watch: {
+            htmlTemplate () { this.runFitvids() }
+        },
         computed: {
+            unwrapItems () {
+                if ( typeof this.unwrap == 'string' ) return [this.unwrap]
+                return this.unwrap
+            },
             htmlTemplate () {
                 // no html to render
-                if ( !this.html ) return `<div class="wp-content-placeholder"></div>`
+                if ( !this.html ) return `<div class="wp-content wp-content-placeholder"></div>`
 
                 // bypass unwrap queue if queue is empty
-                if ( !this.unwrap.length ) return `<div class="wp-content-rendered">${ this.html }</div>`
+                if ( !this.unwrap || !this.unwrapItems.length ) {
+                    return `<div class="wp-content wp-content-rendered">${ this.html }</div>`
+                }
 
                 // phantom container to parse HTML
                 const phantom = document.createElement('div')
                 phantom.innerHTML = this.html
 
                 // unwrap media
-                this.unwrap.map(selector => {
+                this.unwrapItems.map(selector => {
                     const matches = [...phantom.querySelectorAll(selector)]
                     matches.map(match => unwrap(match.parentNode))
                 })
@@ -64,7 +78,13 @@
                     })
                 })
 
-                return `<div class="wp-content-rendered">${ phantom.innerHTML }</div>`
+                return `<div class="wp-content wp-content-rendered">${ phantom.innerHTML }</div>`
+            }
+        },
+        methods: {
+            runFitvids () {
+                if ( !this.fitvids ) return
+                fitvids('.wp-content')
             }
         },
         render (h, context) {
