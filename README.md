@@ -123,6 +123,7 @@ Vue.component('component-name', require('fh-components/component-name').default)
 **Props**
 * `src`: String, default `''`. The source of the video to embed. This can either be a full iframe code, or for Vimeo videos can just be a permalink to the video.
 * `autoplay`: Boolean, default `true`. Controls whether the component should attempt to autoplay the video. Only vimeo videos support autoplay at the moment.
+* `autoOffsets`: Boolean, default `true`. If set to true, the components will attempt to automatically calculate a fitToParent offset based on the dimensions of any slot elements provided.
 
 **Slots**
 * `before`: Renders directly before the element that holds the iframe.

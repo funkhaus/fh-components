@@ -24,6 +24,10 @@
             autoplay: {
                 type: [Boolean, String, Number],
                 default: true
+            },
+            autoOffsets: {
+                type: [Boolean, String, Number],
+                default: true
             }
         },
         data () {
@@ -92,9 +96,27 @@
             sizeVideo () {
                 let frame
                 if ( frame = this.getIframe() ) {
+
+                    let heightOffset = 0
+                    if ( this.autoOffsets ) {
+
+                        // total height of all slot elements (only if auto is true)
+                        heightOffset = Object.keys(this.$slots).reduce((acc, key) => {
+
+                            const slotItems = (this.$slots[key] || [])
+                            const slotHeight = slotItems.reduce((acc, item) => {
+                                const rect = item.elm.getBoundingClientRect()
+                                const height = rect.height || 0
+                                return acc + height
+                            }, 0)
+
+                            return slotHeight
+                        }, 0)
+                    }
+
                     fitToParent({
                         element: frame,
-                        heightOffset: 0
+                        heightOffset
                     })
                 }
             },
