@@ -1,23 +1,49 @@
 <template>
-    <div class="fh-slideshow" @keydown.right="triggerNext" @keydown.left="triggerPrev" tabindex="1">
+    <div :class="classes" tabindex="1">
 
-        <transition :name="`fh-slide-${ direction }`">
+        <transition
+            @before-enter="$emit('before-enter', $event)"
+            @enter="proxyEnter"
+            @after-enter="transitioning = false; $emit('after-enter', $event)"
+            @enter-cancelled="$emit('enter-cancelled', $event)"
+
+            @before-leave="transitioning = true; $emit('before-leave', $event)"
+            @leave="proxyLeave"
+            @after-leave="$emit('after-leave', $event)"
+            @leave-cancelled="$emit('leave-cancelled', $event)"
+            :name="`fh-slide-${ direction }`"
+            :css="css"
+        >
             <slot
                 v-for="(slide, i) in slides"
-                v-if="activeSlide == i"
+                v-if="activeIndex == i"
                 :slide="slide"
                 name="slide"
             />
         </transition>
 
-        <svg-image v-if="slides.length > 1" class="nav next" src="arrow-right.svg" @click.native="triggerNext" />
-        <svg-image v-if="slides.length > 1" class="nav prev" src="arrow-left.svg" @click.native="triggerPrev" />
+        <div
+            v-if="slides.length > 1"
+            class="nav next"
+            @click="manualNext"
+        >
+            <slot name="nav-next" />
+        </div>
+        <div
+            v-if="slides.length > 1"
+            class="nav prev"
+            @click="manualPrev"
+        >
+            <slot name="nav-prev" />
+        </div>
 
-        <div v-if="slides.length > 1" class="pagination">
+        <div v-if="slides.length > 1 && pagination" class="pagination">
             <div
                 v-for="(s, i) in slides"
-                :class="['pagination-item', { active: activeSlide == i }]"
+                :class="['pagination-item', { active: activeIndex == i }]"
+                @click="goTo(i)"
             >
+                <slot name="pagination-item" :slide="s" />
             </div>
         </div>
 
@@ -25,85 +51,211 @@
 </template>
 
 <script>
+    import _clamp from 'lodash/clamp'
     import _get from 'lodash/get'
 
     export default {
         props: {
+            // array of items to make slides out of
+            slides: {
+                type: Array,
+                default: () => []
+            },
+            // determines if slideshow should be on timer
+            auto: {
+                type: Boolean,
+                default: true
+            },
+            // controls if slideshow should return to
+            // beginning after reaching the end
             loop: {
                 type: Boolean,
                 default: true
             },
-            interval: {
-                type: Number,
-                default: 3500
-            },
-            running: {
-                type: Boolean,
-                default: true
-            },
+            // if true, slideshow will continue in
+            // one direction while looping
             infinite: {
                 type: Boolean,
                 default: true
             },
-            slides: {
-                type: Array,
-                default: () => []
+            // time between auto slides, in ms
+            interval: {
+                type: Number,
+                default: 4000
+            },
+            // time to delay before initiating auto
+            delay: {
+                type: Number,
+                default: 500
+            },
+            // used to manually control slide index
+            // can be bidirectionally bound with .sync
+            index: {
+                type: [ Number, Object ],
+                default: null
+            },
+            // determines if pagination items should render
+            pagination: {
+                type: Boolean,
+                default: true
+            },
+            // if true, keyboard listeners will be on
+            // root slideshow element rather than window
+            localKeyboard: {
+                type: Boolean,
+                default: false
+            },
+            // keyCode for key to trigger next
+            nextKey: {
+                type: [Number, String],
+                default: 39
+            },
+            // keyCode for key to trigger prev
+            prevKey: {
+                type: [Number, String],
+                default: 37
+            },
+            // used to tell vue whether or not
+            // to use css transitions
+            css: {
+                type: Boolean,
+                default: true
             }
         },
         data () {
             return {
-                activeSlide: 0,
-                direction: 'left',
+                transitioning: false,
+                direction: 'next',
+                internalIndex: 0,
                 timer: null
             }
         },
         mounted () {
-            this.startTimer()
+            if ( this.auto ) this.startTimer()
+            this.setKeyboardListeners()
         },
         destroyed () {
             this.stopTimer()
+            this.clearKeyboardListeners()
         },
         watch: {
-            activeSlide (to, from) {
-                if ( this.infinite ) return
-                if ( to > from ) return this.direction = 'left'
-                this.direction = 'right'
+            activeIndex (next, prv) {
+                this.$emit('change', next)
+
+                // handle exception case where infinite prop is set
+                // and we are at either end of the slideshow
+                const didLoop = Math.abs(prv - next) == this.slides.length - 1
+                if ( this.infinite && didLoop ){
+                    if ( next == 0 ) return this.direction = 'next'
+                    else return this.direction = 'prev'
+                }
+
+                // otherwise go in natural direction of indexes
+                if ( next > prv ) this.direction = 'next'
+                else this.direction = 'prev'
+            },
+            internalIndex (idx) {
+                this.$emit('update:index', idx)
+            },
+            localKeyboard () {
+                this.setKeyboardListeners()
+            },
+            auto (auto) {
+                if ( auto ) this.startTimer()
+                else this.stopTimer()
+            },
+            interval () {
+                this.stopTimer()
+                this.startTimer()
+            }
+        },
+        computed: {
+            classes () {
+                return [
+                    'fh-slideshow',
+                    { transitioning: this.transitioning },
+                    { 'first-slide': this.activeIndex == 0 },
+                    { 'last-slide': this.activeIndex == this.slides.length - 1 }
+                ]
+            },
+            activeIndex () {
+                return this.index === null ? this.internalIndex : this.clamp(this.index)
             }
         },
         methods: {
-            triggerNext () {
-
-                // restart timer
-                this.stopTimer()
-                this.startTimer()
-                this.direction = 'left'
-
-                // set next or first
-                this.activeSlide++
-                if ( this.loop ) this.activeSlide = (this.activeSlide + this.slides.length) % this.slides.length
-                else this.activeSlide = Math.min(this.activeSlide, this.slides.length - 1)
+            clamp (value) {
+                // clamp value within range of slides
+                if ( this.loop ) {
+                    return (value + this.slides.length) % this.slides.length
+                }
+                return _clamp(value, 0, this.slides.length - 1)
             },
-            triggerPrev () {
-
-                // restart timer
+            goTo (idx) {
                 this.stopTimer()
-                this.startTimer()
-                this.direction = 'right'
-
-                // set prev or last
-                this.activeSlide--
-                if ( this.loop ) this.activeSlide = (this.activeSlide + this.slides.length) % this.slides.length
-                else this.activeSlide = Math.max(this.activeSlide, 0)
+                this.internalIndex = idx
+                this.$emit('manual-change', this.activeIndex)
+            },
+            next () {
+                this.internalIndex = this.clamp(this.activeIndex + 1)
+                this.$emit('next', this.activeIndex)
+            },
+            prev () {
+                this.internalIndex = this.clamp(this.activeIndex - 1)
+                this.$emit('prev', this.activeIndex)
+            },
+            manualNext () {
+                this.stopTimer()
+                this.next()
+                this.$emit('manual-next', this.activeIndex)
+            },
+            manualPrev () {
+                this.stopTimer()
+                this.prev()
+                this.$emit('manual-prev', this.activeIndex)
             },
             startTimer () {
                 // start auto timer
-                return this.timer = setInterval(() => {
-                    if ( this.running ) this.triggerNext()
-                }, this.interval)
+                setTimeout(() => {
+                    this.timer = setInterval(this.next, this.interval)
+                }, this.delay)
+                return this.timer
             },
             stopTimer () {
                 // kill timer
                 return clearInterval(this.timer)
+            },
+            onKeyboard (e) {
+                if ( e.keyCode == this.nextKey ) {
+                    e.preventDefault()
+                    this.manualNext()
+                }
+
+                if ( e.keyCode == this.prevKey ){
+                    e.preventDefault()
+                    this.manualPrev()
+                }
+            },
+            clearKeyboardListeners () {
+                window.removeEventListener('keydown', this.onKeyboard)
+                this.$el.removeEventListener('keydown', this.onKeyboard)
+            },
+            setKeyboardListeners () {
+
+                // clear legacy listeners
+                this.clearKeyboardListeners()
+
+                // set new listeners
+                if ( this.localKeyboard ) {
+                    this.$el.addEventListener('keydown', this.onKeyboard)
+                } else {
+                    window.addEventListener('keydown', this.onKeyboard)
+                }
+            },
+            proxyEnter () {
+                this.$emit('enter', ...arguments)
+            },
+            proxyLeave () {
+                this.$emit('leave', ...arguments)
             }
         }
     }
@@ -114,68 +266,33 @@
     .fh-slideshow {
         position: relative;
         overflow: hidden;
-        max-height: 80vh;
-        height: 56vw;
 
         &:focus {
             outline: none;
         }
         .slide {
+            position: absolute;
             height: 100%;
             width: 100%;
-        }
-
-        // next/prev
-        .nav {
-            position: absolute;
-            margin-top: 10px;
-            cursor: pointer;
-            top: 50%;
-        }
-        .nav.next {
-            right: 10px;
-        }
-        .nav.prev {
-            left: 10px;
-        }
-
-        //pagination
-        .pagination {
-            text-align: center;
-            position: absolute;
-            padding: 20px;
-            bottom: 0;
-            right: 0;
-            left: 0;
-        }
-        .pagination-item {
-            background-color: rgba(255, 255, 255, 0.5);
-            display: inline-block;
-            margin: 0 10px;
-            height: 10px;
-            width: 10px;
-        }
-        .pagination-item.active {
-            background-color: rgba(255, 255, 255, 1);
         }
     }
 
     // transition
-    .fh-slide-left-enter-active,
-    .fh-slide-left-leave-active,
-    .fh-slide-right-enter-active,
-    .fh-slide-right-leave-active {
+    .fh-slide-next-enter-active,
+    .fh-slide-next-leave-active,
+    .fh-slide-prev-enter-active,
+    .fh-slide-prev-leave-active {
         transition: transform 0.5s ease;
         position: absolute;
         left: 0;
         top: 0;
     }
-    .fh-slide-left-enter,
-    .fh-slide-right-leave-to {
+    .fh-slide-next-enter,
+    .fh-slide-prev-leave-to {
         transform: translateX(100%);
     }
-    .fh-slide-left-leave-to,
-    .fh-slide-right-enter {
+    .fh-slide-next-leave-to,
+    .fh-slide-prev-enter {
         transform: translateX(-100%);
     }
 
