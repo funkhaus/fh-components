@@ -9,6 +9,7 @@ Reusable components and directives for Vue. Designed for [Vuepress](https://gith
     1. [flex-text](#flex-text)
     1. [hamburger-button](#hamburger-button)
     1. [responsive-image](#responsive-image)
+    1. [slide-show](#slide-show)
     1. [split-text](#split-text)
     1. [transition-fade](#transition-fade)
     1. [video-stage](#video-stage)
@@ -100,6 +101,79 @@ Vue.component('component-name', require('fh-components/component-name').default)
 **Notes**
 * Creates and fades in an image. Adds a placeholder for the image with a given background-color to prevent content jumping when the image loads.
 * If you add a link to an .mp4 video in the "Alt" field in WordPress, this element will create and render a video, using the provided image as the poster (see "Poster" under "Attributes" [here](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video)).
+
+## `slide-show`
+
+This component creates a basic slideshow element that will cycle through a list of items that you provide.
+
+### Props
+
+| Name | Type | Default | Description |
+| ---- | :----: | :-------: | ----------- |
+| `slides` | Array | `[]` | Array of items to be iterated over and turned into slides. |
+| `auto` | Boolean | `true` | Controls if slideshow should auto-advance. |
+| `loop` | Boolean | `true` | If true, slideshow will loop from last item back to first |
+| `infinite` | Boolean | `true` | If true, slideshow will do a `next` style transition when looping from last to first and vice versa. |
+| `interval` | Number | `4000` | Time between auto slide transitions. |
+| `delay` | Number | `500` | Time to delay before initiating auto slide interval. |
+| `index` | Number/Object | `null` | Used to manually control the current active slide of the slideshow. This prop can be bidirectionally bound using the `sync` modifier. See more details on how to use in the section below. |
+| `pagination` | Boolean | `true` | Controls if pagination elements should be rendered or not. |
+| `localKeyboard` | Boolean | `false` | If true, slideshow will bind keyboard listeners to the slideshow DOM element. If false, keyboard events will be bound to window. |
+| `nextKey` | Number | `39` | Keycode for which key will trigger the next action. Default is the right arrow. |
+| `prevKey` | Number | `37` | Keycode for which key will trigger the prev action. Default is the left arrow. |
+| `css` | Boolean | `true` | Controls if the transition should use CSS classes or not. Use this when overriding the default transition using the provided javascript hooks. |
+
+### Classes
+* `fh-slideshow`
+* `transitioning`: Active when slideshow is mid transition
+* `first-slide`: Active when the current index is the first slide
+* `last-slide`: Active when the current index is the last slide
+
+### Slots
+
+In order to use this component, you'll have to utilize the [Scoped Slots](https://vuejs.org/v2/guide/components.html#Scoped-Slots) feature of vue components. This component has 4 available slots, and 2 of them are scoped.
+
+#### slide
+
+This is the most important slot. It allows you to provide a template to the component telling it how to render each slide item you provided through the `slides` prop. The slot accepts 1 argument, `slide`, which holds the data of whatever item is being iterated over. Here's a simple example usage:
+
+```vue
+<slide-show :slides="pages">
+    <div class="slide" slot="slide" slot-scope="args">
+        <responsive-image :object="args.slide.featuredAttachment" />
+    </div>
+</slide-show>
+```
+
+In this example the slot is being fed all provided arguments through the `args` object. The single property on the `args` object will be `slide`, which carries the value of a single page. In this example an image object is being provided to a responsive-image, but you can use any data from the slide object within this slot to render your template.
+
+#### pagination-item
+
+This is the second scoped slot, it's used to define a template that the component will use when rendering the pagination. It also supports a single argument, `slide`. Building on the last example:
+
+```vue
+<slide-show :slides="pages">
+    <!-- ... -->
+    <span slot="pagination-item" slot-scope="args">{{ args.slide.title }}</span>
+</slide-show>
+```
+
+This would render a list of pagination items, each with the title of the page inside. Pagination elements are automatically given event listeners to trigger their corresponding slides when clicked, and the currently active pagination item is given the class `active`.
+
+#### nav-next
+
+This is a non-scoped slot that will render an element to be used as the next trigger when clicked. The component will automatically add the click listeners to this component. Example Usage:
+
+```vue
+<slide-show :slides="pages">
+    <!-- ... -->
+    <svg-image src="arrow-right.svg" slot="nav-next" />
+</slide-show>
+```
+
+#### nav-prev
+
+This non-scoped slot functions exactly the same as `nav-next`, but triggers the previous action.
 
 ## `split-text`
 **Props**
