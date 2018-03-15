@@ -88,6 +88,7 @@ Vue.component('component-name', require('fh-components/component-name').default)
 * `respect-max`: Boolean, default `false`. Whether the image will have a `max-width` and `max-height` based on its natural dimensions.
 * `fill-space`: Boolean, default `false`. When `true`, position absolutely and force the image to take up all available space; when `false`, use the image's natural aspect ratio.
 * `fit`: String, default `'cover'`. Object-fit value for the image - `cover` or `contain`.
+* `poster`: String or post, default `''`. URL to [poster](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video) for video. If `false`, no poster used; if blank, defaults to the parsed image source.
 
 **Classes**
 * `rsp-image-module`

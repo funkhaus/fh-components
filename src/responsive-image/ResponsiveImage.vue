@@ -48,6 +48,10 @@
             'fit': {
                 type: String,
                 default: 'cover'
+            },
+            'poster': {
+                type: [String],
+                default: ''
             }
         },
         data () {
@@ -135,7 +139,7 @@
                 else return String(metaString).includes('.mp4') ? metaString : ''
             },
             videoTag () {
-                return this.parsedVideoSrc ? `<video src="${ this.parsedVideoSrc }" autoplay loop muted playsinline poster="${ this.parsedSrc }"></video>` : ''
+                return this.parsedVideoSrc ? `<video src="${ this.parsedVideoSrc }" autoplay loop muted playsinline poster="${ this.parsedPoster }"></video>` : ''
             },
             outerStyles () {
                 const styles =  {}
@@ -180,6 +184,12 @@
                         x='0px' y='0px' viewBox='0 0 ${ this.imageWidth } ${ this.imageHeight }' xml:space='preserve'>
                         <rect fill='${ this.parsedColor }' width='${ this.imageWidth }' height='${ this.imageHeight }' />
                     </svg>`.replace(/\r?\n|\r/g, '')
+            },
+            parsedPoster(){
+                if( !this.poster ){
+                    return false
+                }
+                return this.poster && this.poster.length ? this.poster : this.parsedSrc
             }
         }
     }
