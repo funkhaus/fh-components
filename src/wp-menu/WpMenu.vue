@@ -3,7 +3,10 @@
         <menu-item
             v-for="(item, i) in menuItems"
             :key="i"
-            :item="item"/>
+            :item="item"
+        >
+            <slot name="menu-item" :menu-item="item" />
+        </menu-item>
     </ul>
 </template>
 

@@ -135,7 +135,7 @@ In order to use this component, you'll have to utilize the [Scoped Slots](https:
 
 #### slide
 
-This is the most important slot. It allows you to provide a template to the component telling it how to render each slide item you provided through the `slides` prop. The slot accepts 1 argument, `slide`, which holds the data of whatever item is being iterated over. Here's a simple example usage:
+This is the most important slot. It allows you to provide a template to the component telling it how to render each slide item you provided through the `slides` prop. The slot accepts 2 arguments, `slide` and `index`. `slide` holds the data of whatever item is being iterated over, and `index` is the current item's index. Here's a simple example usage:
 
 ```vue
 <slide-show :slides="pages">
@@ -239,17 +239,40 @@ This non-scoped slot functions exactly the same as `nav-next`, but triggers the 
 **Notes**
 * This was built to allow components to be used with the the contents of a Wordpress post. It's very effective for that purpose, but more generally can be used to compile any dynamically loaded template and render it into the component tree. Be aware that this should only ever be used when the template going into the `html` prop is trusted.
 
-## `wp-menu`
-**Props**
-* `slug`: String, default `''`. The WordPress slug of the menu to fetch.
-* `name`: String, default `'Main Menu'`. The WordPress name of the menu to fetch.
+## wp-menu
 
-**Classes**
+[Vuepress](https://github.com/funkhaus/vuepress)-specific component to build WordPress menus. Uses the `wp-menu-item` component internally.
+
+### Props
+
+| Name | Type | Default | Description |
+| ---- | :----: | :-------: | ----------- |
+| `slug` | String | `''` | The WordPress slug of the menu to use. |
+| `name` | String | `'Main Menu'` | The WordPress name of the menu to use. |
+
+### Classes
+
 * `menu`
-* `[slug]`: Either the `slug` prop or a kebab-cased version of the `name` prop, whichever is available.
+* `${ slug }`: Either the `slug` prop or a kebab-cased version of the `name` prop, whichever is available.
 
-**Notes**
-* [Vuepress](https://github.com/funkhaus/vuepress)-specific component to build WordPress menus. Uses the `wp-menu-item` component internally.
+### Slots
+
+This component comes with an optional [scoped slot](https://vuejs.org/v2/guide/components.html#Scoped-Slots) that will allow you to override the default markup for a single menu item.
+
+**menu-item:** Template for single menu item within component
+
+This slot accepts 1 argument, `menuItem`, which carries the serialized object of the single item that is being iterated over. Here is an example of how you might use it to add an arrow icon next to the name of each element in the menu:
+
+```vue
+<wp-menu name="Main Menu">
+    <li slot="menu-item" slot-scope="{ menuItem }">
+        <router-link :to="menuItem.relativePath">
+            <svg-image src="arrow.svg" />
+            <span v-html="menuItem.title" />
+        </router-link>
+    </li>
+</wp-menu>
+```
 
 # Directives
 Directives are declared as attributes. Remember to prefix `v-` to the directive name (so `full-height` becomes `v-full-height`)!

@@ -1,28 +1,32 @@
 <template>
     <li :class="{ active: isActive, 'in-active-tree': isAncestor }">
 
-        <a
-            v-if="item.is_external"
-            :href="item.permalink"
-            target="_blank"
-            v-html="item.title"
-        />
+        <slot>
+            <a
+                v-if="item.is_external"
+                :href="item.permalink"
+                target="_blank"
+                v-html="item.title"
+            />
 
-        <router-link
-            v-else
-            :to="item.relativePath"
-            v-html="item.title"
-        />
+            <router-link
+                v-else
+                :to="item.relativePath"
+                v-html="item.title"
+            />
+        </slot>
 
-        <ul v-if="item.children.length">
+        <ul v-if="children.length">
             <menu-item
-                v-for="(child, index) in item.children"
-                :key="index"
-                :item="child"/>
+                v-for="(child, i) in children"
+                :item="child"
+                :key="i"
+            >
+                <slot />
+            </menu-item>
         </ul>
 
     </li>
-
 </template>
 
 <script>
@@ -37,6 +41,9 @@ export default {
         }
     },
     computed: {
+        children () {
+            return this.item.children || []
+        },
         isActive(){
             return this.$route.path.replace(/\/*$/, '') == this.item.relativePath
         },

@@ -18,6 +18,7 @@
                 v-for="(slide, i) in slides"
                 v-if="activeIndex == i"
                 :slide="slide"
+                :index="i"
                 name="slide"
             />
         </transition>
