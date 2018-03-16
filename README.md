@@ -177,7 +177,7 @@ This non-scoped slot functions exactly the same as `nav-next`, but triggers the 
 
 ### Transitions
 
-By default, there is a simple css slide transition being applied to the slideshow. It has the name `fh-slide-${ direction }`, with direction being either `next` or `previous` depending on which way the slideshow is going. For simple transitions it's easy to override the default. For example, if you wanted to take the existing transition but change the speed to 3s you might do this:
+By default, there is a simple css slide transition being applied to the slideshow. It has the name `fh-slide-${ direction }`, with direction being either `next` or `prev` depending on which way the slideshow is going. For simple transitions it's easy to override the default. For example, if you wanted to take the existing transition but change the speed to 3s you might do this:
 
 ```css
 .fh-slideshow.fh-slide-next-enter-active,
