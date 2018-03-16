@@ -133,7 +133,7 @@ This component creates a basic slideshow element that will cycle through a list 
 
 In order to use this component, you'll have to utilize the [Scoped Slots](https://vuejs.org/v2/guide/components.html#Scoped-Slots) feature of vue components. This component has 4 available slots, and 2 of them are scoped.
 
-#### slide
+**slide:** Template for a single slide element
 
 This is the most important slot. It allows you to provide a template to the component telling it how to render each slide item you provided through the `slides` prop. The slot accepts 2 arguments, `slide` and `index`. `slide` holds the data of whatever item is being iterated over, and `index` is the current item's index. Here's a simple example usage:
 
@@ -147,7 +147,7 @@ This is the most important slot. It allows you to provide a template to the comp
 
 In this example the slot is being fed all provided arguments through the `args` object. The single property on the `args` object will be `slide`, which carries the value of a single page. In this example an image object is being provided to a responsive-image, but you can use any data from the slide object within this slot to render your template.
 
-#### pagination-item
+**pagination-item:** Template for a single pagination item in the slideshow
 
 This is the second scoped slot, it's used to define a template that the component will use when rendering the pagination. It also supports a single argument, `slide`. Building on the last example:
 
@@ -160,7 +160,7 @@ This is the second scoped slot, it's used to define a template that the componen
 
 This would render a list of pagination items, each with the title of the page inside. Pagination elements are automatically given event listeners to trigger their corresponding slides when clicked, and the currently active pagination item is given the class `active`.
 
-#### nav-next
+**nav-next:** Element to be used as the next trigger
 
 This is a non-scoped slot that will render an element to be used as the next trigger when clicked. The component will automatically add the click listeners to this component. Example Usage:
 
@@ -171,9 +171,24 @@ This is a non-scoped slot that will render an element to be used as the next tri
 </slide-show>
 ```
 
-#### nav-prev
+**nav-prev:** Element to be used as the prev trigger
 
 This non-scoped slot functions exactly the same as `nav-next`, but triggers the previous action.
+
+### Transitions
+
+By default, there is a simple css slide transition being applied to the slideshow. It has the name `fh-slide-${ direction }`, with direction being either `next` or `previous` depending on which way the slideshow is going. For simple transitions it's easy to override the default. For example, if you wanted to take the existing transition but change the speed to 3s you might do this:
+
+```css
+.fh-slideshow.fh-slide-next-enter-active,
+.fh-slideshow.fh-slide-next-leave-active,
+.fh-slideshow.fh-slide-prev-enter-active,
+.fh-slideshow.fh-slide-prev-leave-active {
+    transition-duration: 3s;
+}
+```
+
+If css transitions alone are not enough for the effect you want, you can opt to use js hooks instead. The full set of [js transition events](https://vuejs.org/v2/guide/transitions.html#JavaScript-Hooks) are proxied up to the main `slide-show` component, so you can catch them there and use javascript to create your effects. Keep in mind that when doing this you will want to set the `css` prop to false so that the transition element is forced into js mode.
 
 ## `split-text`
 **Props**
