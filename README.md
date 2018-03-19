@@ -13,6 +13,7 @@ Reusable components and directives for Vue. Designed for [Vuepress](https://gith
     1. [split-text](#split-text)
     1. [transition-fade](#transition-fade)
     1. [video-stage](#video-stage)
+    1. [velocity-animate](#velocity-animate)
     1. [wp-content](#wp-content)
     1. [wp-menu](#wp-menu)
 1. [Directives](#directives)
@@ -208,6 +209,47 @@ If css transitions alone are not enough for the effect you want, you can opt to 
 
 **Notes**
 * Fades the contained element over 0.4 seconds.
+
+## `velocity-animate`
+**Props**
+* `reset`: Boolean, default `true`. Whether or not the changed elements should have their inline styles reset after the animation complete.
+* `sequence`: Array, default `[]`. Sequence to run on appear.
+* `wrapper`: String, default `div`. Element in which to wrap the enclosed content.
+
+**Classes**
+* `velocity-animate`
+
+**Notes**
+* A component to ease creating multi-step Velocity transitions. The `sequence` refers to a Velocity [sequence](http://velocityjs.org/#uiPack), first introduced in the UI pack. Instead of raw elements, the `e` property should contain the ref of the desired element. For example:
+
+```
+<template>
+    <velocity-animate :sequence="sequence">
+        <h2 ref="title">I'm here!</h2>
+
+        <h3 ref="subtitle">So am I!</h3>
+
+        <p ref="body">I'm the body</p>
+    </velocity-animate>
+</template>
+
+<script>
+export default {
+    computed: {
+        sequence(){
+            return [
+                { e: 'title', p: { opacity: [1, 0] } },
+                { e: 'subtitle', p: { opacity: [1, 0] } },
+                { e: 'body', p: { translateX: [0, '-100%'] }, o: { sequenceQueue: false } }
+            ]
+        }
+    }
+}
+</script>
+```
+
+This will make the h2 fade in, then the h3 fade in and p tag slide in from the left.
+* `velocity-animate` also allows you to set initial states of elements by forcefeeding starting values. See [this section](http://velocityjs.org/#forcefeeding) of the Velocity docs for details. Instead of just animating from the second value to the first, velocity-animate sets the element's desired property to the second value from the start of the animation.
 
 ## `video-stage`
 **Props**

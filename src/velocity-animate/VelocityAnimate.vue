@@ -135,11 +135,12 @@ export default {
             if( this.reset ){
                 // reset elements
                 this.modifiedElements.map(refString => {
+
                     const el = this.getElFromRefString(refString)
-                    console.log(el)
                     if( !el ){
                         return
                     }
+
                     el.style = ''
                 })
             }
