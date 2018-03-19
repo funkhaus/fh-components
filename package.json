@@ -6,7 +6,7 @@
   "scripts": {
     "build": "webpack -p --progress --colors",
     "dev": "webpack --progress --colors --watch",
-    "test": "tap -Rspec tests/index.js",
+    "test": "mocha test/index.js",
     "prepare": "npm run build"
   },
   "repository": {
@@ -54,6 +54,6 @@
     "babel-register": "^6.26.0",
     "jsdom": "^11.5.1",
     "jsdom-global": "^3.0.2",
-    "tap": "^11.0.1"
+    "mocha": "^5.0.4"
   }
 }
