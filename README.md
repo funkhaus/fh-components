@@ -176,6 +176,14 @@ This is a non-scoped slot that will render an element to be used as the next tri
 
 This non-scoped slot functions exactly the same as `nav-next`, but triggers the previous action.
 
+**before:** Element(s) to go within the slideshow just before the slide slot
+
+This non-scoped slot allows you to add extra content into the slideshow that does not affect the functionality of the core elements.
+
+**default:** Element(s) to go within the slideshow, after all other slots.
+
+This non-scoped slot is the default and allows you to add extra content into the slideshow that does not affect the functionality of the core elements.
+
 ### Transitions
 
 By default, there is a simple css slide transition being applied to the slideshow. It has the name `fh-slide-${ direction }`, with direction being either `next` or `prev` depending on which way the slideshow is going. For simple transitions it's easy to override the default. For example, if you wanted to take the existing transition but change the speed to 3s you might do this:

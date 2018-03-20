@@ -1,5 +1,6 @@
 <template>
     <div :class="classes" tabindex="1">
+        <slot name="before" />
 
         <transition
             @before-enter="$emit('before-enter', $event)"
@@ -48,6 +49,7 @@
             </div>
         </div>
 
+        <slot />
     </div>
 </template>
 
@@ -174,6 +176,7 @@
             classes () {
                 return [
                     'fh-slideshow',
+                    { 'empty': !this.slides.length },
                     { transitioning: this.transitioning },
                     { 'first-slide': this.activeIndex == 0 },
                     { 'last-slide': this.activeIndex == this.slides.length - 1 }
