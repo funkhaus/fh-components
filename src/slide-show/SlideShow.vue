@@ -12,7 +12,8 @@
             @leave="proxyLeave"
             @after-leave="$emit('after-leave', $event)"
             @leave-cancelled="$emit('leave-cancelled', $event)"
-            :name="`fh-slide-${ direction }`"
+            :name="`${ transitionName }-${ direction }`"
+            :mode="transitionMode"
             :css="css"
         >
             <slot
@@ -123,6 +124,17 @@
             css: {
                 type: Boolean,
                 default: true
+            },
+            // override the default transition name
+            // (direction will be appended)
+            transitionName: {
+                type: String,
+                default: 'fh-slide'
+            },
+            // override default transition mode
+            transitionMode: {
+                type: String,
+                default: ''
             }
         },
         data () {
