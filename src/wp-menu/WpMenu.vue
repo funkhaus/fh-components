@@ -5,7 +5,7 @@
             :key="i"
             :item="item"
         >
-            <slot name="menu-item" :menu-item="item" />
+            <slot name="menu-item" :menu-item="item" :index="i" />
         </menu-item>
     </ul>
 </template>

@@ -326,13 +326,14 @@ This component comes with an optional [scoped slot](https://vuejs.org/v2/guide/c
 
 **menu-item:** Template for single menu item within component
 
-This slot accepts 1 argument, `menuItem`, which carries the serialized object of the single item that is being iterated over. Here is an example of how you might use it to add an arrow icon next to the name of each element in the menu:
+This slot accepts 2 arguments, `menuItem`, which carries the serialized object of the single item that is being iterated over, and `index`, which carries the index of the current menu item. Here is an example of how you might use it to add an arrow icon next to the name of each element in the menu:
 
 ```vue
 <wp-menu name="Main Menu">
-    <li slot="menu-item" slot-scope="{ menuItem }">
+    <li slot="menu-item" slot-scope="{ menuItem, index }">
         <router-link :to="menuItem.relativePath">
             <svg-image src="arrow.svg" />
+            <span>{{ index }}. </span>
             <span v-html="menuItem.title" />
         </router-link>
     </li>
