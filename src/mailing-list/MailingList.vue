@@ -1,31 +1,49 @@
 <template>
     <div :class="['fh-mailing-list', `state-${ state }`, `provider-${ provider }`, { loading }]">
 
-        <form v-if="isMadMimi" ref="form" @submit.prevent="onSubmit" target="_blank" :action="actionUrl" accept-charset="UTF-8" method="POST">
-            <input name="utf8" type="hidden" value="✓"/>
-            <label for="mailing_list_email">Email</label>
-            <input id="mailing_list_email" class="email" name="signup[email]" type="text" :placeholder="placeholder" />
-            <div style="background: white; font-size:1px; height: 0; overflow: hidden" aria-hidden="true">
-                <input type="text" :name="token" tabindex="-1" style="font-size: 1px; width: 1px !important; height:1px !important; border:0 !important; line-height: 1px !important; padding: 0 0; min-height:1px !important;"/>
-                <input class="checkbox" type="checkbox" name="beacon"/>
-            </div>
-            <slot name="form" />
-            <input type="submit" class="submit" :value="submitText" />
-        </form>
-
-        <form v-else-if="isMailchimp" ref="form" :action="actionUrl" method="GET" target="_blank" novalidate @submit.prevent="onSubmit">
-            <label for="mailing_list_email">Email</label>
-            <input id="mailing_list_email" type="email" class="email" name="EMAIL" :placeholder="placeholder" />
-            <div style="position: absolute; left: -5000px;" aria-hidden="true">
-                <input type="text" :name="token" tabindex="-1" value="">
-            </div>
-            <slot name="form" />
-            <input type="submit" class="submit" :value="submitText">
-        </form>
-
+        <slot name="top" />
         <slot />
-        <div v-if="state == 'success'" class="success-message" v-html="successMessage" />
-        <div v-else-if="state == 'error'" class="error-message" v-html="errorMessage" />
+
+        <transition :name="transitionName" mode="out-in">
+            <div v-if="state != 'success'" class="form" key="form">
+                <slot name="before-form" />
+
+                <form v-if="isMadMimi" ref="form" @submit.prevent="onSubmit" target="_blank" :action="actionUrl" accept-charset="UTF-8" method="POST">
+                    <input name="utf8" type="hidden" value="✓"/>
+                    <label for="mailing_list_email">Email</label>
+                    <input id="mailing_list_email" class="email" name="signup[email]" type="text" :placeholder="placeholder" />
+                    <div style="background: white; font-size:1px; height: 0; overflow: hidden" aria-hidden="true">
+                        <input type="text" :name="token" tabindex="-1" style="font-size: 1px; width: 1px !important; height:1px !important; border:0 !important; line-height: 1px !important; padding: 0 0; min-height:1px !important;"/>
+                        <input class="checkbox" type="checkbox" name="beacon"/>
+                    </div>
+                    <slot name="within-form" />
+                    <input type="submit" class="submit" :value="submitText" />
+                </form>
+
+                <form v-else-if="isMailchimp" ref="form" :action="actionUrl" method="GET" target="_blank" novalidate @submit.prevent="onSubmit">
+                    <label for="mailing_list_email">Email</label>
+                    <input id="mailing_list_email" type="email" class="email" name="EMAIL" :placeholder="placeholder" />
+                    <div style="position: absolute; left: -5000px;" aria-hidden="true">
+                        <input type="text" :name="token" tabindex="-1" value="">
+                    </div>
+                    <slot name="form" />
+                    <input type="submit" class="submit" :value="submitText">
+                </form>
+
+                <slot name="after-form" />
+            </div>
+            <div v-else-if="state == 'success'" class="success-message" key="success">
+                <span class="message" v-html="successMessage" />
+                <slot name="success" />
+            </div>
+        </transition>
+
+        <div v-if="state == 'error'" class="error-message" key="error">
+            <span class="message" v-html="errorMessage" />
+            <slot name="error" />
+        </div>
+
+        <slot name="bottom" />
     </div>
 </template>
 
@@ -60,6 +78,10 @@
             placeholder: {
                 type: String,
                 default: 'Email Address'
+            },
+            transitionName: {
+                type: String,
+                default: 'newsletter-submit'
             }
         },
         data () {
@@ -134,3 +156,17 @@
         }
     }
 </script>
+
+<style lang="scss">
+
+    // define transition
+    .newsletter-submit-enter-active,
+    .newsletter-submit-leave-active {
+        transition: opacity 300ms;
+    }
+    .newsletter-submit-enter,
+    .newsletter-submit-leave-to {
+        opacity: 0;
+    }
+
+</style>
