@@ -1,0 +1,136 @@
+<template>
+    <div :class="['fh-mailing-list', `state-${ state }`, `provider-${ provider }`, { loading }]">
+
+        <form v-if="isMadMimi" ref="form" @submit.prevent="onSubmit" target="_blank" :action="actionUrl" accept-charset="UTF-8" method="POST">
+            <input name="utf8" type="hidden" value="✓"/>
+            <label for="mailing_list_email">Email</label>
+            <input id="mailing_list_email" class="email" name="signup[email]" type="text" :placeholder="placeholder" />
+            <div style="background: white; font-size:1px; height: 0; overflow: hidden" aria-hidden="true">
+                <input type="text" :name="token" tabindex="-1" style="font-size: 1px; width: 1px !important; height:1px !important; border:0 !important; line-height: 1px !important; padding: 0 0; min-height:1px !important;"/>
+                <input class="checkbox" type="checkbox" name="beacon"/>
+            </div>
+            <slot name="form" />
+            <input type="submit" class="submit" :value="submitText" />
+        </form>
+
+        <form v-else-if="isMailchimp" ref="form" :action="actionUrl" method="GET" target="_blank" novalidate @submit.prevent="onSubmit">
+            <label for="mailing_list_email">Email</label>
+            <input id="mailing_list_email" type="email" class="email" name="EMAIL" :placeholder="placeholder" />
+            <div style="position: absolute; left: -5000px;" aria-hidden="true">
+                <input type="text" :name="token" tabindex="-1" value="">
+            </div>
+            <slot name="form" />
+            <input type="submit" class="submit" :value="submitText">
+        </form>
+
+        <slot />
+        <div v-if="state == 'success'" class="success-message" v-html="successMessage" />
+        <div v-else-if="state == 'error'" class="error-message" v-html="errorMessage" />
+    </div>
+</template>
+
+<script>
+    import fetchJsonp from 'fetch-jsonp'
+
+    export default {
+        props: {
+            provider: {
+                type: String,
+                default: 'mailchimp',
+                validator (val) {
+                    return ['mailchimp', 'madmimi'].includes(val)
+                }
+            },
+            actionUrl: {
+                type: String,
+                required: true
+            },
+            token: {
+                type: String,
+                required: true
+            },
+            successMessage: {
+                type: String,
+                default: 'Thank You!'
+            },
+            submitText: {
+                type: String,
+                default: 'Subscribe'
+            },
+            placeholder: {
+                type: String,
+                default: 'Email Address'
+            }
+        },
+        data () {
+            return {
+                success: false,
+                errorMessage: '',
+                loading: false
+            }
+        },
+        computed: {
+            isMadMimi () {
+                return this.provider == 'madmimi'
+            },
+            isMailchimp () {
+                return this.provider == 'mailchimp'
+            },
+            state () {
+                if ( this.success ) return 'success'
+                else if ( this.errorMessage ) return 'error'
+                return 'none'
+            },
+            callbackName () {
+                if ( this.isMadMimi ) return 'callback'
+                if ( this.isMailchimp ) return 'c'
+                return ''
+            },
+            formAction () {
+                if ( this.isMadMimi ) return `${ this.actionUrl }.json?`
+                if ( this.isMailchimp ) {
+                    const modified = this.actionUrl.replace('/post?', '/post-json?')
+                    return `${ modified }&`
+                }
+                return ''
+            }
+        },
+        methods: {
+            isSuccess (response) {
+                if ( this.isMadMimi ) return response.success
+                if ( this.isMailchimp ) return response.result == 'success'
+                return false
+            },
+            getErrorMessage (response) {
+                if ( this.isMadMimi ) return response.error
+                if ( this.isMailchimp ) return response.msg
+                return 'Something went wrong. Please try again.'
+            },
+            async onSubmit (e) {
+
+                // serlize form data
+                const formData = new FormData(this.$refs.form)
+                const serialized = [...formData.entries()].map(e => {
+                    return `${ encodeURIComponent(e[0]) }=${ encodeURIComponent(e[1]) }`
+                })
+
+                // send request
+                this.loading = true
+                try {
+                    const response = await fetchJsonp(this.formAction + serialized.join('&'), {
+                        jsonpCallback: this.callbackName
+                    }).then(r => r.json())
+
+                    // handle error or success
+                    if ( this.isSuccess(response) ) this.success = true
+                    else this.errorMessage = this.getErrorMessage(response)
+
+                } catch (err) {
+                    this.errorMessage = 'Something went wrong.'
+                }
+                this.loading = false
+
+            }
+        }
+    }
+</script>
