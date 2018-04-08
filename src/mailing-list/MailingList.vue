@@ -26,7 +26,7 @@
                     <div style="position: absolute; left: -5000px;" aria-hidden="true">
                         <input type="text" :name="token" tabindex="-1" value="">
                     </div>
-                    <slot name="form" />
+                    <slot name="within-form" />
                     <input type="submit" class="submit" :value="submitText">
                 </form>
 
