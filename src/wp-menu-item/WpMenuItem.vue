@@ -1,5 +1,5 @@
 <template>
-    <li :class="{ active: isActive, 'in-active-tree': isAncestor }">
+    <li :class="classes">
 
         <slot>
             <a
@@ -47,10 +47,42 @@ export default {
         isActive(){
             return this.$route.path.replace(/\/*$/, '') == this.item.relativePath
         },
+        isParent(){
+            // remove trailing slash
+            const strippedSlash = this.$route.path.replace(/\/$/g, '')
+            // remove last directory from current route
+            const parentRoute = strippedSlash.replace(/\/[^\/]*$/g, '')
+            return parentRoute == this.item.relativePath
+        },
         isAncestor(){
-            return this.item.relativePath.length > 1
-                && !this.isActive
-                && this.$route.path.includes( this.item.relativePath )
+            return ( !this.isActive && this.$route.path.includes( this.item.relativePath ) ) || this.isParent || this.item.relativePath == '/'
+        },
+        hasSubMenu(){
+            return Object.keys(this.item.children).length > 0
+        },
+        isHome(){
+            return this.item.relativePath == '/'
+        },
+        classes(){
+            const classes = [
+                'menu-item',
+                `menu-item-${ this.item.ID || 'none' }`,
+                { 'menu-item-has-children': this.hasSubMenu },
+                { 'current-menu-item': this.isActive },
+                { 'current-menu-parent': this.isParent },
+                { 'current-menu-ancestor': this.isAncestor },
+                { 'menu-item-home': this.isHome },
+                { 'in-active-tree': this.isAncestor },
+                { 'active': this.isActive },
+                { 'is-home': this.item.isHome }
+            ]
+
+            // if devId has been provided, add it
+            if ( this.item.devId !== undefined ) {
+                classes.push(`dev-id-${ this.item.devId }`)
+            }
+
+            return classes
         }
     }
 }
