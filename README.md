@@ -10,6 +10,7 @@ Reusable components and directives for Vue. Designed for [Vuepress](https://gith
     1.  [flex-text](#flex-text)
     1.  [hamburger-button](#hamburger-button)
     1.  [responsive-image](#responsive-image)
+    1.  [scroll-to](#scroll-to)
     1.  [slide-show](#slide-show)
     1.  [split-text](#split-text)
     1.  [sticky-wrap](#sticky-wrap)
@@ -49,7 +50,7 @@ export default {
 }
 
 // ...or a global component one-liner (no `import` statement needed)
-Vue.component('component-name', require('fh-components/component-name').default)
+Vue.component('component-name', require('fh-components/component-name'))
 ```
 
 # Components
@@ -116,6 +117,23 @@ Vue.component('component-name', require('fh-components/component-name').default)
 
 *   Creates and fades in an image. Adds a placeholder for the image with a given background-color to prevent content jumping when the image loads.
 *   If you add a link to an .mp4 video in the "Alt" field in WordPress, this element will create and render a video, using the provided image as the poster (see "Poster" under "Attributes" [here](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video)).
+
+## `scroll-to`
+
+Wrap this component around any element to add "scroll-to" functionality, where the window is scrolled to a target element when the wrapped element is clicked.
+
+### Props
+
+| Name       |     Type      |     Default     | Description                                                                                       |
+| ---------- | :-----------: | :-------------: | ------------------------------------------------------------------------------------------------- |
+| `target`   | String/Object | `scroll-target` | Target element to scroll to. This can be the name of a $ref, a CSS selector, or a DOM element.    |
+| `duration` |    Number     |     `1000`      | The duration of the scroll animation in ms.                                                       |
+| `easing`   |    String     |   `inOutQuad`   | The animation easing to use. See [ease](https://github.com/component/ease) for all valid options. |
+| `offset`   |    Number     |       `0`       | Number of pixels to offset the scroll target by. Can be positive or negative.                     |
+
+### Events
+
+*   `complete`: Fires when the page has finished scrolling to the target.
 
 ## `slide-show`
 
