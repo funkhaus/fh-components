@@ -104,6 +104,7 @@ Vue.component('component-name', require('fh-components/component-name'))
 *   `fill-space`: Boolean, default `false`. When `true`, position absolutely and force the image to take up all available space; when `false`, use the image's natural aspect ratio.
 *   `fit`: String, default `'cover'`. Object-fit value for the image - `cover` or `contain`.
 *   `poster`: String or post, default `''`. URL to [poster](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video) for video. If `false`, no poster used; if blank, defaults to the parsed image source.
+*   `volume`: Number, default `0`. Controls the volume when rendering a video. If set to 0 (or not set) the video will be muted and will be able to autoplay.
 
 **Classes**
 
