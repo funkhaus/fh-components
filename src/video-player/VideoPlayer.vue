@@ -25,15 +25,15 @@
 <script>
 export default {
     props: {
-        'aspect': {
+        aspect: {
             type: Number,
             default: 0.5625
         },
-        'autoplay': {
+        autoplay: {
             type: Boolean,
             default: true
         },
-        'margins': {
+        margins: {
             type: String,
             default: '80px'
         },
@@ -50,24 +50,24 @@ export default {
             default: ''
         }
     },
-    data(){
+    data() {
         return {
             embedHtml: '',
             iframeWidth: 0
         }
     },
     computed: {
-        metaWrapStyle(){
+        metaWrapStyle() {
             return {
                 width: this.iframeWidth
             }
         }
     },
-    async mounted(){
+    async mounted() {
         // attach resize listener
-        this.$root.$on('throttled.resize', this.updateIframeWidth);
+        this.$root.$on('throttled.resize', this.updateIframeWidth)
 
-        if( this.vimeoEmbed ){
+        if (this.vimeoEmbed) {
             // use specified embed HTML and render
             this.embedHtml = this.vimeoEmbed
             this.updateIframeWidth()
@@ -75,33 +75,32 @@ export default {
         }
         // fetch HTML using Vimeo embed API (https://developer.vimeo.com/apis/oembed)
         let vimeoUrl = `https://vimeo.com/api/oembed.json?url=`
-        if( this.vimeoId != -1 ){
-            vimeoUrl += `https://vimeo.com/${ this.vimeoId }`
+        if (this.vimeoId != -1) {
+            vimeoUrl += `https://vimeo.com/${this.vimeoId}`
         } else {
             vimeoUrl += this.vimeoUrl
         }
-        vimeoUrl += `&autoplay=${ this.autoplay }`
-        this.embedHtml = await
-            fetch(vimeoUrl)
-            .then( res => {
-                if( !res.ok ){
+        vimeoUrl += `&autoplay=${this.autoplay}`
+        this.embedHtml = await fetch(vimeoUrl)
+            .then(res => {
+                if (!res.ok) {
                     // fetch error handling:
                     // https://www.tjvantoll.com/2015/09/13/fetch-and-errors/
                     throw Error(res.statusText)
                 }
                 return res.json()
-            } )
-            .then( json => {
+            })
+            .then(json => {
                 this.$emit('videoLoaded')
                 return json.html
-            } )
-            .catch( err => console.log(err) )
+            })
+            .catch(err => console.log(err))
     },
-    beforeDestroy () {
-        this.$root.$off('throttled.resize', this.updateIframeWidth);
+    beforeDestroy() {
+        this.$root.$off('throttled.resize', this.updateIframeWidth)
     },
     methods: {
-        updateIframeWidth(){
+        updateIframeWidth() {
             const iframe = this.$el.querySelector('.stage')
             this.iframeWidth = iframe
                 ? iframe.getBoundingClientRect().width + 'px'
@@ -109,7 +108,7 @@ export default {
         }
     },
     watch: {
-        embedHtml(){
+        embedHtml() {
             this.updateIframeWidth()
         }
     }
@@ -117,25 +116,25 @@ export default {
 </script>
 
 <style scoped>
-    .video-player .stage {
-        position: absolute;
-    }
-    .video-player .stage .iframe-wrap {
-        position: relative;
-        height: 100%;
-    }
-    .video-player .stage iframe {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100% !important;
-        height: 100% !important;
-    }
-    .video-player .stage .meta-wrap {
-        position: absolute;
-        margin: auto;
-        top: 100%;
-        right: 0;
-        left: 0;
-    }
+.video-player .stage {
+    position: absolute;
+}
+.video-player .stage .iframe-wrap {
+    position: relative;
+    height: 100%;
+}
+.video-player .stage iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100% !important;
+    height: 100% !important;
+}
+.video-player .stage .meta-wrap {
+    position: absolute;
+    margin: auto;
+    top: 100%;
+    right: 0;
+    left: 0;
+}
 </style>

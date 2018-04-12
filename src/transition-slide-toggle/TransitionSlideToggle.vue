@@ -13,43 +13,43 @@
 </template>
 
 <script>
-    import Velocity from 'velocity-animate'
+import Velocity from 'velocity-animate'
 
-    export default {
-        name: 'transition-slide-toggle',
-        props: {
-            speed: {
-                type: Number,
-                default: 400
-            },
-            easing: {
-                type: String,
-                default: 'swing'
-            }
+export default {
+    name: 'transition-slide-toggle',
+    props: {
+        speed: {
+            type: Number,
+            default: 400
         },
-        methods: {
-            enter (el, done) {
-                Velocity(el, 'stop')
-                Velocity(el, 'slideDown', {
-                    duration: this.speed,
-                    easing: this.easing,
-                    complete: () => done()
-                })
+        easing: {
+            type: String,
+            default: 'swing'
+        }
+    },
+    methods: {
+        enter(el, done) {
+            Velocity(el, 'stop')
+            Velocity(el, 'slideDown', {
+                duration: this.speed,
+                easing: this.easing,
+                complete: () => done()
+            })
 
-                // proxy event
-                this.$emit('enter', ...arguments)
-            },
-            leave (el, done) {
-                Velocity(el, 'stop')
-                Velocity(el, 'slideUp', {
-                    duration: this.speed,
-                    easing: this.easing,
-                    complete: () => done()
-                })
+            // proxy event
+            this.$emit('enter', ...arguments)
+        },
+        leave(el, done) {
+            Velocity(el, 'stop')
+            Velocity(el, 'slideUp', {
+                duration: this.speed,
+                easing: this.easing,
+                complete: () => done()
+            })
 
-                // proxy event
-                this.$emit('leave', ...arguments)
-            }
+            // proxy event
+            this.$emit('leave', ...arguments)
         }
     }
+}
 </script>

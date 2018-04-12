@@ -41,7 +41,7 @@ export default {
         }
     },
     computed: {
-        isRelative () {
+        isRelative() {
             return this.href && String(this.href).indexOf('/') === 0
         }
     }

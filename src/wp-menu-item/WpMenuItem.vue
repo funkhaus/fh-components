@@ -30,7 +30,6 @@
 </template>
 
 <script>
-
 export default {
     props: {
         item: {
@@ -41,50 +40,56 @@ export default {
         }
     },
     computed: {
-        children () {
+        children() {
             return this.item.children || []
         },
-        isActive(){
-            return this.$route.path.replace(/\/*$/, '') == this.item.relativePath
+        isActive() {
+            return (
+                this.$route.path.replace(/\/*$/, '') == this.item.relativePath
+            )
         },
-        isParent(){
+        isParent() {
             // remove trailing slash
             const strippedSlash = this.$route.path.replace(/\/$/g, '')
             // remove last directory from current route
             const parentRoute = strippedSlash.replace(/\/[^\/]*$/g, '')
             return parentRoute == this.item.relativePath
         },
-        isAncestor(){
-            return ( !this.isActive && this.$route.path.includes( this.item.relativePath ) ) || this.isParent || this.item.relativePath == '/'
+        isAncestor() {
+            return (
+                (!this.isActive &&
+                    this.$route.path.includes(this.item.relativePath)) ||
+                this.isParent ||
+                this.item.relativePath == '/'
+            )
         },
-        hasSubMenu(){
+        hasSubMenu() {
             return Object.keys(this.item.children).length > 0
         },
-        isHome(){
+        isFrontPage() {
             return this.item.relativePath == '/'
         },
-        classes(){
+        classes() {
             const classes = [
                 'menu-item',
-                `menu-item-${ this.item.ID || 'none' }`,
+                `menu-item-${this.item.ID || 'none'}`,
                 { 'menu-item-has-children': this.hasSubMenu },
                 { 'current-menu-item': this.isActive },
                 { 'current-menu-parent': this.isParent },
                 { 'current-menu-ancestor': this.isAncestor },
-                { 'menu-item-home': this.isHome },
+                { 'menu-item-is-front-page': this.isFrontPage },
                 { 'in-active-tree': this.isAncestor },
-                { 'active': this.isActive },
-                { 'is-home': this.item.isHome }
+                { active: this.isActive },
+                { 'menu-item-is-home': this.item.isHome }
             ]
 
             // if devId has been provided, add it
-            if ( this.item.devId !== undefined ) {
-                classes.push(`dev-id-${ this.item.devId }`)
+            if (this.item.devId !== undefined) {
+                classes.push(`menu-item-dev-id-${this.item.devId}`)
             }
 
             return classes
         }
     }
 }
-
 </script>

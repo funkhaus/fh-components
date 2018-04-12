@@ -19,53 +19,49 @@
 </template>
 
 <script>
-
-    export default {
-        computed: {
-            activated(){
-                return this.$store.state.menuOpened
-            }
+export default {
+    computed: {
+        activated() {
+            return this.$store.state.menuOpened
         }
     }
-
+}
 </script>
 
 <style lang="scss">
+.hamburger {
+    width: 40px;
+    height: 40px;
+    appearance: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    box-sizing: content-box;
 
-    .hamburger {
-        width: 40px;
-        height: 40px;
-        appearance: none;
-        border: none;
-        cursor: pointer;
-        padding: 0;
-        box-sizing: content-box;
-
-        &:focus {
-            outline: none;
-        }
-        path {
-            transition: transform 0.4s, opacity 0.4s;
-            transform-origin: center;
-        }
+    &:focus {
+        outline: none;
     }
-
-    // activation animations go here
-    .hamburger.activated {
-        .top {
-            transform: translateY(4px) scale(0, 1);
-            opacity: 0;
-        }
-        .middle {
-            transform: scale(0.9) rotate(45deg) ;
-        }
-        .second-middle {
-            transform: scale(0.9) rotate(-45deg);
-        }
-        .bottom {
-            transform: translateY(-4px) scale(0, 1);
-            opacity: 0;
-        }
+    path {
+        transition: transform 0.4s, opacity 0.4s;
+        transform-origin: center;
     }
+}
 
+// activation animations go here
+.hamburger.activated {
+    .top {
+        transform: translateY(4px) scale(0, 1);
+        opacity: 0;
+    }
+    .middle {
+        transform: scale(0.9) rotate(45deg);
+    }
+    .second-middle {
+        transform: scale(0.9) rotate(-45deg);
+    }
+    .bottom {
+        transform: translateY(-4px) scale(0, 1);
+        opacity: 0;
+    }
+}
 </style>

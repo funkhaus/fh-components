@@ -48,125 +48,123 @@
 </template>
 
 <script>
-    import fetchJsonp from 'fetch-jsonp'
+import fetchJsonp from 'fetch-jsonp'
 
-    export default {
-        props: {
-            provider: {
-                type: String,
-                default: 'mailchimp',
-                validator (val) {
-                    return ['mailchimp', 'madmimi'].includes(val)
-                }
-            },
-            actionUrl: {
-                type: String,
-                required: true
-            },
-            token: {
-                type: String,
-                required: true
-            },
-            successMessage: {
-                type: String,
-                default: 'Thank You!'
-            },
-            submitText: {
-                type: String,
-                default: 'Subscribe'
-            },
-            placeholder: {
-                type: String,
-                default: 'Email Address'
-            },
-            transitionName: {
-                type: String,
-                default: 'newsletter-submit'
+export default {
+    props: {
+        provider: {
+            type: String,
+            default: 'mailchimp',
+            validator(val) {
+                return ['mailchimp', 'madmimi'].includes(val)
             }
         },
-        data () {
-            return {
-                success: false,
-                errorMessage: '',
-                loading: false
-            }
+        actionUrl: {
+            type: String,
+            required: true
         },
-        computed: {
-            isMadMimi () {
-                return this.provider == 'madmimi'
-            },
-            isMailchimp () {
-                return this.provider == 'mailchimp'
-            },
-            state () {
-                if ( this.success ) return 'success'
-                else if ( this.errorMessage ) return 'error'
-                return 'none'
-            },
-            callbackName () {
-                if ( this.isMadMimi ) return 'callback'
-                if ( this.isMailchimp ) return 'c'
-                return ''
-            },
-            formAction () {
-                if ( this.isMadMimi ) return `${ this.actionUrl }.json?`
-                if ( this.isMailchimp ) {
-                    const modified = this.actionUrl.replace('/post?', '/post-json?')
-                    return `${ modified }&`
-                }
-                return ''
-            }
+        token: {
+            type: String,
+            required: true
         },
-        methods: {
-            isSuccess (response) {
-                if ( this.isMadMimi ) return response.success
-                if ( this.isMailchimp ) return response.result == 'success'
-                return false
-            },
-            getErrorMessage (response) {
-                if ( this.isMadMimi ) return response.error
-                if ( this.isMailchimp ) return response.msg
-                return 'Something went wrong. Please try again.'
-            },
-            async onSubmit (e) {
+        successMessage: {
+            type: String,
+            default: 'Thank You!'
+        },
+        submitText: {
+            type: String,
+            default: 'Subscribe'
+        },
+        placeholder: {
+            type: String,
+            default: 'Email Address'
+        },
+        transitionName: {
+            type: String,
+            default: 'newsletter-submit'
+        }
+    },
+    data() {
+        return {
+            success: false,
+            errorMessage: '',
+            loading: false
+        }
+    },
+    computed: {
+        isMadMimi() {
+            return this.provider == 'madmimi'
+        },
+        isMailchimp() {
+            return this.provider == 'mailchimp'
+        },
+        state() {
+            if (this.success) return 'success'
+            else if (this.errorMessage) return 'error'
+            return 'none'
+        },
+        callbackName() {
+            if (this.isMadMimi) return 'callback'
+            if (this.isMailchimp) return 'c'
+            return ''
+        },
+        formAction() {
+            if (this.isMadMimi) return `${this.actionUrl}.json?`
+            if (this.isMailchimp) {
+                const modified = this.actionUrl.replace('/post?', '/post-json?')
+                return `${modified}&`
+            }
+            return ''
+        }
+    },
+    methods: {
+        isSuccess(response) {
+            if (this.isMadMimi) return response.success
+            if (this.isMailchimp) return response.result == 'success'
+            return false
+        },
+        getErrorMessage(response) {
+            if (this.isMadMimi) return response.error
+            if (this.isMailchimp) return response.msg
+            return 'Something went wrong. Please try again.'
+        },
+        async onSubmit(e) {
+            // serlize form data
+            const formData = new FormData(this.$refs.form)
+            const serialized = [...formData.entries()].map(e => {
+                return `${encodeURIComponent(e[0])}=${encodeURIComponent(e[1])}`
+            })
 
-                // serlize form data
-                const formData = new FormData(this.$refs.form)
-                const serialized = [...formData.entries()].map(e => {
-                    return `${ encodeURIComponent(e[0]) }=${ encodeURIComponent(e[1]) }`
-                })
-
-                // send request
-                this.loading = true
-                try {
-                    const response = await fetchJsonp(this.formAction + serialized.join('&'), {
+            // send request
+            this.loading = true
+            try {
+                const response = await fetchJsonp(
+                    this.formAction + serialized.join('&'),
+                    {
                         jsonpCallback: this.callbackName
-                    }).then(r => r.json())
+                    }
+                ).then(r => r.json())
 
-                    // handle error or success
-                    if ( this.isSuccess(response) ) this.success = true
-                    else this.errorMessage = this.getErrorMessage(response)
-
-                } catch (err) {
-                    this.errorMessage = 'Something went wrong.'
-                }
-                this.loading = false
-
+                // handle error or success
+                if (this.isSuccess(response)) this.success = true
+                else this.errorMessage = this.getErrorMessage(response)
+            } catch (err) {
+                this.errorMessage = 'Something went wrong.'
             }
+            this.loading = false
         }
     }
+}
 </script>
 
 <style lang="scss">
-
-    // define transition
-    .newsletter-submit-enter-active,
-    .newsletter-submit-leave-active {
-        transition: opacity 300ms;
-    }
-    .newsletter-submit-enter,
-    .newsletter-submit-leave-to {
-        opacity: 0;
-    }
-
+// define transition
+.newsletter-submit-enter-active,
+.newsletter-submit-leave-active {
+    transition: opacity 300ms;
+}
+.newsletter-submit-enter,
+.newsletter-submit-leave-to {
+    opacity: 0;
+}
 </style>
