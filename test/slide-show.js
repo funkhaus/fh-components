@@ -10,7 +10,6 @@ const getWrapper = (props = {}, slots = {}) => {
 }
 
 describe('Slideshow', () => {
-
     it('Renders a div as the base element.', () => {
         assert.ok(getWrapper().is('div'))
     })
@@ -24,10 +23,13 @@ describe('Slideshow', () => {
     })
 
     it('Renders both nav slots correctly.', () => {
-        const wrapper = getWrapper({ slides: [1, 2, 3] }, {
-            'nav-next': '<strong />',
-            'nav-prev': '<em />'
-        })
+        const wrapper = getWrapper(
+            { slides: [1, 2, 3] },
+            {
+                'nav-next': '<strong />',
+                'nav-prev': '<em />'
+            }
+        )
         assert.ok(wrapper.contains('.nav.next strong'))
         assert.ok(wrapper.contains('.nav.prev em'))
     })
@@ -56,5 +58,4 @@ describe('Slideshow', () => {
         // started at 0, went around the loop
         assert.equal(wrapper.vm.activeIndex, 0)
     })
-
 })

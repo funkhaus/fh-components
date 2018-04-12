@@ -13,7 +13,6 @@ let wrapper = () => {
 }
 
 describe('Split Text', () => {
-
     it('Has before and after slots', () => {
         assert.ok(wrapper().findAll('h1').length == 2)
     })
@@ -37,7 +36,11 @@ describe('Split Text', () => {
 
     it('Correctly renders only specified piece', () => {
         const cmp = wrapper()
-        cmp.setProps({ wrapper: 'div', text: 'First &#8211; Second', pieces: 1 })
+        cmp.setProps({
+            wrapper: 'div',
+            text: 'First &#8211; Second',
+            pieces: 1
+        })
         assert.ok(cmp.find('span').text() == 'Second')
     })
 
@@ -85,7 +88,6 @@ describe('Split Text', () => {
             separator: ['xyz', '@'],
             text: 'No - matches - here'
         })
-        assert.ok(cmp.findAll('span').length == 1, )
+        assert.ok(cmp.findAll('span').length == 1)
     })
-
 })

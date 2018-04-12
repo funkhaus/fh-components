@@ -8,7 +8,7 @@
         "dev": "webpack --progress --colors --watch",
         "test": "mocha test/index.js",
         "prepare": "npm run build",
-        "format": "prettier --write 'src/**/*+(.js|.vue|.scss)'",
+        "format": "prettier --write '+(src|test)/**/*+(.js|.vue|.scss)'",
         "precommit": "pretty-quick --staged"
     },
     "repository": {

@@ -6,7 +6,6 @@ import assert from 'assert'
 let wrapper = mount(ADiv)
 
 describe('a-div', () => {
-
     it('Renders an empty div if nothing provided', () => {
         assert.ok(wrapper.is('div'))
     })
@@ -51,5 +50,4 @@ describe('a-div', () => {
         wrapper.setProps({ href: '/any-link' })
         assert.ok(wrapper.classes().includes('a-span'))
     })
-
 })
