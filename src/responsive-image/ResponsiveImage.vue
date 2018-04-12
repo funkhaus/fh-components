@@ -2,7 +2,14 @@
     <div :class="classes" :style="outerStyles">
 
         <div
-            v-if="parsedSrc || html"
+            v-if="parsedVideoSrc"
+            class="image-sizer"
+            :style="sizerStyles"
+        >
+            <video :src="parsedVideoSrc" autoplay loop playsinline :muted="volume <= 0" :poster="parsedPoster" />
+        </div>
+        <div
+            v-else-if="parsedSrc || html"
             class="image-sizer"
             :style="sizerStyles"
             v-html="innerHtml"
@@ -14,6 +21,7 @@
 
 <script>
 import imagesLoaded from 'imagesloaded'
+import _clamp from 'lodash/clamp'
 import _get from 'lodash/get'
 import Vue from 'vue'
 
@@ -52,6 +60,10 @@ export default {
         poster: {
             type: [String],
             default: ''
+        },
+        volume: {
+            type: Number,
+            default: 0
         }
     },
     data() {
@@ -67,10 +79,14 @@ export default {
         },
         innerHtml() {
             this.setMediaClass()
+        },
+        volume() {
+            this.setVolume()
         }
     },
     mounted() {
         this.setMediaClass()
+        this.setVolume()
     },
     created() {
         const img = new Image()
@@ -106,6 +122,14 @@ export default {
                 const media = this.$el.querySelector('.image-sizer > *')
                 if (media) media.classList.add('media')
             })
+        },
+        async setVolume() {
+            await Vue.nextTick()
+
+            const video = this.$el.querySelector('video')
+            if (video) {
+                video.volume = _clamp(this.volume, 0, 1)
+            }
         }
     },
     computed: {
@@ -119,7 +143,7 @@ export default {
             ]
         },
         innerHtml() {
-            return this.videoTag || this.imageTag || ''
+            return this.imageTag || ''
         },
         parsedSrc() {
             if (this.src) return this.src
@@ -158,15 +182,6 @@ export default {
                 _get(this.object, 'alt', '')
             if (this.videoSrc || this.videoSrc === false) return this.videoSrc
             else return String(metaString).includes('.mp4') ? metaString : ''
-        },
-        videoTag() {
-            return this.parsedVideoSrc
-                ? `<video src="${
-                      this.parsedVideoSrc
-                  }" autoplay loop muted playsinline poster="${
-                      this.parsedPoster
-                  }"></video>`
-                : ''
         },
         outerStyles() {
             const styles = {}
