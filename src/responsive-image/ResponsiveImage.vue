@@ -5,10 +5,9 @@
             v-if="parsedSrc || html"
             class="image-sizer"
             :style="sizerStyles"
-            v-html="videoTag || imageTag || ''"
+            v-html="innerHtml"
         />
-
-        <slot></slot>
+        <slot />
 
     </div>
 </template>
@@ -16,6 +15,7 @@
 <script>
 import imagesLoaded from 'imagesloaded'
 import _get from 'lodash/get'
+import Vue from 'vue'
 
 export default {
     props: {
@@ -64,7 +64,13 @@ export default {
     watch: {
         object() {
             this.setObjectDimensions()
+        },
+        innerHtml() {
+            this.setMediaClass()
         }
+    },
+    mounted() {
+        this.setMediaClass()
     },
     created() {
         const img = new Image()
@@ -92,6 +98,14 @@ export default {
                 this.imageWidth = _get(this.targetSize, `width`)
                 this.imageHeight = _get(this.targetSize, `height`)
             }
+        },
+        setMediaClass() {
+            // give the "media" class to whatever we are rendering (img or video)
+            if (!this.$el || !this.$el.querySelector) return
+            Vue.nextTick(() => {
+                const media = this.$el.querySelector('.image-sizer > *')
+                if (media) media.classList.add('media')
+            })
         }
     },
     computed: {
@@ -103,6 +117,9 @@ export default {
                 { 'fill-space': this.fillSpace },
                 { 'has-video': this.parsedVideoSrc }
             ]
+        },
+        innerHtml() {
+            return this.videoTag || this.imageTag || ''
         },
         parsedSrc() {
             if (this.src) return this.src
