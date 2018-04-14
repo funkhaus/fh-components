@@ -21,9 +21,7 @@
                 v-for="(child, i) in children"
                 :item="child"
                 :key="i"
-            >
-                <slot />
-            </menu-item>
+            />
         </ul>
 
     </li>
@@ -31,6 +29,7 @@
 
 <script>
 export default {
+    name: 'menu-item',
     props: {
         item: {
             type: Object,
