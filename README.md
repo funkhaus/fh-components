@@ -500,7 +500,7 @@ If you pass an object, your available parameters are:
     <!-- method defined in Vue instance with additional argument -->
     <router-link v-for="(link, i) in links) v-interact="evt => startInteract(evt, i)">
 
-    <!-- mouseleave/focus event -->
+    <!-- mouseleave/blur event -->
     <router-link v-interact.end="endInteract">
 
     <!-- custom events -->
