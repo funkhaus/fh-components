@@ -22,6 +22,7 @@ Reusable components and directives for Vue. Designed for [Vuepress](https://gith
 1.  [Directives](#directives)
     1.  [full-height](#full-height)
     1.  [in-view](#in-view)
+    1.  [interact](#interact)
     1.  [reverse-hover](#reverse-hover)
 1.  [Testing](#testing)
 1.  [Contributing](#contributing)
@@ -470,6 +471,41 @@ Directives may also have "modifiers" to go with them. Modifiers can be used like
 
 *   Applies classes to an element based on its viewport visibility.
 *   Can also fire callbacks when an element has entered or left the viewport.
+
+## `interact`
+
+**Arguments**
+
+You can pass either a function or an object to `v-interact`. If you pass a function, that function will act as the `callback` parameter below.
+
+If you pass an object, your available parameters are:
+
+*   `callback`: Function, default `() => {}`. Callback to fire when any event triggers.
+*   `events`: Array of objects, default `{ mouseenter: callback, focus: callback }` or `{ mouseleave: callback, blur: callback }`, depending on whether the `end` modifier exists (see below). The keys in this object are event types, the values are the functions to call on those events.
+
+**Modifiers**
+
+*   `end` - Consolidates `mouseleave` and `blur` instead of `mouseenter` and `focus`.
+
+**Notes**
+
+*   Event consolidator that handles both `mouseenter`/`focus` and `mouseleave`/`blur`.
+*   `v-interact` funnels multiple events into one callback and/or event. It's designed to consolidate mouseenter/focus and mouseleave/blur, but it can be used with any set of events.
+*   Example:
+
+    ```
+    <!-- method defined in Vue instance - receives event as argument -->
+    <router-link v-interact="startInteract">
+
+    <!-- method defined in Vue instance with additional argument -->
+    <router-link v-for="(link, i) in links) v-interact="evt => startInteract(evt, i)">
+
+    <!-- mouseleave/focus event -->
+    <router-link v-interact.end="endInteract">
+
+    <!-- custom events -->
+    <router-link v-interact="{ events: { mousedown: clicked, mouseup: clicked } }">
+    ```
 
 ## `reverse-hover`
 
