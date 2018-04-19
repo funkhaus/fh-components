@@ -93,8 +93,9 @@ export default {
         }
     },
     methods: {
-        runFitvids() {
+        async runFitvids() {
             if (!this.fitvids) return
+            await Vue.nextTick()
             fitvids('.wp-content')
         }
     },

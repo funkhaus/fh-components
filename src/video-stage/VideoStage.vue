@@ -1,7 +1,7 @@
 <template>
     <div
         v-if="iframeCode"
-        :class="['video-stage-module', 'size-parent', { loading: loadingEmbed }]"
+        :class="classes"
     >
         <slot name="before" />
         <div class="iframe" v-html="iframeCode || ''" />
@@ -77,6 +77,13 @@ export default {
         },
         embedIsVimeo() {
             return this.parsedEmbed && this.parsedEmbed.includes('vimeo.com')
+        },
+        classes() {
+            return [
+                'video-stage-module',
+                'size-parent',
+                { loading: this.loadingEmbed }
+            ]
         }
     },
     methods: {
@@ -145,12 +152,14 @@ export default {
             }
         },
         destroyVimeoPlayer() {
-            // set iframe events
-            this.player.off('play', this.onPlay)
-            this.player.off('pause', this.onPause)
-            this.player.off('ended', this.onEnded)
+            if (this.player) {
+                // set iframe events
+                this.player.off('play', this.onPlay)
+                this.player.off('pause', this.onPause)
+                this.player.off('ended', this.onEnded)
 
-            this.player = null
+                this.player = null
+            }
         },
         isVimeo(url) {
             return String(url).match(RegExp('https?://(.+.)?vimeo.com/.*'))
