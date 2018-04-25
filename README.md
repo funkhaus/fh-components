@@ -14,6 +14,7 @@ Reusable components and directives for Vue. Designed for [Vuepress](https://gith
     1.  [slide-show](#slide-show)
     1.  [split-text](#split-text)
     1.  [sticky-wrap](#sticky-wrap)
+    1.  [text-typer](#text-typer)
     1.  [transition-fade](#transition-fade)
     1.  [video-stage](#video-stage)
     1.  [velocity-animate](#velocity-animate)
@@ -271,6 +272,24 @@ If css transitions alone are not enough for the effect you want, you can opt to 
     <p>I'll be stuck too</p>
 </sticky-wrap>
 ```
+
+## `text-typer`
+
+**Props**
+
+*   `wrapper`: String, default `span`. Wrapper element for the typed text.
+*   `html`: String, default `''`. HTML to be typed out.
+*   `minTime`: Number, default `2`. Minimum number of ms to pass between keystrokes.
+*   `maxtime`: Number, default `5`. Maximum number of ms to pass between keystrokes.
+
+**Classes**
+
+*   `text-typer`
+
+**Notes**
+
+*   Element to create a text typing effect that preserves HTML tags.
+*   Uses a naive tag splitter that just detects for the presence of `<` or `>` characters.
 
 ## `transition-fade`
 
