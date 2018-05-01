@@ -25,7 +25,7 @@ export default {
         }
     },
     components: {
-        'menu-item': require('../wp-menu-item/WpMenuItem.vue')
+        'menu-item': require('../../wp-menu-item')
     },
     computed: {
         targetSlug() {
