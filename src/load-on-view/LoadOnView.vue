@@ -60,7 +60,7 @@ export default {
             this.ready = false
             if (this.url) {
                 try {
-                    const r = await fetch(this.url, thid.fetchConfig)
+                    const r = await fetch(this.url, this.fetchConfig)
                     if (!r.ok) this.$emit('error', r.status)
 
                     let data = null
