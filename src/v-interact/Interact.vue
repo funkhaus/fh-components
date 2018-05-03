@@ -1,5 +1,5 @@
 <script>
-import _get from 'lodash.get'
+import _get from 'lodash/get'
 let allEvents = {}
 let savedEvents = {}
 let el = null

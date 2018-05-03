@@ -9,6 +9,7 @@ Reusable components and directives for Vue. Designed for [Vuepress](https://gith
     1.  [a-div](#a-div)
     1.  [flex-text](#flex-text)
     1.  [hamburger-button](#hamburger-button)
+    1.  [load-on-view](#load-on-view)
     1.  [responsive-image](#responsive-image)
     1.  [scroll-to](#scroll-to)
     1.  [slide-show](#slide-show)
@@ -88,6 +89,28 @@ Vue.component('component-name', require('fh-components/component-name'))
 **Notes**
 
 *   Lightweight hamburger SVG with open and closed states. Calls Vuepress's `'OPEN_MENU'` or `'CLOSE_MENU'` when clicked, depending on current `activated` state. Will also update correctly when menu is opened or closed elsewhere.
+
+## `load-on-view`
+
+This component will keep track of its own scroll position, and when it enters the viewport will send a fetch request to a provided URL, emitting any resulting error or data through events. This is most useful for "infinite-scroll" functionality, where you feed pagination URLs into this component and use the resulting request data.
+
+### Props
+
+| Name          |  Type   |             Default              | Description                                                                                  |
+| ------------- | :-----: | :------------------------------: | -------------------------------------------------------------------------------------------- |
+| `url`         | String  |               `''`               | Target URL to send a fetch request to once the component is in view.                         |
+| `repeatUrl`   | Boolean |             `false`              | If set to false, load-on-view will not send the next request until the provided URL changes. |
+| `fetchConfig` | Object  | `{ credentials: 'same-origin' }` | An configuration object to be used with the fetch request.                                   |
+
+### Events
+
+| Name        | Callback Signature | Description                                                                                           |
+| ----------- | :----------------: | ----------------------------------------------------------------------------------------------------- |
+| `data`      |     (response)     | Fired whenever a fetch request is completed and returns a 2xx status code                             |
+| `error`     |       (err)        | Fired whenever an error occurs during the fetch request, or when the request returns a non-2xx status |
+| `on-text`   |     (textData)     | Fired when a fetch is completed and the contentType of the response is text                           |
+| `on-json`   |     (jsonData)     | Fired when a fetch is completed and the contentType of the response is json                           |
+| `on-buffer` |   (arrayBuffer)    | Fired when a fetch is completed and the contentType of the response is neither text nor json          |
 
 ## `responsive-image`
 
