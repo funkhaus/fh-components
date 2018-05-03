@@ -56,6 +56,7 @@
 
 <script>
 import _clamp from 'lodash/clamp'
+import Hammer from 'hammerjs'
 import _get from 'lodash/get'
 
 export default {
@@ -67,6 +68,11 @@ export default {
         },
         // determines if slideshow should be on timer
         auto: {
+            type: Boolean,
+            default: true
+        },
+        // determines if swipe should be enabled
+        swipe: {
             type: Boolean,
             default: true
         },
@@ -142,16 +148,21 @@ export default {
             transitioning: false,
             direction: 'next',
             internalIndex: 0,
-            timer: null
+            timer: null,
+            hammertime: null
         }
     },
     mounted() {
         if (this.auto) this.startTimer()
         this.setKeyboardListeners()
+        this.initHammer()
     },
     destroyed() {
         this.stopTimer()
         this.clearKeyboardListeners()
+        if (this.hammertime) {
+            this.hammertime.destroy()
+        }
     },
     watch: {
         activeIndex(next, prv) {
@@ -273,6 +284,15 @@ export default {
         },
         proxyLeave() {
             this.$emit('leave', ...arguments)
+        },
+        initHammer() {
+            this.hammertime = new Hammer(this.$el)
+            this.hammertime.on('swipeleft', () => {
+                if (this.swipe) this.manualNext()
+            })
+            this.hammertime.on('swiperight', () => {
+                if (this.swipe) this.manualPrev()
+            })
         }
     }
 }
