@@ -6,7 +6,14 @@
             class="image-sizer"
             :style="sizerStyles"
         >
-            <video :src="parsedVideoSrc" autoplay loop playsinline :muted="volume <= 0" :poster="parsedPoster" />
+            <video
+                :src="parsedVideoSrc"
+                autoplay
+                loop
+                playsinline
+                :muted="volume <= 0"
+                :poster="parsedPoster"
+            />
         </div>
         <div
             v-else-if="parsedSrc || html"
@@ -43,7 +50,7 @@ export default {
         },
         color: {
             type: String,
-            default: 'transparent'
+            default: ''
         },
         'respect-max': {
             type: Boolean,
@@ -169,7 +176,11 @@ export default {
             return this.imageWidth
         },
         parsedColor() {
-            return _get(this.object, 'primary_color') || this.color
+            return (
+                this.color ||
+                _get(this.object, 'primary_color') ||
+                'transparent'
+            )
         },
         aspectPadding() {
             // default to defined aspect, or calculate
