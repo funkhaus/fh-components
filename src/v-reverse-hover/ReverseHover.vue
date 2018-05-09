@@ -9,10 +9,12 @@ function reverseHover(el, binding) {
     const elActivatedClass = bindingValue.elActivatedClass || 'rh-active'
 
     // Read selectors, if we have any
-    if (bindingValue.selector) {
-        selectors = [bindingValue.selector]
-    } else if (bindingValue.selectors) {
-        selectors = bindingValue.selectors
+    if (bindingValue.selectors) {
+        if (typeof bindingValue.selectors == 'string') {
+            selectors = [bindingValue.selectors]
+        } else {
+            selectors = bindingValue.selectors
+        }
     }
 
     // for each selector...
