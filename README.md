@@ -10,6 +10,7 @@ Reusable components and directives for Vue. Designed for [Vuepress](https://gith
     1.  [flex-text](#flex-text)
     1.  [hamburger-button](#hamburger-button)
     1.  [load-on-view](#load-on-view)
+    1.  [mailing-list](#mailing-list)
     1.  [responsive-image](#responsive-image)
     1.  [scroll-to](#scroll-to)
     1.  [slide-show](#slide-show)
@@ -111,6 +112,44 @@ This component will keep track of its own scroll position, and when it enters th
 | `on-text`   |     (textData)     | Fired when a fetch is completed and the contentType of the response is text                           |
 | `on-json`   |     (jsonData)     | Fired when a fetch is completed and the contentType of the response is json                           |
 | `on-buffer` |   (arrayBuffer)    | Fired when a fetch is completed and the contentType of the response is neither text nor json          |
+
+## `mailing-list`
+
+**Props**
+
+| Name             | Type   | Default             | Description                                                   |
+| ---------------- | ------ | ------------------- | ------------------------------------------------------------- |
+| `provider`       | String | `mailchimp`         | Newsletter service provider. Either `mailchimp` or `madmimi`. |
+| `actionUrl`      | String | none (required)     | Action URL for signup form.                                   |
+| `token`          | String | none (required)     | API token.                                                    |
+| `successMessage` | String | `Thank You!`        | Message to show to user on successful signup                  |
+| `submitText`     | String | `Subscribe`         | Text on 'submit signup' button                                |
+| `placeholder`    | String | `Email Address`     | Placeholder text for email address input                      |
+| `transitionName` | String | `newsletter-submit` | Name for transition wrapping mailing-list element             |
+
+**Classes**
+
+*   `fh-mailing-list`
+*   `loading`: if mailing list request has been submitted
+*   `state-${ state }`: either `state-success`, `state-error`, or `state-none`, depending on submission state
+*   `provider-${ provider }`: either `provider-mailchimp` or `provider-madmimi`
+
+**Slots**
+
+| Name          | Location                                                                                    |
+| ------------- | ------------------------------------------------------------------------------------------- |
+| `top`         | First element in mailing list wrapper, before any inputs                                    |
+| `before-form` | Wrapped by transition, appears before input form (hidden after form submitted successfully) |
+| `after-form`  | Wrapped by transition, appears after input form (hidden after form submitted successfully)  |
+| `success`     | Appears after successful submission and `successMessage` prop                               |
+| `error`       | Appears after form if error detected. Not wrapper by transition element.                    |
+| `bottom`      | Last element in mailing list wrapper. After all inputs and transition wrap.                 |
+
+**Notes**
+
+*   Element to build out common mailing list signups.
+*   Requires an action URL and an API token.
+    *   **Mailchimp**: The action URL is the value of the `action` attribute on the `form` element in the form builder, and the API token is the value of the `name` attribute on the input wrapped by the `left: -5000px` div.
 
 ## `responsive-image`
 
@@ -641,7 +680,9 @@ Reusable components are only helpful if they're easy to reuse! Fill in this temp
 
 **Props**
 
-*   `prop-name`: Type, default `default value`. Brief explanation of purpose.
+| Name       | Type | Default   | Description     |
+| ---------- | ---- | --------- | --------------- |
+| `propName` | Type | `default` | About this prop |
 
 **Classes**
 
