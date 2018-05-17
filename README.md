@@ -415,7 +415,7 @@ This will make the h2 fade in, then the h3 fade in and p tag slide in from the l
 **Props**
 
 *   `src`: String, default `''`. The source of the video to embed. This can either be a full iframe code, or for Vimeo videos can just be a permalink to the video.
-*   `autoplay`: Boolean, default `true`. Controls whether the component should attempt to autoplay the video. Only vimeo videos support autoplay at the moment.
+*   `autoplay`: Boolean, default `false`. Controls whether the component should attempt to autoplay the video. Only vimeo videos support autoplay at the moment.
 *   `autoOffsets`: Boolean, default `true`. If set to true, the components will attempt to automatically calculate a fitToParent offset based on the dimensions of any slot elements provided.
 *   `paused`: Boolean, default `false`. If set to true, the player will pause; if false, the player will play.
 *   `muted`: Boolean, default `false`. If set to true, Vimeo player will start muted.
