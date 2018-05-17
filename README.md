@@ -145,6 +145,12 @@ This component will keep track of its own scroll position, and when it enters th
 | `error`       | Appears after form if error detected. Not wrapper by transition element.                    |
 | `bottom`      | Last element in mailing list wrapper. After all inputs and transition wrap.                 |
 
+**Events**
+
+| Name               | Payload                                      | Trigger                                  |
+| ------------------ | -------------------------------------------- | ---------------------------------------- |
+| `addressSubmitted` | `{ success: Boolean, errorMessage: String }` | Fires when an email address is submitted |
+
 **Notes**
 
 *   Element to build out common mailing list signups.

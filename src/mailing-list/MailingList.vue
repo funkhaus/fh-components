@@ -151,6 +151,12 @@ export default {
             } catch (err) {
                 this.errorMessage = 'Something went wrong.'
             }
+
+            this.$emit('addressSubmitted', {
+                success: this.success,
+                errorMessage: this.errorMessage
+            })
+
             this.loading = false
         }
     }
