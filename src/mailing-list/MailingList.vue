@@ -49,6 +49,7 @@
 
 <script>
 import fetchJsonp from 'fetch-jsonp'
+import Cookies from 'js-cookie'
 
 export default {
     props: {
@@ -82,6 +83,14 @@ export default {
         transitionName: {
             type: String,
             default: 'newsletter-submit'
+        },
+        delay: {
+            type: Number,
+            default: 5000
+        },
+        cookieLength: {
+            type: Number,
+            default: 30
         }
     },
     data() {
@@ -158,6 +167,12 @@ export default {
             })
 
             this.loading = false
+        }
+    },
+    mounted() {
+        if (!Cookies.get('newsletter')) {
+            setTimeout(() => this.$emit('cookieCreated'), this.delay)
+            Cookies.set('newsletter', 'true', { expires: this.cookieLength })
         }
     }
 }

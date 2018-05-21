@@ -38,6 +38,7 @@
         "fitvids": "^2.0.0",
         "hammerjs": "^2.0.8",
         "imagesloaded": "^4.1.3",
+        "js-cookie": "^2.2.0",
         "lodash": "^4.17.5",
         "scroll-to-element": "^2.0.0",
         "velocity-animate": "^1.5.1",

@@ -126,6 +126,8 @@ This component will keep track of its own scroll position, and when it enters th
 | `submitText`     | String | `Subscribe`         | Text on 'submit signup' button                                |
 | `placeholder`    | String | `Email Address`     | Placeholder text for email address input                      |
 | `transitionName` | String | `newsletter-submit` | Name for transition wrapping mailing-list element             |
+| `delay`          | Number | 5000                | Time in ms to wait before firing `cookieCreated` event        |
+| `cookieLength`   | Number | 30                  | Time in days until cookie expires                             |
 
 **Classes**
 
@@ -147,15 +149,17 @@ This component will keep track of its own scroll position, and when it enters th
 
 **Events**
 
-| Name               | Payload                                      | Trigger                                  |
-| ------------------ | -------------------------------------------- | ---------------------------------------- |
-| `addressSubmitted` | `{ success: Boolean, errorMessage: String }` | Fires when an email address is submitted |
+| Name               | Payload                                      | Trigger                                                                  |
+| ------------------ | -------------------------------------------- | ------------------------------------------------------------------------ |
+| `addressSubmitted` | `{ success: Boolean, errorMessage: String }` | Fires when an email address is submitted                                 |
+| `cookieCreated`    | null                                         | Fired when a cookie is created. (Designed to trigger overlay activation) |
 
 **Notes**
 
 *   Element to build out common mailing list signups.
 *   Requires an action URL and an API token.
     *   **Mailchimp**: The action URL is the value of the `action` attribute on the `form` element in the form builder, and the API token is the value of the `name` attribute on the input wrapped by the `left: -5000px` div.
+*   Waits `delay` ms, then fires the `cookieCreated` event and creates a cookie that prevents firing that event again for `cookieLength` days.
 
 ## `responsive-image`
 
