@@ -27,6 +27,8 @@ Reusable components and directives for Vue. Designed for [Vuepress](https://gith
     1.  [in-view](#in-view)
     1.  [interact](#interact)
     1.  [reverse-hover](#reverse-hover)
+1.  [Mixins](#mixins)
+    1.  [Idle](#idle)
 1.  [Testing](#testing)
 1.  [Contributing](#contributing)
     1.  [Prep](#prep)
@@ -647,6 +649,49 @@ When hovering/focusing over any `.link` element, the `.container` will receive t
 ```html
 <ul v-reverse-hover="{ selectors: ['a', 'button'] /* <a> and <button> tags will trigger the reverse-hover */ }">
 ```
+
+# Mixins
+
+To use an fh-component mixin:
+
+```js
+import mixin from 'fh-components/mixins/mixin-name'
+
+export default {
+    mixins: [mixin]
+}
+```
+
+Mixins define component properties, lifecycle hooks, data, and more to save you time when writing new components.
+
+## `idle`
+
+### Adds
+
+| Name        | Type    | Description                                     |
+| ----------- | ------- | ----------------------------------------------- |
+| `idle`      | Boolean | Whether or not the component is idle.           |
+| `idleDelay` | Number  | How long, in ms, to wait before marking as idle |
+
+### Notes
+
+Fires an event after a given number of ms. For example:
+
+```html
+<template>
+    <img src="img.png" v-show="idle">
+</template>
+
+<script>
+import idle from 'fh-components/mixins/idle.js'
+
+export default {
+    mixins: [idle]
+}
+</script>
+```
+
+This will hide the image after 5 seconds of inactivity and show it again when the user scrolls or moves the mouse.
 
 # Testing
 
