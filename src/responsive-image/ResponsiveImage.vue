@@ -8,8 +8,8 @@
         >
             <video
                 :src="parsedVideoSrc"
-                :autoplay="autoplay"
-                :loop="loop"
+                autoplay
+                loop
                 playsinline
                 :muted="volume <= 0"
                 :poster="parsedPoster"
@@ -71,14 +71,6 @@ export default {
         volume: {
             type: Number,
             default: 0
-        },
-        autoplay: {
-            type: Boolean,
-            default: false
-        },
-        loop: {
-            type: Boolean,
-            default: true
         }
     },
     data() {

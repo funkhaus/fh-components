@@ -165,7 +165,7 @@ This component will keep track of its own scroll position, and when it enters th
 
 ## `responsive-image`
 
-### Props
+**Props**
 
 *   `object`: Object, default `{}`. Serialized [Rest-Easy attachment](https://github.com/funkhaus/Rest-Easy#serializer-filters). Fills out the rest of these props automatically except `fit`.
 *   `html`: String, default ''. Desired <img> element as an HTML string. Provides all the sizing, fade-in, etc. benefits of a regular responsive-image.
@@ -181,10 +181,8 @@ This component will keep track of its own scroll position, and when it enters th
 *   `fit`: String, default `'cover'`. Object-fit value for the image - `cover` or `contain`.
 *   `poster`: String or post, default `''`. URL to [poster](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video) for video. If `false`, no poster used; if blank, defaults to the parsed image source.
 *   `volume`: Number, default `0`. Controls the volume when rendering a video. If set to 0 (or not set) the video will be muted and will be able to autoplay.
-*   `autoplay`: Boolean, default `false`. Whether or not a video will autoplay.
-*   `loop`: Boolean, default `true`. Whether or not a video will loop.
 
-### Classes
+**Classes**
 
 *   `rsp-image-module`
 *   `fit-${fit}`: Either `fit-cover` or `fit-contain`, depending on the `fit` prop.
@@ -192,7 +190,7 @@ This component will keep track of its own scroll position, and when it enters th
 *   `fill-space`: only active if `fill-space` prop is set to `true`
 *   `has-video`: only active if `videoSrc` is truthy (see notes below).
 
-### Notes
+**Notes**
 
 *   Creates and fades in an image. Adds a placeholder for the image with a given background-color to prevent content jumping when the image loads.
 *   If you add a link to an .mp4 video in the "Alt" field in WordPress, this element will create and render a video, using the provided image as the poster (see "Poster" under "Attributes" [here](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video)).
