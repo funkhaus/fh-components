@@ -26,6 +26,7 @@ Reusable components and directives for Vue. Designed for [Vuepress](https://gith
     1.  [full-height](#full-height)
     1.  [in-view](#in-view)
     1.  [interact](#interact)
+    1.  [keydown](#keydown)
     1.  [reverse-hover](#reverse-hover)
 1.  [Mixins](#mixins)
     1.  [Idle](#idle)
@@ -600,6 +601,37 @@ If you pass an object, your available parameters are:
     <!-- custom events -->
     <router-link v-interact="{ events: { mousedown: clicked, mouseup: clicked } }">
     ```
+
+## `keydown`
+
+**Modifiers**
+
+*   `esc` - Only run callback on `esc` keydown.
+*   `up` - Only run callback on `up arrow` keydown.
+*   `right` - Only run callback on `right arrow` keydown.
+*   `down` - Only run callback on `down arrow` keydown.
+*   `left` - Only run callback on `left arrow` keydown.
+
+**Notes**
+
+Bind a global keydown listener to this component. Listener is created and destroyed with the component. For example, to implement an esc key toggle on a menu:
+
+```html
+<menu-component v-keydown.esc="() => $store.commit('TOGGLE_MENU')"/>
+```
+
+Note that the value must be an arrow function or a reference to a method in the Vue instance. These should work:
+
+```html
+<menu-component v-keydown.esc="toggleMenu"/>
+<menu-component v-keydown.esc="() => toggleMenu(false)"/>
+```
+
+But this won't:
+
+```html
+<menu-component v-keydown.esc="toggleMenu()"/>
+```
 
 ## `reverse-hover`
 
