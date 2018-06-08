@@ -562,6 +562,10 @@ Directives may also have "modifiers" to go with them. Modifiers can be used like
 *   `onLeaveAbove`: Function, default `null`. Method to call when an element leaves view, going above the screen. Accepts one argument, the element that has left the viewport.
 *   `onLeaveBelow`: Function, default `null`. Method to call when an element leaves view, going below the screen. Accepts one argument, the element that has left the viewport.
 
+**Modifiers**
+
+*   `appear`: If set, events and classes will be calculated on insertion.
+
 **Notes**
 
 *   Applies classes to an element based on its viewport visibility.
