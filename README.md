@@ -727,6 +727,19 @@ export default {
 
 This will hide the image after 5 seconds of inactivity and show it again when the user scrolls or moves the mouse.
 
+## `rect`
+
+### Adds
+
+| Name         | Type     | Description                                          |
+| ------------ | -------- | ---------------------------------------------------- |
+| `clientRect` | Object   | Object describing element dimensions.                |
+| `setRect`    | Function | Sets `clientRect` to given value. Called internally. |
+
+### Notes
+
+A quick and simple mixin for keeping track of the bounding box (`width`, `height`, `top`, and `left`, in screen-space px) of an element. Updated automatically on resize and scroll.
+
 # Testing
 
 `npm test` to run the tests defined in the `tests` directory.
