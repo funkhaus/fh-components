@@ -9,6 +9,7 @@ Reusable components and directives for Vue. Designed for [Vuepress](https://gith
     1.  [a-div](#a-div)
     1.  [flex-text](#flex-text)
     1.  [hamburger-button](#hamburger-button)
+    1.  [image-loader](#image-loader)
     1.  [load-on-view](#load-on-view)
     1.  [mailing-list](#mailing-list)
     1.  [responsive-image](#responsive-image)
@@ -93,6 +94,17 @@ Vue.component('component-name', require('fh-components/component-name'))
 **Notes**
 
 *   Lightweight hamburger SVG with open and closed states. Calls Vuepress's `'OPEN_MENU'` or `'CLOSE_MENU'` when clicked, depending on current `activated` state. Will also update correctly when menu is opened or closed elsewhere.
+
+## `image-loader`
+
+This component will, given a list of serialized images, preload those images.
+
+### Props
+
+| Name     | Type   | Default | Description                                        |
+| -------- | ------ | ------- | -------------------------------------------------- |
+| `images` | Array  | `[]`    | Array of serialized images or URL strings to load. |
+| `size`   | String | `full`  | WordPress name for image size to load.             |
 
 ## `load-on-view`
 
