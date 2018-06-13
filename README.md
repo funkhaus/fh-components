@@ -744,11 +744,11 @@ This will hide the image after 5 seconds of inactivity and show it again when th
 
 ### Adds
 
-| Name           | Type     | Description                                                      |
-| -------------- | -------- | ---------------------------------------------------------------- |
-| `clientRect`   | Object   | Object describing element dimensions.                            |
-| `setRect`      | Function | Sets `clientRect` to given value. Called internally.             |
-| `rectThrottle` | Number   | ms throttle before firing scroll and resize events. Default 150. |
+| Name           | Type     | Description                                                                        |
+| -------------- | -------- | ---------------------------------------------------------------------------------- |
+| `clientRect`   | Object   | Object describing element dimensions.                                              |
+| `setRect`      | Function | Update `clientRect`. Called internally. Can be called manually to force an update. |
+| `rectThrottle` | Number   | ms throttle before firing scroll and resize events. Default 150.                   |
 
 ### Notes
 
