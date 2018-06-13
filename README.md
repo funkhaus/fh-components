@@ -31,6 +31,7 @@ Reusable components and directives for Vue. Designed for [Vuepress](https://gith
     1.  [reverse-hover](#reverse-hover)
 1.  [Mixins](#mixins)
     1.  [Idle](#idle)
+    1.  [Rect](#rect)
 1.  [Testing](#testing)
 1.  [Contributing](#contributing)
     1.  [Prep](#prep)
@@ -743,10 +744,11 @@ This will hide the image after 5 seconds of inactivity and show it again when th
 
 ### Adds
 
-| Name         | Type     | Description                                          |
-| ------------ | -------- | ---------------------------------------------------- |
-| `clientRect` | Object   | Object describing element dimensions.                |
-| `setRect`    | Function | Sets `clientRect` to given value. Called internally. |
+| Name           | Type     | Description                                                      |
+| -------------- | -------- | ---------------------------------------------------------------- |
+| `clientRect`   | Object   | Object describing element dimensions.                            |
+| `setRect`      | Function | Sets `clientRect` to given value. Called internally.             |
+| `rectThrottle` | Number   | ms throttle before firing scroll and resize events. Default 150. |
 
 ### Notes
 
