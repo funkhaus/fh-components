@@ -10,7 +10,7 @@
                 :src="parsedVideoSrc"
                 @ended="$emit('ended', $event)"
                 autoplay
-                loop
+                :loop="loop"
                 playsinline
                 :muted="volume <= 0"
                 :poster="parsedPoster"
@@ -72,6 +72,10 @@ export default {
         volume: {
             type: Number,
             default: 0
+        },
+        loop: {
+            type: Boolean,
+            default: true
         }
     },
     data() {
