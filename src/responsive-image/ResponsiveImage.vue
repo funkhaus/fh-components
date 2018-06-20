@@ -8,6 +8,7 @@
         >
             <video
                 :src="parsedVideoSrc"
+                @ended="$emit('ended', $event)"
                 autoplay
                 loop
                 playsinline
