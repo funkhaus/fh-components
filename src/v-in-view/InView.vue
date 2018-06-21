@@ -123,7 +123,7 @@ export default {
         // initial class
         setHeight(el, opts)
         setRect(el, opts)
-        setClass(el, opts, binding.modifiers.appear)
+        setClass(el, opts, binding.modifiers.appear != undefined)
     }
 }
 </script>
