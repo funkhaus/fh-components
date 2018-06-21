@@ -1,5 +1,6 @@
 <script>
 import throttle from 'lodash/throttle'
+import Vue from 'vue'
 
 let height = 0
 let top = 0
@@ -84,7 +85,7 @@ function setClass(el, opts, runEvents = true) {
 }
 
 export default {
-    bind: function(el, binding) {
+    bind: async function(el, binding) {
         const bindingValue = binding.value || {}
         const opts = {
             aboveClass: bindingValue.above || 'above-view',
@@ -120,10 +121,19 @@ export default {
             }, opts.throttle)
         )
 
+        // wait so we render the element
+        await Vue.nextTick()
+
         // initial class
         setHeight(el, opts)
         setRect(el, opts)
-        setClass(el, opts, binding.modifiers.appear != undefined)
+
+        // run events if we're in the viewport and the 'appear' modifier is set
+        const runEvents =
+            binding.modifiers.appear != undefined &&
+            top + height > 0 &&
+            top < window.innerHeight
+        setClass(el, opts, runEvents)
     }
 }
 </script>
