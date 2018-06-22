@@ -32,6 +32,7 @@ Reusable components and directives for Vue. Designed for [Vuepress](https://gith
 1.  [Mixins](#mixins)
     1.  [Idle](#idle)
     1.  [Rect](#rect)
+    1.  [Sequence](#sequence)
 1.  [Testing](#testing)
 1.  [Contributing](#contributing)
     1.  [Prep](#prep)
@@ -749,6 +750,20 @@ This will hide the image after 5 seconds of inactivity and show it again when th
 | `clientRect`   | Object   | Object describing element dimensions.                                              |
 | `setRect`      | Function | Update `clientRect`. Called internally. Can be called manually to force an update. |
 | `rectThrottle` | Number   | ms throttle before firing scroll and resize events. Default 150.                   |
+
+## `sequence`
+
+Increment a number over a time period. Useful for [sequential fading on work grids](http://carbonvfx.com/), for example.
+
+### Adds
+
+| Name                    | Type                | Description                                                                                                                                        |
+| ----------------------- | ------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `sequenceStep`          | Number, default 0   | Current step of the sequence.                                                                                                                      |
+| `sequenceMax`           | Number, default 100 | Maximum number for the sequence to count to.                                                                                                       |
+| `sequenceStepLength`    | Number, default 300 | ms between each `sequenceStep` increment                                                                                                           |
+| `sequenceInitialDelay`  | Number, default 0   | ms to wait before starting the count-up                                                                                                            |
+| `incrementSequenceStep` | Function            | Increment `sequenceStep` by 1. If `sequenceStep` is less than `sequenceMax`, set a timeout to call this function again in `sequenceStepLength` ms. |
 
 ### Notes
 
