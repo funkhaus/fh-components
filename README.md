@@ -96,6 +96,7 @@ Vue.component('component-name', require('fh-components/component-name'))
 **Notes**
 
 *   Lightweight hamburger SVG with open and closed states. Calls Vuepress's `'OPEN_MENU'` or `'CLOSE_MENU'` when clicked, depending on current `activated` state. Will also update correctly when menu is opened or closed elsewhere.
+*   Default slot is a three-line hamburger icon that changes to an "X" when activated. The user can replace this with their own gif if they want.
 
 ## `image-loader`
 
