@@ -19,6 +19,7 @@ Reusable components and directives for Vue. Designed for [Vuepress](https://gith
     1.  [sticky-wrap](#sticky-wrap)
     1.  [text-typer](#text-typer)
     1.  [transition-fade](#transition-fade)
+    1.  [transition-slide-toggle](#transition-slide-toggle)
     1.  [video-stage](#video-stage)
     1.  [velocity-animate](#velocity-animate)
     1.  [wp-content](#wp-content)
@@ -391,6 +392,12 @@ If css transitions alone are not enough for the effect you want, you can opt to 
 **Notes**
 
 *   Fades the contained element over 0.4 seconds.
+
+## `transition-slide-toggle`
+
+**Notes**
+
+*   Velocity.js match of jQuery's [slideToggle](http://api.jquery.com/slidetoggle/) method, wrapped in a Vue transition.
 
 ## `velocity-animate`
 
