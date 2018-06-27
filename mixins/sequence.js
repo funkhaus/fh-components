@@ -17,6 +17,10 @@ export default {
             if (this.sequenceStep < this.sequenceMax) {
                 setTimeout(this.incrementSequenceStep, this.sequenceStepLength)
             }
+        },
+        reset() {
+            this.sequenceStep = 0
+            setTimeout(this.incrementSequenceStep, this.sequenceInitialDelay)
         }
     }
 }

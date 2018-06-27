@@ -764,6 +764,7 @@ Increment a number over a time period. Useful for [sequential fading on work gri
 | `sequenceStepLength`    | Number, default 300 | ms between each `sequenceStep` increment                                                                                                           |
 | `sequenceInitialDelay`  | Number, default 0   | ms to wait before starting the count-up                                                                                                            |
 | `incrementSequenceStep` | Function            | Increment `sequenceStep` by 1. If `sequenceStep` is less than `sequenceMax`, set a timeout to call this function again in `sequenceStepLength` ms. |
+| `reset`                 | Function            | Resets `sequenceStep` to 0 and starts counting up again after `sequenceInitialDelay` ms.                                                           |
 
 ### Notes
 
