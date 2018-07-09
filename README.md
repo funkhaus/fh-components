@@ -566,6 +566,7 @@ Directives may also have "modifiers" to go with them. Modifiers can be used like
 **Notes**:
 
 *   Sticks the bottom edge of an element to the bottom edge of the screen. Like position: sticky, but keeps the element stuck.
+*   Jittery in Firefox and Safari. Works in Chrome.
 
 ## `full-height`
 
