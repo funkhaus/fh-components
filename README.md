@@ -25,6 +25,7 @@ Reusable components and directives for Vue. Designed for [Vuepress](https://gith
     1.  [wp-content](#wp-content)
     1.  [wp-menu](#wp-menu)
 1.  [Directives](#directives)
+    1.  [coverup](#coverup)
     1.  [full-height](#full-height)
     1.  [in-view](#in-view)
     1.  [interact](#interact)
@@ -559,6 +560,12 @@ Directives may also have "modifiers" to go with them. Modifiers can be used like
 ```
 <my-component v-my-directive.example />
 ```
+
+## `coverup`
+
+**Notes**:
+
+*   Sticks the bottom edge of an element to the bottom edge of the screen. Like position: sticky, but keeps the element stuck.
 
 ## `full-height`
 
