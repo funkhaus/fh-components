@@ -44,7 +44,7 @@ export default {
         height: [String, Number],
         width: [String, Number],
         aspect: [String, Number],
-        'video-src': String,
+        'video-src': [String, Boolean],
         size: {
             type: String,
             default: 'full'
@@ -66,7 +66,7 @@ export default {
             default: 'cover'
         },
         poster: {
-            type: [String],
+            type: [String, Boolean],
             default: ''
         },
         volume: {
@@ -249,9 +249,7 @@ export default {
                     </svg>`.replace(/\r?\n|\r/g, '')
         },
         parsedPoster() {
-            if (!this.poster) {
-                return false
-            }
+            if (this.poster === false) return ''
             return this.poster && this.poster.length
                 ? this.poster
                 : this.parsedSrc
