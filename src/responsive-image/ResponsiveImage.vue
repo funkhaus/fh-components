@@ -196,7 +196,7 @@ export default {
             const metaString =
                 _get(this.object, 'meta.custom_video_url') ||
                 _get(this.object, 'alt', '')
-            if (this.videoSrc || this.videoSrc === false) return this.videoSrc
+            if (this.videoSrc || this.videoSrc === null) return this.videoSrc
             else return String(metaString).includes('.mp4') ? metaString : ''
         },
         outerStyles() {
@@ -249,7 +249,7 @@ export default {
                     </svg>`.replace(/\r?\n|\r/g, '')
         },
         parsedPoster() {
-            if (this.poster === false) return ''
+            if (this.poster === null) return ''
             return this.poster && this.poster.length
                 ? this.poster
                 : this.parsedSrc
