@@ -7,7 +7,7 @@
         <component
             v-for="(line, i) in computedText"
             :key="i"
-            :class="`line-${ i + 1 }`"
+            :class="['line', `line-${ i + 1 }`]"
             :is="getTag(i)"
             v-html="line"
         />

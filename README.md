@@ -332,7 +332,7 @@ If css transitions alone are not enough for the effect you want, you can opt to 
 
 **Props**
 
-*   `elements`: String or Array, default `span`. Wrap each resulting line in this element with class `line-{ line number }`. If `elements` is an array, split-text will wrap each line in its respective element, using the last element for any extra lines.
+*   `elements`: String or Array, default `span`. Wrap each resulting line in this element with classes `line` and `line-{ line number }`. If `elements` is an array, split-text will wrap each line in its respective element, using the last element for any extra lines.
 *   `separator`: String or Array, default `' &#8211; '`. Splits text by this separator. If set to an array, find the first separator that results in a split string and use that one.
 *   `pieces`: Number or Array, default `-1`. Only include these zero-indexed pieces of the split text. If set to -1 (default), include the full split text.
 *   `text`: String, default empty. Text to split.
