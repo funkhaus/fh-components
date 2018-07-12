@@ -238,8 +238,12 @@ export default {
                 styles['max-height'] = `${this.parsedHeight}px`
             }
 
-            // add svg bg if needed
-            if (this.parsedColor && this.parsedColor !== 'transparent') {
+            // add color bg if needed
+            if (
+                this.parsedColor &&
+                this.parsedColor !== 'transparent' &&
+                this.loading
+            ) {
                 // set color or SVG background depending on settings
                 if (this.fit == 'cover')
                     styles['background-color'] = this.parsedColor
@@ -292,6 +296,7 @@ export default {
 
 <style lang="scss">
 .rsp-image-module {
+    transition: background 0.6s ease;
     background-repeat: no-repeat;
     background-position: center;
     position: relative;
