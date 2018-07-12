@@ -212,6 +212,7 @@ This component will keep track of its own scroll position, and when it enters th
 
 *   Creates and fades in an image. Adds a placeholder for the image with a given background-color to prevent content jumping when the image loads.
 *   If you add a link to an .mp4 video in the "Alt" field in WordPress, this element will create and render a video, using the provided image as the poster (see "Poster" under "Attributes" [here](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video)).
+*   Works when `object` is set to an Advanced Custom Fields image array. Only provides `fullscreen` size and image alt in this case.
 
 ## `scroll-to`
 

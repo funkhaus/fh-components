@@ -145,6 +145,15 @@ export default {
         }
     },
     computed: {
+        isAcf() {
+            // check to see if this is an ACF-serialized object
+            // search for the existence of keys that ACF objects have but Rest-Easy ones don't
+            return (
+                this.object.hasOwnProperty('filesize') &&
+                this.object.hasOwnProperty('mime_type') &&
+                this.object.hasOwnProperty('modified')
+            )
+        },
         classes() {
             return [
                 'rsp-image-module',
@@ -158,10 +167,31 @@ export default {
             return this.imageTag || ''
         },
         parsedSrc() {
+            // return hardcoded source if we have one
             if (this.src) return this.src
+
+            // return ACF source if we have one (only respects fullscreen)
+            if (this.isAcf) {
+                return _get(this, 'object.sizes.fullscreen', '')
+            }
+
             return _get(this.targetSize, `url`)
         },
+        parsedAlt() {
+            return _get(this, 'object.alt', '')
+        },
         targetSize() {
+            // should return an object with { height, html, url, width }
+
+            // return ACF sizes
+            if (this.isAcf) {
+                return {
+                    width: _get(this, 'object.sizes.fullscreen-width', 0),
+                    height: _get(this, 'object.sizes.fullscreen-height', 0),
+                    url: _get(this, 'object.sizes.fullscreen', '')
+                }
+            }
+
             // get sizes from image object
             const sizes = _get(this.object, `sizes`, {})
 
@@ -231,7 +261,9 @@ export default {
         },
         imageTag() {
             // TODO: Add other img attributes
-            const fallback = `<img src="${this.parsedSrc}">`
+            const fallback = `<img src="${this.parsedSrc}" alt="${
+                this.parsedAlt
+            }">`
             if (this.html) return this.html
             return _get(this.targetSize, `html`) || fallback
         },
