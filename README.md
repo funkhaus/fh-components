@@ -585,8 +585,8 @@ Directives may also have "modifiers" to go with them. Modifiers can be used like
 
 *   `above`: String, default `above-view`. Class when element is above the viewport.
 *   `below`: String, default `below-view`. Class when element is below the viewport.
-*   `left`: String, default `left-view`. Class when element is left of viewport.
-*   `right`: String, default `right-view`. Class when element is right of viewport.
+*   `left`: String, default `left-of-view`. Class when element is left of viewport.
+*   `right`: String, default `right-of-view`. Class when element is right of viewport.
 *   `inView`: String, default `in-view`. Class when element is within the viewport.
 *   `onEnter`: Function, default `null`. Method to call when an element enters view from anywhere. Accepts one argument, the element that has entered the viewport.
 *   `onEnterAbove`: Function, default `null`. Method to call when an element enters view from the top of the screen. Accepts one argument, the element that has entered the viewport.
