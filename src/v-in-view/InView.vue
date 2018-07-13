@@ -240,7 +240,9 @@ export default {
         const runEvents =
             binding.modifiers.appear != undefined &&
             top + height > 0 &&
-            top < window.innerHeight
+            top < window.innerHeight &&
+            left + width > 0 &&
+            left < window.innerWidth
         setClass(el, opts, runEvents)
     }
 }

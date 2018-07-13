@@ -585,13 +585,19 @@ Directives may also have "modifiers" to go with them. Modifiers can be used like
 
 *   `above`: String, default `above-view`. Class when element is above the viewport.
 *   `below`: String, default `below-view`. Class when element is below the viewport.
+*   `left`: String, default `left-view`. Class when element is left of viewport.
+*   `right`: String, default `right-view`. Class when element is right of viewport.
 *   `inView`: String, default `in-view`. Class when element is within the viewport.
 *   `onEnter`: Function, default `null`. Method to call when an element enters view from anywhere. Accepts one argument, the element that has entered the viewport.
 *   `onEnterAbove`: Function, default `null`. Method to call when an element enters view from the top of the screen. Accepts one argument, the element that has entered the viewport.
 *   `onEnterBelow`: Function, default `null`. Method to call when an element enters view from below the screen. Accepts one argument, the element that has entered the viewport.
+*   `onEnterLeft`: Function, default `null`. Method to call when an element enters view from left of the screen. Accepts one argument, the element that has entered the viewport.
+*   `onEnterRight`: Function, default `null`. Method to call when an element enters view from right of the screen. Accepts one argument, the element that has entered the viewport.
 *   `onLeave`: Function, default `null`. Method to call when an element leaves view from anywhere. Accepts one argument, the element that has ;eft the viewport.
 *   `onLeaveAbove`: Function, default `null`. Method to call when an element leaves view, going above the screen. Accepts one argument, the element that has left the viewport.
 *   `onLeaveBelow`: Function, default `null`. Method to call when an element leaves view, going below the screen. Accepts one argument, the element that has left the viewport.
+*   `onLeaveLeft`: Function, default `null`. Method to call when an element leaves view, going left of the screen. Accepts one argument, the element that has left the viewport.
+*   `onLeaveRight`: Function, default `null`. Method to call when an element leaves view, going right of screen. Accepts one argument, the element that has left the viewport.
 
 **Modifiers**
 
