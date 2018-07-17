@@ -141,6 +141,11 @@ export default {
         transitionMode: {
             type: String,
             default: ''
+        },
+        // whether or not the user has any control over this slideshow
+        canControl: {
+            type: Boolean,
+            default: true
         }
     },
     data() {
@@ -233,11 +238,15 @@ export default {
             this.$emit('prev', this.activeIndex)
         },
         manualNext() {
+            if (!this.canControl) return
+
             this.stopTimer()
             this.next()
             this.$emit('manual-next', this.activeIndex)
         },
         manualPrev() {
+            if (!this.canControl) return
+
             this.stopTimer()
             this.prev()
             this.$emit('manual-prev', this.activeIndex)

@@ -252,6 +252,7 @@ This component creates a basic slideshow element that will cycle through a list 
 | `nextKey`       |    Number     |  `39`   | Keycode for which key will trigger the next action. Default is the right arrow.                                                                                                            |
 | `prevKey`       |    Number     |  `37`   | Keycode for which key will trigger the prev action. Default is the left arrow.                                                                                                             |
 | `css`           |    Boolean    | `true`  | Controls if the transition should use CSS classes or not. Use this when overriding the default transition using the provided javascript hooks.                                             |
+| `can-control`   |    Boolean    | `true`  | Controls whether or not the user has any manual control over this slideshow progression.                                                                                                   |
 
 ### Classes
 
