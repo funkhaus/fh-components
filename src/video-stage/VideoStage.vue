@@ -36,6 +36,10 @@ export default {
         muted: {
             type: Boolean,
             default: false
+        },
+        playsinline: {
+            type: Boolean,
+            default: false
         }
     },
     data() {
@@ -106,7 +110,8 @@ export default {
         async initVimeoPlayer() {
             // init player
             this.player = new Player(this.getIframe(), {
-                muted: this.muted
+                muted: this.muted,
+                playsinline: this.playsinline
             })
             await this.player.ready()
 
