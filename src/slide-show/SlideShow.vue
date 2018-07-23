@@ -154,7 +154,8 @@ export default {
             direction: 'next',
             internalIndex: 0,
             timer: null,
-            hammertime: null
+            hammertime: null,
+            transitionRef: null
         }
     },
     mounted() {
@@ -173,17 +174,16 @@ export default {
         activeIndex(next, prv) {
             this.$emit('change', next)
 
-            // handle exception case where infinite prop is set
-            // and we are at either end of the slideshow
-            const didLoop = Math.abs(prv - next) == this.slides.length - 1
-            if (this.infinite && didLoop) {
-                if (next == 0) return (this.direction = 'next')
-                else return (this.direction = 'prev')
+            if (this.transitionRef == 'manual') return
+            else {
+                const didLoop = prv - next == this.slides.length - 1
+                if (this.infinite && didLoop) {
+                    return (this.direction = 'next')
+                }
+                // otherwise go in natural direction of indexes
+                if (next > prv) this.direction = 'next'
+                else this.direction = 'prev'
             }
-
-            // otherwise go in natural direction of indexes
-            if (next > prv) this.direction = 'next'
-            else this.direction = 'prev'
         },
         internalIndex(idx) {
             this.$emit('update:index', idx)
@@ -241,6 +241,13 @@ export default {
             if (!this.canControl) return
 
             this.stopTimer()
+            if (this.infinite){
+                this.transitionRef = 'manual'
+                this.direction = 'next'
+            }
+            else {
+                this.transitionRef = 'auto'
+            }
             this.next()
             this.$emit('manual-next', this.activeIndex)
         },
@@ -248,14 +255,25 @@ export default {
             if (!this.canControl) return
 
             this.stopTimer()
+            if (this.infinite){
+                this.transitionRef = 'manual'
+                this.direction = 'prev'
+            }
+            else {
+                this.transitionRef = 'auto'
+            }
             this.prev()
             this.$emit('manual-prev', this.activeIndex)
         },
         startTimer() {
             // start auto timer
             setTimeout(() => {
-                this.timer = setInterval(this.next, this.interval)
-            }, this.delay)
+                this.timer = setInterval(
+                    () => {
+                        this.transitionRef = 'auto'
+                        this.next()
+                    }, this.interval)
+                }, this.delay)
             return this.timer
         },
         stopTimer() {
