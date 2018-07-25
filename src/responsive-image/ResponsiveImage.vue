@@ -21,6 +21,7 @@
             class="image-sizer"
             :style="sizerStyles"
             v-html="innerHtml"
+            ref="imageWrap"
         />
         <slot />
 
@@ -96,9 +97,22 @@ export default {
             this.setVolume()
         }
     },
-    mounted() {
+    async mounted() {
         this.setMediaClass()
         this.setVolume()
+
+        // make sure the wrapped image is rendered
+        await Vue.nextTick()
+
+        // find the wrapped image
+        if (this.$refs.imageWrap && this.$refs.imageWrap.querySelector('*')) {
+            const wrapped = this.$refs.imageWrap.querySelector('*')
+
+            // set its position (default: 50% 50%)
+            wrapped.style.objectPosition = `${this.parsedFocus.x}% ${
+                this.parsedFocus.y
+            }%`
+        }
     },
     created() {
         const img = new Image()
@@ -121,12 +135,6 @@ export default {
         })
     },
     methods: {
-        setObjectDimensions() {
-            if (this.object) {
-                this.imageWidth = _get(this.targetSize, `width`)
-                this.imageHeight = _get(this.targetSize, `height`)
-            }
-        },
         setMediaClass() {
             // give the "media" class to whatever we are rendering (img or video)
             if (!this.$el || !this.$el.querySelector) return
@@ -134,6 +142,12 @@ export default {
                 const media = this.$el.querySelector('.image-sizer > *')
                 if (media) media.classList.add('media')
             })
+        },
+        setObjectDimensions() {
+            if (this.object) {
+                this.imageWidth = _get(this.targetSize, `width`)
+                this.imageHeight = _get(this.targetSize, `height`)
+            }
         },
         async setVolume() {
             await Vue.nextTick()
@@ -217,6 +231,9 @@ export default {
                 _get(this.object, 'primary_color') ||
                 'transparent'
             )
+        },
+        parsedFocus() {
+            return _get(this, 'object.focus', { x: 50, y: 50 })
         },
         aspectPadding() {
             // default to defined aspect, or calculate
