@@ -92,6 +92,7 @@ export default {
         },
         innerHtml() {
             this.setMediaClass()
+            this.setFocalPoint()
         },
         volume() {
             this.setVolume()
@@ -104,15 +105,8 @@ export default {
         // make sure the wrapped image is rendered
         await Vue.nextTick()
 
-        // find the wrapped image
-        if (this.$refs.imageWrap && this.$refs.imageWrap.querySelector('*')) {
-            const wrapped = this.$refs.imageWrap.querySelector('*')
-
-            // set its position (default: 50% 50%)
-            wrapped.style.objectPosition = `${this.parsedFocus.x}% ${
-                this.parsedFocus.y
-            }%`
-        }
+        // set focal point
+        this.setFocalPoint()
     },
     created() {
         const img = new Image()
@@ -135,6 +129,20 @@ export default {
         })
     },
     methods: {
+        setFocalPoint() {
+            // find the wrapped image
+            if (
+                this.$refs.imageWrap &&
+                this.$refs.imageWrap.querySelector('*')
+            ) {
+                const wrapped = this.$refs.imageWrap.querySelector('*')
+
+                // set its position (default: 50% 50%)
+                wrapped.style.objectPosition = `${this.parsedFocus.x}% ${
+                    this.parsedFocus.y
+                }%`
+            }
+        },
         setMediaClass() {
             // give the "media" class to whatever we are rendering (img or video)
             if (!this.$el || !this.$el.querySelector) return
@@ -159,14 +167,10 @@ export default {
         }
     },
     computed: {
-        isAcf() {
-            // check to see if this is an ACF-serialized object
-            // search for the existence of keys that ACF objects have but Rest-Easy ones don't
-            return (
-                this.object.hasOwnProperty('filesize') &&
-                this.object.hasOwnProperty('mime_type') &&
-                this.object.hasOwnProperty('modified')
-            )
+        aspectPadding() {
+            // default to defined aspect, or calculate
+            const calculatedAspect = this.parsedHeight / this.parsedWidth * 100
+            return this.aspect || calculatedAspect || 56.25
         },
         classes() {
             return [
@@ -178,74 +182,25 @@ export default {
                 { 'has-video': this.parsedVideoSrc }
             ]
         },
+        imageTag() {
+            // TODO: Add other img attributes
+            const fallback = `<img src="${this.parsedSrc}" alt="${
+                this.parsedAlt
+            }">`
+            if (this.html) return this.html
+            return _get(this.targetSize, `html`) || fallback
+        },
         innerHtml() {
             return this.imageTag || ''
         },
-        parsedSrc() {
-            // return hardcoded source if we have one
-            if (this.src) return this.src
-
-            // return ACF source if we have one (only respects fullscreen)
-            if (this.isAcf) {
-                return _get(this, 'object.sizes.fullscreen', '')
-            }
-
-            return _get(this.targetSize, `url`)
-        },
-        parsedAlt() {
-            return _get(this, 'object.alt', '')
-        },
-        targetSize() {
-            // should return an object with { height, html, url, width }
-
-            // return ACF sizes
-            if (this.isAcf) {
-                return {
-                    width: _get(this, 'object.sizes.fullscreen-width', 0),
-                    height: _get(this, 'object.sizes.fullscreen-height', 0),
-                    url: _get(this, 'object.sizes.fullscreen', '')
-                }
-            }
-
-            // get sizes from image object
-            const sizes = _get(this.object, `sizes`, {})
-
-            // get specified size, or first available size
+        isAcf() {
+            // check to see if this is an ACF-serialized object
+            // search for the existence of keys that ACF objects have but Rest-Easy ones don't
             return (
-                _get(sizes, this.size) || sizes[_get(Object.keys(sizes), '[0]')]
+                this.object.hasOwnProperty('filesize') &&
+                this.object.hasOwnProperty('mime_type') &&
+                this.object.hasOwnProperty('modified')
             )
-        },
-        parsedHeight() {
-            // default to defined height
-            if (this.height) return parseInt(this.height)
-            return this.imageHeight
-        },
-        parsedWidth() {
-            // default to defined width
-            if (this.width) return parseInt(this.width)
-            return this.imageWidth
-        },
-        parsedColor() {
-            return (
-                this.color ||
-                _get(this.object, 'primary_color') ||
-                'transparent'
-            )
-        },
-        parsedFocus() {
-            return _get(this, 'object.focus', { x: 50, y: 50 })
-        },
-        aspectPadding() {
-            // default to defined aspect, or calculate
-            const calculatedAspect = this.parsedHeight / this.parsedWidth * 100
-            return this.aspect || calculatedAspect || 56.25
-        },
-        parsedVideoSrc() {
-            const metaString =
-                _get(this.object, 'meta.custom_video_url') ||
-                _get(this.object, 'alt', '')
-            if (this.videoSrc || this.videoSrc === null) return this.videoSrc
-            else return String(metaString).includes('.mp4') ? metaString : ''
         },
         outerStyles() {
             const styles = {}
@@ -273,6 +228,53 @@ export default {
 
             return styles
         },
+        parsedAlt() {
+            return _get(this, 'object.alt', '')
+        },
+        parsedColor() {
+            return (
+                this.color ||
+                _get(this.object, 'primary_color') ||
+                'transparent'
+            )
+        },
+        parsedFocus() {
+            return _get(this, 'object.focus', { x: 50, y: 50 })
+        },
+        parsedHeight() {
+            // default to defined height
+            if (this.height) return parseInt(this.height)
+            return this.imageHeight
+        },
+        parsedPoster() {
+            if (this.poster === null) return ''
+            return this.poster && this.poster.length
+                ? this.poster
+                : this.parsedSrc
+        },
+        parsedSrc() {
+            // return hardcoded source if we have one
+            if (this.src) return this.src
+
+            // return ACF source if we have one (only respects fullscreen)
+            if (this.isAcf) {
+                return _get(this, 'object.sizes.fullscreen', '')
+            }
+
+            return _get(this.targetSize, `url`)
+        },
+        parsedVideoSrc() {
+            const metaString =
+                _get(this.object, 'meta.custom_video_url') ||
+                _get(this.object, 'alt', '')
+            if (this.videoSrc || this.videoSrc === null) return this.videoSrc
+            else return String(metaString).includes('.mp4') ? metaString : ''
+        },
+        parsedWidth() {
+            // default to defined width
+            if (this.width) return parseInt(this.width)
+            return this.imageWidth
+        },
         sizerStyles() {
             if (!this.fillSpace) {
                 return {
@@ -280,14 +282,6 @@ export default {
                 }
             }
             return {}
-        },
-        imageTag() {
-            // TODO: Add other img attributes
-            const fallback = `<img src="${this.parsedSrc}" alt="${
-                this.parsedAlt
-            }">`
-            if (this.html) return this.html
-            return _get(this.targetSize, `html`) || fallback
         },
         svgBG() {
             if (!this.parsedColor || this.parsedColor == 'transparent')
@@ -302,11 +296,25 @@ export default {
             }' height='${this.imageHeight}' />
                     </svg>`.replace(/\r?\n|\r/g, '')
         },
-        parsedPoster() {
-            if (this.poster === null) return ''
-            return this.poster && this.poster.length
-                ? this.poster
-                : this.parsedSrc
+        targetSize() {
+            // should return an object with { height, html, url, width }
+
+            // return ACF sizes
+            if (this.isAcf) {
+                return {
+                    width: _get(this, 'object.sizes.fullscreen-width', 0),
+                    height: _get(this, 'object.sizes.fullscreen-height', 0),
+                    url: _get(this, 'object.sizes.fullscreen', '')
+                }
+            }
+
+            // get sizes from image object
+            const sizes = _get(this.object, `sizes`, {})
+
+            // get specified size, or first available size
+            return (
+                _get(sizes, this.size) || sizes[_get(Object.keys(sizes), '[0]')]
+            )
         }
     }
 }
