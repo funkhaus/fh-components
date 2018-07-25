@@ -157,6 +157,7 @@ export default {
         classes() {
             return [
                 'rsp-image-module',
+                'responsive-image',
                 `fit-${this.fit}`,
                 { loading: this.loading },
                 { 'fill-space': this.fillSpace },
