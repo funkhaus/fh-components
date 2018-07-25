@@ -25,6 +25,7 @@ Reusable components and directives for Vue. Designed for [Vuepress](https://gith
     1.  [wp-content](#wp-content)
     1.  [wp-menu](#wp-menu)
 1.  [Directives](#directives)
+    1.  [animated](#animated)
     1.  [coverup](#coverup)
     1.  [full-height](#full-height)
     1.  [in-view](#in-view)
@@ -561,6 +562,39 @@ Directives may also have "modifiers" to go with them. Modifiers can be used like
 
 ```
 <my-component v-my-directive.example />
+```
+
+## `animated`
+
+**Notes**:
+
+*   Applies a class to an element on hover or focus. Only removes that class when an animation is finished with its current iteration. See [this pen](https://codepen.io/SanderMoolin/full/yMGxgw) for an example - the arrows will always finish their bounce animations.
+*   Must be more than 1 animation iteration to remove class correctly.
+*   Accepts one argument, the class name to apply. Default `animating`.
+*   Recommended use:
+
+```html
+<template>
+    <router-link
+        v-animated
+        class="link"
+        to="/">I'll animate!</router-link>
+</template>
+
+<style lang="scss">
+
+.link.animating {
+    // must be more than one iteration - this won't work:
+    animation: my-animation 1s 1;
+    // but this will:
+    animation: my-animation 1s infinite;
+}
+
+@keyframes my-animation {
+    // your keyframes...
+}
+
+</style>
 ```
 
 ## `coverup`
