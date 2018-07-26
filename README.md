@@ -27,6 +27,7 @@ Reusable components and directives for Vue. Designed for [Vuepress](https://gith
 1.  [Directives](#directives)
     1.  [animated](#animated)
     1.  [coverup](#coverup)
+    1.  [draggable](#draggable)
     1.  [full-height](#full-height)
     1.  [in-view](#in-view)
     1.  [interact](#interact)
@@ -605,6 +606,21 @@ Directives may also have "modifiers" to go with them. Modifiers can be used like
 
 *   Sticks the bottom edge of an element to the bottom edge of the screen. Like position: sticky, but keeps the element stuck.
 *   Jittery in Firefox and Safari. Works in Chrome.
+
+## `draggable`
+
+**Notes**
+
+*   Gives the user access to mousedowm/move/up events and deltas.
+*   User needs to full functionality in arguments - directive just handles communicating data to those events.
+
+**Arguments**
+
+*   `dragStart`: Function, default null. Called when the user clicks on an element. Takes two arguments, the event itself and an object with the clientX and clientY properties in `x` and `y`.
+*   `drag`: Function, default null. Called when the user clicks on an element. Takes two arguments, the event itself and an object with:
+    *   `lastPos`: the clientX and clientY properties in `x` and `y`
+    *   `delta`: the change in pixels between this frame and the previous.
+*   `dragStop`: Function, default null. Called when the user releases a click on an element. Takes two arguments, the event itself and an object with the clientX and clientY properties in `x` and `y`.
 
 ## `full-height`
 
