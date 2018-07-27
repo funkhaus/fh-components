@@ -3,6 +3,7 @@ const listeners = {}
 let dragging = false
 const lastPos = { x: 0, y: 0 }
 const delta = { x: 0, y: 0 }
+const totalDelta = { x: 0, y: 0 }
 
 export default {
     bind(el, { value }) {
@@ -11,6 +12,12 @@ export default {
         listeners.clicked = function(evt) {
             lastPos.x = evt.clientX
             lastPos.y = evt.clientY
+
+            // reset total delta
+            totalDelta.x = 0
+            totalDelta.y = 0
+
+            // set dragging flag
             dragging = true
 
             if (dragStart) {
@@ -23,11 +30,15 @@ export default {
                 delta.x = evt.clientX - lastPos.x
                 delta.y = evt.clientY - lastPos.y
 
+                // save accumulated delta
+                totalDelta.x += delta.x
+                totalDelta.y += delta.y
+
                 lastPos.x = evt.clientX
                 lastPos.y = evt.clientY
 
                 if (drag) {
-                    drag(evt, { lastPos, delta })
+                    drag(evt, { lastPos, delta, totalDelta })
                 }
             }
         }
@@ -38,7 +49,7 @@ export default {
             dragging = false
 
             if (dragStop) {
-                dragStop(el, lastPos)
+                dragStop(evt, { lastPos, totalDelta })
             }
         }
 
@@ -47,7 +58,6 @@ export default {
         el.addEventListener('mouseup', listeners.released)
     },
     unbind(el, { value }) {
-        const { dragStart, drag, dragStop } = value
         el.removeEventListener('mousedown', listeners.clicked)
         el.removeEventListener('mousemove', listeners.dragged)
         el.removeEventListener('mouseup', listeners.released)

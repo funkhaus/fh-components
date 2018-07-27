@@ -619,8 +619,11 @@ Directives may also have "modifiers" to go with them. Modifiers can be used like
 *   `dragStart`: Function, default null. Called when the user clicks on an element. Takes two arguments, the event itself and an object with the clientX and clientY properties in `x` and `y`.
 *   `drag`: Function, default null. Called when the user clicks on an element. Takes two arguments, the event itself and an object with:
     *   `lastPos`: the clientX and clientY properties in `x` and `y`
-    *   `delta`: the change in pixels between this frame and the previous.
-*   `dragStop`: Function, default null. Called when the user releases a click on an element. Takes two arguments, the event itself and an object with the clientX and clientY properties in `x` and `y`.
+    *   `delta`: the change in pixels between this frame and the previous in `x` and `y`.
+    *   `totalDelta`: the change in pixels of the drag from start to the current frame, in `x` and `y`.
+*   `dragStop`: Function, default null. Called when the user releases a click on an element. Takes two arguments, the event itself and an object with:
+    *   `lastPos`: the clientX and clientY properties in `x` and `y`
+    *   `totalDelta`: the change in pixels of the drag from start to finish, in `x` and `y`.
 
 ## `full-height`
 
