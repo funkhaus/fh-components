@@ -12,7 +12,7 @@
             @leave="proxyLeave"
             @after-leave="$emit('after-leave', $event)"
             @leave-cancelled="$emit('leave-cancelled', $event)"
-            :name="`${ transitionName }-${ direction }`"
+            :name="cmpName"
             :mode="transitionMode"
             :css="css"
         >
@@ -146,6 +146,11 @@ export default {
         canControl: {
             type: Boolean,
             default: true
+        },
+        // force the transition to use this name
+        forceTransition: {
+            type: String,
+            default: ''
         }
     },
     data() {
@@ -215,6 +220,11 @@ export default {
             return this.index === null
                 ? this.internalIndex
                 : this.clamp(this.index)
+        },
+        cmpName() {
+            return this.forceTransition
+                ? this.forceTransition
+                : `${this.transitionName}-${this.direction}`
         }
     },
     methods: {

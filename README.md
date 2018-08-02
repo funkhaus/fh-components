@@ -241,22 +241,23 @@ This component creates a basic slideshow element that will cycle through a list 
 
 ### Props
 
-| Name            |     Type      | Default | Description                                                                                                                                                                                |
-| --------------- | :-----------: | :-----: | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `slides`        |     Array     |  `[]`   | Array of items to be iterated over and turned into slides.                                                                                                                                 |
-| `auto`          |    Boolean    | `true`  | Controls if slideshow should auto-advance.                                                                                                                                                 |
-| `swipe`         |    Boolean    | `true`  | Controls if left/right swipe should be enabled                                                                                                                                             |
-| `loop`          |    Boolean    | `true`  | If true, slideshow will loop from last item back to first                                                                                                                                  |
-| `infinite`      |    Boolean    | `true`  | If true, slideshow will do a `next` style transition when looping from last to first and vice versa.                                                                                       |
-| `interval`      |    Number     | `4000`  | Time between auto slide transitions.                                                                                                                                                       |
-| `delay`         |    Number     |  `500`  | Time to delay before initiating auto slide interval.                                                                                                                                       |
-| `index`         | Number/Object | `null`  | Used to manually control the current active slide of the slideshow. This prop can be bidirectionally bound using the `sync` modifier. See more details on how to use in the section below. |
-| `pagination`    |    Boolean    | `true`  | Controls if pagination elements should be rendered or not.                                                                                                                                 |
-| `localKeyboard` |    Boolean    | `false` | If true, slideshow will bind keyboard listeners to the slideshow DOM element. If false, keyboard events will be bound to window.                                                           |
-| `nextKey`       |    Number     |  `39`   | Keycode for which key will trigger the next action. Default is the right arrow.                                                                                                            |
-| `prevKey`       |    Number     |  `37`   | Keycode for which key will trigger the prev action. Default is the left arrow.                                                                                                             |
-| `css`           |    Boolean    | `true`  | Controls if the transition should use CSS classes or not. Use this when overriding the default transition using the provided javascript hooks.                                             |
-| `can-control`   |    Boolean    | `true`  | Controls whether or not the user has any manual control over this slideshow progression.                                                                                                   |
+| Name               |     Type      | Default | Description                                                                                                                                                                                |
+| ------------------ | :-----------: | :-----: | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `slides`           |     Array     |  `[]`   | Array of items to be iterated over and turned into slides.                                                                                                                                 |
+| `auto`             |    Boolean    | `true`  | Controls if slideshow should auto-advance.                                                                                                                                                 |
+| `swipe`            |    Boolean    | `true`  | Controls if left/right swipe should be enabled                                                                                                                                             |
+| `loop`             |    Boolean    | `true`  | If true, slideshow will loop from last item back to first                                                                                                                                  |
+| `infinite`         |    Boolean    | `true`  | If true, slideshow will do a `next` style transition when looping from last to first and vice versa.                                                                                       |
+| `interval`         |    Number     | `4000`  | Time between auto slide transitions.                                                                                                                                                       |
+| `delay`            |    Number     |  `500`  | Time to delay before initiating auto slide interval.                                                                                                                                       |
+| `index`            | Number/Object | `null`  | Used to manually control the current active slide of the slideshow. This prop can be bidirectionally bound using the `sync` modifier. See more details on how to use in the section below. |
+| `pagination`       |    Boolean    | `true`  | Controls if pagination elements should be rendered or not.                                                                                                                                 |
+| `localKeyboard`    |    Boolean    | `false` | If true, slideshow will bind keyboard listeners to the slideshow DOM element. If false, keyboard events will be bound to window.                                                           |
+| `nextKey`          |    Number     |  `39`   | Keycode for which key will trigger the next action. Default is the right arrow.                                                                                                            |
+| `prevKey`          |    Number     |  `37`   | Keycode for which key will trigger the prev action. Default is the left arrow.                                                                                                             |
+| `css`              |    Boolean    | `true`  | Controls if the transition should use CSS classes or not. Use this when overriding the default transition using the provided javascript hooks.                                             |
+| `can-control`      |    Boolean    | `true`  | Controls whether or not the user has any manual control over this slideshow progression.                                                                                                   |
+| `force-transition` |    String     |  `''`   | Tell the slideshow to use this transition name instead of the default `next` and `prev` classes. Useful if the transition will not change depending on slideshow direction.                |
 
 ### Classes
 
