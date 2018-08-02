@@ -154,6 +154,7 @@ export default {
             direction: 'next',
             internalIndex: 0,
             timer: null,
+            delayTimeout: null,
             hammertime: null,
             transitionRef: null
         }
@@ -241,11 +242,10 @@ export default {
             if (!this.canControl) return
 
             this.stopTimer()
-            if (this.infinite){
+            if (this.infinite) {
                 this.transitionRef = 'manual'
                 this.direction = 'next'
-            }
-            else {
+            } else {
                 this.transitionRef = 'auto'
             }
             this.next()
@@ -255,11 +255,10 @@ export default {
             if (!this.canControl) return
 
             this.stopTimer()
-            if (this.infinite){
+            if (this.infinite) {
                 this.transitionRef = 'manual'
                 this.direction = 'prev'
-            }
-            else {
+            } else {
                 this.transitionRef = 'auto'
             }
             this.prev()
@@ -267,13 +266,16 @@ export default {
         },
         startTimer() {
             // start auto timer
-            setTimeout(() => {
-                this.timer = setInterval(
-                    () => {
-                        this.transitionRef = 'auto'
-                        this.next()
-                    }, this.interval)
-                }, this.delay)
+            clearTimeout(this.delayTimeout)
+            this.delayTimeout = setTimeout(() => {
+                clearInterval(this.timer)
+                this.timer = setInterval(() => {
+                    this.transitionRef = 'auto'
+                    this.next()
+                }, this.interval)
+                this.transitionRef = 'auto'
+                this.next()
+            }, this.delay)
             return this.timer
         },
         stopTimer() {
