@@ -37,6 +37,7 @@ Reusable components and directives for Vue. Designed for [Vuepress](https://gith
     1.  [Idle](#idle)
     1.  [Rect](#rect)
     1.  [Sequence](#sequence)
+    1.  [WaitFor](#waitFor)
 1.  [Testing](#testing)
 1.  [Contributing](#contributing)
     1.  [Prep](#prep)
@@ -849,6 +850,46 @@ Increment a number over a time period. Useful for [sequential fading on work gri
 ### Notes
 
 A quick and simple mixin for keeping track of the bounding box (`width`, `height`, `top`, and `left`, in screen-space px) of an element. Updated automatically on resize and scroll.
+
+## `waitFor`
+
+### Adds
+
+| Name                           | Type                        | Description                                                                                                                         |
+| ------------------------------ | --------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| `awaitedItem`                  | String, default null        | Item to wait for.                                                                                                                   |
+| `awaitedItemCallback`          | Function, default null      | Callback to run when `awaitedItem` exists.                                                                                          |
+| `awaitedItemCallbackCompleted` | Boolean, default `false`    | Whether or not the callback has run. Set internally.                                                                                |
+| `waitFor`                      | Function (string, callback) | Wait for the first argument to exist, and when it does, run `callback`. `callback` receives the awaited item as its only parameter. |
+
+### Notes
+
+Checks for the existence (using `lodash/get`) of an item. If the item exists, runs a callback immediately; if it doesn't, watches the current loading state and runs the callback when the page is loaded.
+
+Useful for manipulating data that may or may not be asynchronous. For example, to select all `a` tags in a content field when they've been loaded and rendered:
+
+```html
+<template>
+    <wp-content :html="content" ref="content"/>
+</template>
+
+<script>
+import waitFor from 'fh-components/mixins/waitFor'
+
+export default {
+    mixins: [waitFor],
+    mounted(){
+        this.waitFor('$refs.content.$el', this.selectLinks)
+    },
+    methods: {
+        selectLinks(el){
+            // `el` = this.$refs.content.$el
+            console.log([...el.querySelectorAll('a')])
+        }
+    }
+}
+</script>
+```
 
 # Testing
 
