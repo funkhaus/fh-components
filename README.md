@@ -37,7 +37,7 @@ Reusable components and directives for Vue. Designed for [Vuepress](https://gith
     1.  [Idle](#idle)
     1.  [Rect](#rect)
     1.  [Sequence](#sequence)
-    1.  [WaitFor](#waitFor)
+    1.  [WaitFor](#waitfor)
 1.  [Testing](#testing)
 1.  [Contributing](#contributing)
     1.  [Prep](#prep)
