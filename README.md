@@ -35,6 +35,7 @@ Reusable components and directives for Vue. Designed for [Vuepress](https://gith
     1.  [reverse-hover](#reverse-hover)
 1.  [Mixins](#mixins)
     1.  [Idle](#idle)
+    1.  [Pack](#pack)
     1.  [Rect](#rect)
     1.  [Sequence](#sequence)
     1.  [WaitFor](#waitfor)
@@ -831,6 +832,87 @@ This will hide the image after 5 seconds of inactivity and show it again when th
 | `clientRect`   | Object   | Object describing element dimensions.                                              |
 | `setRect`      | Function | Update `clientRect`. Called internally. Can be called manually to force an update. |
 | `rectThrottle` | Number   | ms throttle before firing scroll and resize events. Default 150.                   |
+
+## `pack`
+
+Like [Masonry](https://masonry.desandro.com/) but more lightweight and based on CSS grid.
+
+### Adds
+
+| Name         | Type     | Description                                                                   |
+| ------------ | -------- | ----------------------------------------------------------------------------- |
+| `transforms` | Array    | Array of pixel lengths to offset each packed block.                           |
+| `pack`       | Function | Recalculate the packing values. Requires one argument, the container element. |
+
+### Notes
+
+*   Best used with [waitFor](#waitFor) so that content is rendered before sizes are calculated.
+*   Set each block to translate up by its corresponding `transforms` value to create a Masonry-style, tightly-packed grid.
+*   Add gaps between columns and rows with `-gap` properties.
+
+Example:
+
+```html
+<template>
+
+    <ul ref="container" class="container">
+        <li
+            v-for="(item, i) in list"
+            :key="i"
+            :style="{ transform: `translateY(${ transforms[i] }px)` }">
+
+            <!-- Your variable-height content here -->
+
+        </li>
+    </ul>
+
+</template>
+
+<script>
+import waitFor from 'fh-components/mixins/waitFor'
+import pack from 'fh-components/mixins/pack'
+
+export default {
+    mixins: [waitFor, pack],
+    mounted() {
+        // pack when the grid is ready to render
+        // (this.pack will receive this.$refs.container from waitFor)
+        this.waitFor('$refs.container', this.pack)
+    },
+    watch: {
+        '$root.winWidth'() {
+            // pack when the window width changes
+            this.pack(this.$refs.container)
+        }
+    }
+}
+
+</script>
+
+<style>
+/* The container element must used display: grid! */
+/* Other than that, row/column gaps, templates, and breakpoints will work correctly */
+
+.container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-column-gap: 80px;
+}
+
+@media 'only screen and (min-width: 1800px)' {
+    .container {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media 'only screen and (max-width: 750px)' {
+    .container {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
+
+</style>
+```
 
 ## `sequence`
 
