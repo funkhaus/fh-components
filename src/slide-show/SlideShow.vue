@@ -198,8 +198,11 @@ export default {
             this.setKeyboardListeners()
         },
         auto(auto) {
-            if (auto) this.startTimer()
-            else this.stopTimer()
+            if (auto) {
+                this.startTimer()
+            } else {
+                this.stopTimer()
+            }
         },
         interval() {
             this.stopTimer()
@@ -290,7 +293,11 @@ export default {
         },
         stopTimer() {
             // kill timer
-            return clearInterval(this.timer)
+            clearInterval(this.timer)
+            this.timer = null
+            clearTimeout(this.delayTimeout)
+            this.delayTimeout = null
+            return
         },
         onKeyboard(e) {
             if (e.keyCode == this.nextKey) {
