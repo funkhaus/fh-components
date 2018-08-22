@@ -49,6 +49,11 @@ export default {
                 const myHeight = block.clientHeight
                 const contentHeight = [...block.childNodes].reduce(
                     (acc, curr) => {
+                        // if we're a text node, get the container
+                        if (curr.nodeType == Node.TEXT_NODE) {
+                            curr = curr.parentNode
+                        }
+
                         const styles = window.getComputedStyle(curr)
                         const margin =
                             parseFloat(styles['marginTop']) +
