@@ -165,6 +165,7 @@ This component will keep track of its own scroll position, and when it enters th
 | Name          | Location                                                                                    |
 | ------------- | ------------------------------------------------------------------------------------------- |
 | `top`         | First element in mailing list wrapper, before any inputs                                    |
+| `label`       | Label for email input element. Default: `<label for="mailing_list_email">Email</label>`     |
 | `before-form` | Wrapped by transition, appears before input form (hidden after form submitted successfully) |
 | `after-form`  | Wrapped by transition, appears after input form (hidden after form submitted successfully)  |
 | `success`     | Appears after successful submission and `successMessage` prop                               |

@@ -10,7 +10,9 @@
 
                 <form v-if="isMadMimi" ref="form" @submit.prevent="onSubmit" target="_blank" :action="actionUrl" accept-charset="UTF-8" method="POST">
                     <input name="utf8" type="hidden" value="✓"/>
-                    <label for="mailing_list_email">Email</label>
+                    <slot name="label">
+                        <label for="mailing_list_email">Email</label>
+                    </slot>
                     <input id="mailing_list_email" class="email" name="signup[email]" type="text" :placeholder="placeholder" />
                     <div style="background: white; font-size:1px; height: 0; overflow: hidden" aria-hidden="true">
                         <input type="text" :name="token" tabindex="-1" style="font-size: 1px; width: 1px !important; height:1px !important; border:0 !important; line-height: 1px !important; padding: 0 0; min-height:1px !important;"/>
