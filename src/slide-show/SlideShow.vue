@@ -16,13 +16,19 @@
             :mode="transitionMode"
             :css="css"
         >
-            <slot
+            <component
+                :is="slideWrap"
                 v-for="(slide, i) in slides"
                 v-if="activeIndex == i"
-                :slide="slide"
-                :index="i"
-                name="slide"
-            />
+                :key="i">
+
+                <slot
+                    :slide="slide"
+                    :index="i"
+                    name="slide"
+                />
+
+            </component>
         </transition>
 
         <div
@@ -151,6 +157,18 @@ export default {
         forceTransition: {
             type: String,
             default: ''
+        },
+        slideWrap: {
+            type: String,
+            default: 'div'
+        },
+        enter: {
+            type: Function,
+            default: null
+        },
+        leave: {
+            type: Function,
+            default: null
         }
     },
     data() {
@@ -325,11 +343,19 @@ export default {
                 window.addEventListener('keydown', this.onKeyboard)
             }
         },
-        proxyEnter() {
-            this.$emit('enter', ...arguments)
+        proxyEnter(el, done) {
+            if (this.enter) {
+                this.enter(...arguments)
+            } else if (!this.css) {
+                done()
+            }
         },
-        proxyLeave() {
-            this.$emit('leave', ...arguments)
+        proxyLeave(el, done) {
+            if (this.leave) {
+                this.leave(...arguments)
+            } else if (!this.css) {
+                done()
+            }
         },
         initHammer() {
             this.hammertime = new Hammer(this.$el)
