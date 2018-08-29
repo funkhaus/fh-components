@@ -75,20 +75,20 @@ Vue.component('component-name', require('fh-components/component-name'))
 
 **Props**
 
-*   `href`: String, default empty. URL to link to.
-*   `new-window`: Boolean, default `true`. If component renders as an `<a>` tag, open in a new window.
-*   `replace-with`: String, default `div`. If the `href` isn't a link, render contents inside this tag instead.
+-   `href`: String, default empty. URL to link to.
+-   `new-window`: Boolean, default `true`. If component renders as an `<a>` tag, open in a new window.
+-   `replace-with`: String, default `div`. If the `href` isn't a link, render contents inside this tag instead.
 
 **Classes**
 
-*   `anchor-div`
-*   `a-${ replace-with }` (substitutes with the `replace-with` tag name)
+-   `anchor-div`
+-   `a-${ replace-with }` (substitutes with the `replace-with` tag name)
 
 **Notes**:
 
-*   Renders content in a `<router-to>` tag if `href` starts with `/`
-*   Renders content in an `<a>` tag if `href` is a truthy value not starting with `/`
-*   Renders content in a given tag (`replace-with`, default `div`) if `href` is falsey.
+-   Renders content in a `<router-to>` tag if `href` starts with `/`
+-   Renders content in an `<a>` tag if `href` is a truthy value not starting with `/`
+-   Renders content in a given tag (`replace-with`, default `div`) if `href` is falsey.
 
 ## `flex-text`
 
@@ -96,13 +96,13 @@ Vue.component('component-name', require('fh-components/component-name'))
 
 **Classes**
 
-*   `hamburger`
-*   `activated`: when `$store.state.menuOpened` is `true`
+-   `hamburger`
+-   `activated`: when `$store.state.menuOpened` is `true`
 
 **Notes**
 
-*   Lightweight hamburger SVG with open and closed states. Calls Vuepress's `'OPEN_MENU'` or `'CLOSE_MENU'` when clicked, depending on current `activated` state. Will also update correctly when menu is opened or closed elsewhere.
-*   Default slot is a three-line hamburger icon that changes to an "X" when activated. The user can replace this with their own gif if they want.
+-   Lightweight hamburger SVG with open and closed states. Calls Vuepress's `'OPEN_MENU'` or `'CLOSE_MENU'` when clicked, depending on current `activated` state. Will also update correctly when menu is opened or closed elsewhere.
+-   Default slot is a three-line hamburger icon that changes to an "X" when activated. The user can replace this with their own gif if they want.
 
 ## `image-loader`
 
@@ -155,10 +155,10 @@ This component will keep track of its own scroll position, and when it enters th
 
 **Classes**
 
-*   `fh-mailing-list`
-*   `loading`: if mailing list request has been submitted
-*   `state-${ state }`: either `state-success`, `state-error`, or `state-none`, depending on submission state
-*   `provider-${ provider }`: either `provider-mailchimp` or `provider-madmimi`
+-   `fh-mailing-list`
+-   `loading`: if mailing list request has been submitted
+-   `state-${ state }`: either `state-success`, `state-error`, or `state-none`, depending on submission state
+-   `provider-${ provider }`: either `provider-mailchimp` or `provider-madmimi`
 
 **Slots**
 
@@ -181,45 +181,45 @@ This component will keep track of its own scroll position, and when it enters th
 
 **Notes**
 
-*   Element to build out common mailing list signups.
-*   Requires an action URL and an API token.
-    *   **Mailchimp**: The action URL is the value of the `action` attribute on the `form` element in the form builder, and the API token is the value of the `name` attribute on the input wrapped by the `left: -5000px` div.
-*   Waits `delay` ms, then fires the `cookieCreated` event and creates a cookie that prevents firing that event again for `cookieLength` days.
+-   Element to build out common mailing list signups.
+-   Requires an action URL and an API token.
+    -   **Mailchimp**: The action URL is the value of the `action` attribute on the `form` element in the form builder, and the API token is the value of the `name` attribute on the input wrapped by the `left: -5000px` div.
+-   Waits `delay` ms, then fires the `cookieCreated` event and creates a cookie that prevents firing that event again for `cookieLength` days.
 
 ## `responsive-image`
 
 **Props**
 
-*   `object`: Object, default `{}`. Serialized [Rest-Easy attachment](https://github.com/funkhaus/Rest-Easy#serializer-filters). Fills out the rest of these props automatically except `fit`.
-*   `html`: String, default ''. Desired <img> element as an HTML string. Provides all the sizing, fade-in, etc. benefits of a regular responsive-image.
-*   `src`: String, default empty. Works like `<img src>`.
-*   `video-src`: String, default empty. an optional video URL if the component should display a looping video rather than an image.
-*   `height`: String or number, default empty. Natural image height in pixels.
-*   `width`: String or number, default empty. Natural image width in pixels.
-*   `aspect`: String or number, default empty. Aspect ratio of desired image, as a percentage. `aspect="56.25"` would evaluate to a 56.25% aspect ratio. Calculated from height and width if not explicitly stated.
-*   `size`: String, default `'full'`. WordPress image size.
-*   `color`: String, default `'transparent'`. Background placeholder color. Any CSS-compatible color is valid.
-*   `respect-max`: Boolean, default `false`. Whether the image will have a `max-width` and `max-height` based on its natural dimensions.
-*   `fill-space`: Boolean, default `false`. When `true`, position absolutely and force the image to take up all available space; when `false`, use the image's natural aspect ratio.
-*   `fit`: String, default `'cover'`. Object-fit value for the image - `cover` or `contain`.
-*   `poster`: String or post, default `''`. URL to [poster](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video) for video. If `false`, no poster used; if blank, defaults to the parsed image source.
-*   `volume`: Number, default `0`. Controls the volume when rendering a video. If set to 0 (or not set) the video will be muted and will be able to autoplay.
+-   `object`: Object, default `{}`. Serialized [Rest-Easy attachment](https://github.com/funkhaus/Rest-Easy#serializer-filters). Fills out the rest of these props automatically except `fit`.
+-   `html`: String, default ''. Desired <img> element as an HTML string. Provides all the sizing, fade-in, etc. benefits of a regular responsive-image.
+-   `src`: String, default empty. Works like `<img src>`.
+-   `video-src`: String, default empty. an optional video URL if the component should display a looping video rather than an image.
+-   `height`: String or number, default empty. Natural image height in pixels.
+-   `width`: String or number, default empty. Natural image width in pixels.
+-   `aspect`: String or number, default empty. Aspect ratio of desired image, as a percentage. `aspect="56.25"` would evaluate to a 56.25% aspect ratio. Calculated from height and width if not explicitly stated.
+-   `size`: String, default `'full'`. WordPress image size.
+-   `color`: String, default `'transparent'`. Background placeholder color. Any CSS-compatible color is valid.
+-   `respect-max`: Boolean, default `false`. Whether the image will have a `max-width` and `max-height` based on its natural dimensions.
+-   `fill-space`: Boolean, default `false`. When `true`, position absolutely and force the image to take up all available space; when `false`, use the image's natural aspect ratio.
+-   `fit`: String, default `'cover'`. Object-fit value for the image - `cover` or `contain`.
+-   `poster`: String or post, default `''`. URL to [poster](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video) for video. If `false`, no poster used; if blank, defaults to the parsed image source.
+-   `volume`: Number, default `0`. Controls the volume when rendering a video. If set to 0 (or not set) the video will be muted and will be able to autoplay.
 
 **Classes**
 
-*   `rsp-image-module`
-*   `responsive-image`
-*   `fit-${fit}`: Either `fit-cover` or `fit-contain`, depending on the `fit` prop.
-*   `loading`: only active when image hasn't finished loading
-*   `fill-space`: only active if `fill-space` prop is set to `true`
-*   `has-video`: only active if `videoSrc` is truthy (see notes below).
+-   `rsp-image-module`
+-   `responsive-image`
+-   `fit-${fit}`: Either `fit-cover` or `fit-contain`, depending on the `fit` prop.
+-   `loading`: only active when image hasn't finished loading
+-   `fill-space`: only active if `fill-space` prop is set to `true`
+-   `has-video`: only active if `videoSrc` is truthy (see notes below).
 
 **Notes**
 
-*   Creates and fades in an image. Adds a placeholder for the image with a given background-color to prevent content jumping when the image loads.
-*   If you add a link to an .mp4 video in the "Alt" field in WordPress, this element will create and render a video, using the provided image as the poster (see "Poster" under "Attributes" [here](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video)).
-*   Also works when `object` is set to an Advanced Custom Fields image array. Only provides `fullscreen` size and image alt in this case.
-*   Works with [Focushaus](https://github.com/funkhaus/focushaus), if installed, to set a custom focal point for an image. Defaults to standard browser behavior, focal point in the center of the image.
+-   Creates and fades in an image. Adds a placeholder for the image with a given background-color to prevent content jumping when the image loads.
+-   If you add a link to an .mp4 video in the "Alt" field in WordPress, this element will create and render a video, using the provided image as the poster (see "Poster" under "Attributes" [here](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video)).
+-   Also works when `object` is set to an Advanced Custom Fields image array. Only provides `fullscreen` size and image alt in this case.
+-   Works with [Focushaus](https://github.com/funkhaus/focushaus), if installed, to set a custom focal point for an image. Defaults to standard browser behavior, focal point in the center of the image.
 
 ## `scroll-to`
 
@@ -236,7 +236,7 @@ Wrap this component around any element to add "scroll-to" functionality, where t
 
 ### Events
 
-*   `complete`: Fires when the page has finished scrolling to the target.
+-   `complete`: Fires when the page has finished scrolling to the target.
 
 ## `slide-show`
 
@@ -261,13 +261,16 @@ This component creates a basic slideshow element that will cycle through a list 
 | `css`              |    Boolean    | `true`  | Controls if the transition should use CSS classes or not. Use this when overriding the default transition using the provided javascript hooks.                                             |
 | `can-control`      |    Boolean    | `true`  | Controls whether or not the user has any manual control over this slideshow progression.                                                                                                   |
 | `force-transition` |    String     |  `''`   | Tell the slideshow to use this transition name instead of the default `next` and `prev` classes. Useful if the transition will not change depending on slideshow direction.                |
+| `slide-wrap`       |    String     |  `div`  | The element to wrap each individual slide in. Required to use the transition correctly.                                                                                                    |
+| `enter`            |   Function    | `null`  | The `enter` function for the JS transition. Only runs if `css` is set to `false`.                                                                                                          |
+| `leave`            |   Function    | `null`  | The `leave` function for the JS transition. Only runs if `css` is set to `false`.                                                                                                          |
 
 ### Classes
 
-*   `fh-slideshow`
-*   `transitioning`: Active when slideshow is mid transition
-*   `first-slide`: Active when the current index is the first slide
-*   `last-slide`: Active when the current index is the last slide
+-   `fh-slideshow`
+-   `transitioning`: Active when slideshow is mid transition
+-   `first-slide`: Active when the current index is the first slide
+-   `last-slide`: Active when the current index is the last slide
 
 ### Slots
 
@@ -336,38 +339,38 @@ By default, there is a simple css slide transition being applied to the slidesho
 }
 ```
 
-If css transitions alone are not enough for the effect you want, you can opt to use js hooks instead. The full set of [js transition events](https://vuejs.org/v2/guide/transitions.html#JavaScript-Hooks) are proxied up to the main `slide-show` component, so you can catch them there and use javascript to create your effects. Keep in mind that when doing this you will want to set the `css` prop to false so that the transition element is forced into js mode.
+If css transitions alone are not enough for the effect you want, you can opt to use js hooks instead. The full set of [js transition events](https://vuejs.org/v2/guide/transitions.html#JavaScript-Hooks) are available to the main `slide-show` component, so you can pass them as props there and use javascript to create your effects. Keep in mind that when doing this you will want to set the `css` prop to false so that the transition element is forced into js mode.
 
 ## `split-text`
 
 **Props**
 
-*   `elements`: String or Array, default `span`. Wrap each resulting line in this element with classes `line` and `line-{ line number }`. If `elements` is an array, split-text will wrap each line in its respective element, using the last element for any extra lines.
-*   `separator`: String or Array, default `' &#8211; '`. Splits text by this separator. If set to an array, find the first separator that results in a split string and use that one.
-*   `pieces`: Number or Array, default `-1`. Only include these zero-indexed pieces of the split text. If set to -1 (default), include the full split text.
-*   `text`: String, default empty. Text to split.
-*   `wrapper`: String, default `span`. Element wrapping rendered lines.
+-   `elements`: String or Array, default `span`. Wrap each resulting line in this element with classes `line` and `line-{ line number }`. If `elements` is an array, split-text will wrap each line in its respective element, using the last element for any extra lines.
+-   `separator`: String or Array, default `' &#8211; '`. Splits text by this separator. If set to an array, find the first separator that results in a split string and use that one.
+-   `pieces`: Number or Array, default `-1`. Only include these zero-indexed pieces of the split text. If set to -1 (default), include the full split text.
+-   `text`: String, default empty. Text to split.
+-   `wrapper`: String, default `span`. Element wrapping rendered lines.
 
 **Notes**
 
-*   Splits given text according to a given separator. Useful for formatting titles, for example - `Title - More Title Information` will render as `<span>Title</span><span>More Title Information</span>`.
-*   Contains two slots, named `before` and `after`, that render their content before and after the split text.
+-   Splits given text according to a given separator. Useful for formatting titles, for example - `Title - More Title Information` will render as `<span>Title</span><span>More Title Information</span>`.
+-   Contains two slots, named `before` and `after`, that render their content before and after the split text.
 
 ## `sticky-wrap`
 
 **Props**
 
-*   `wrapper`: String, default `div`. Element that wraps the entire component.
-*   `margin`: Number or String, default `0`. Distance in pixels to pad the top of the sticky element.
-*   `max`: Number or String, default `-1`. The maximum distance this element will be able to translate.
+-   `wrapper`: String, default `div`. Element that wraps the entire component.
+-   `margin`: Number or String, default `0`. Distance in pixels to pad the top of the sticky element.
+-   `max`: Number or String, default `-1`. The maximum distance this element will be able to translate.
 
 **Classes**
 
-*   `sticky-wrap`
+-   `sticky-wrap`
 
 **Notes**
 
-*   Mimics `position: sticky` using a wrapper element and translation. Sticks an element to the top of the screen without breaking page flow. Place content to be stuck inside the main slot - for example:
+-   Mimics `position: sticky` using a wrapper element and translation. Sticks an element to the top of the screen without breaking page flow. Place content to be stuck inside the main slot - for example:
 
 ```html
 <sticky-wrap>
@@ -380,51 +383,51 @@ If css transitions alone are not enough for the effect you want, you can opt to 
 
 **Props**
 
-*   `wrapper`: String, default `span`. Wrapper element for the typed text.
-*   `html`: String, default `''`. HTML to be typed out.
-*   `minTime`: Number, default `2`. Minimum number of ms to pass between keystrokes.
-*   `maxtime`: Number, default `5`. Maximum number of ms to pass between keystrokes.
+-   `wrapper`: String, default `span`. Wrapper element for the typed text.
+-   `html`: String, default `''`. HTML to be typed out.
+-   `minTime`: Number, default `2`. Minimum number of ms to pass between keystrokes.
+-   `maxtime`: Number, default `5`. Maximum number of ms to pass between keystrokes.
 
 **Classes**
 
-*   `text-typer`
+-   `text-typer`
 
 **Notes**
 
-*   Element to create a text typing effect that preserves HTML tags.
-*   Uses a naive tag splitter that just detects for the presence of `<` or `>` characters.
+-   Element to create a text typing effect that preserves HTML tags.
+-   Uses a naive tag splitter that just detects for the presence of `<` or `>` characters.
 
 ## `transition-fade`
 
 **Classes**
 
-*   [Transition classes](https://vuejs.org/v2/guide/transitions.html#Transition-Classes) applied to a transition called `fade`.
+-   [Transition classes](https://vuejs.org/v2/guide/transitions.html#Transition-Classes) applied to a transition called `fade`.
 
 **Notes**
 
-*   Fades the contained element over 0.4 seconds.
+-   Fades the contained element over 0.4 seconds.
 
 ## `transition-slide-toggle`
 
 **Notes**
 
-*   Velocity.js match of jQuery's [slideToggle](http://api.jquery.com/slidetoggle/) method, wrapped in a Vue transition.
+-   Velocity.js match of jQuery's [slideToggle](http://api.jquery.com/slidetoggle/) method, wrapped in a Vue transition.
 
 ## `velocity-animate`
 
 **Props**
 
-*   `reset`: Boolean, default `true`. Whether or not the changed elements should have their inline styles reset after the animation complete.
-*   `sequence`: Array, default `[]`. Sequence to run on appear.
-*   `wrapper`: String, default `div`. Element in which to wrap the enclosed content.
+-   `reset`: Boolean, default `true`. Whether or not the changed elements should have their inline styles reset after the animation complete.
+-   `sequence`: Array, default `[]`. Sequence to run on appear.
+-   `wrapper`: String, default `div`. Element in which to wrap the enclosed content.
 
 **Classes**
 
-*   `velocity-animate`
+-   `velocity-animate`
 
 **Notes**
 
-*   A component to ease creating multi-step Velocity transitions. The `sequence` refers to a Velocity [sequence](http://velocityjs.org/#uiPack), first introduced in the UI pack. Instead of raw elements, the `e` property should contain the ref of the desired element. For example:
+-   A component to ease creating multi-step Velocity transitions. The `sequence` refers to a Velocity [sequence](http://velocityjs.org/#uiPack), first introduced in the UI pack. Instead of raw elements, the `e` property should contain the ref of the desired element. For example:
 
 ```
 <template>
@@ -454,46 +457,46 @@ export default {
 
 This will make the h2 fade in, then the h3 fade in and p tag slide in from the left.
 
-*   `velocity-animate` also allows you to set initial states of elements by forcefeeding starting values. See [this section](http://velocityjs.org/#forcefeeding) of the Velocity docs for details. Instead of just animating from the second value to the first, velocity-animate sets the element's desired property to the second value from the start of the animation.
+-   `velocity-animate` also allows you to set initial states of elements by forcefeeding starting values. See [this section](http://velocityjs.org/#forcefeeding) of the Velocity docs for details. Instead of just animating from the second value to the first, velocity-animate sets the element's desired property to the second value from the start of the animation.
 
 ## `video-stage`
 
 **Props**
 
-*   `src`: String, default `''`. The source of the video to embed. This can either be a full iframe code, or for Vimeo videos can just be a permalink to the video.
-*   `autoplay`: Boolean, default `true`. Controls whether the component should attempt to autoplay the video. Only vimeo videos support autoplay at the moment.
-*   `autoOffsets`: Boolean, default `true`. If set to true, the components will attempt to automatically calculate a fitToParent offset based on the dimensions of any slot elements provided.
-*   `paused`: Boolean, default `false`. If set to true, the player will pause; if false, the player will play.
-*   `muted`: Boolean, default `false`. If set to true, Vimeo player will start muted.
+-   `src`: String, default `''`. The source of the video to embed. This can either be a full iframe code, or for Vimeo videos can just be a permalink to the video.
+-   `autoplay`: Boolean, default `true`. Controls whether the component should attempt to autoplay the video. Only vimeo videos support autoplay at the moment.
+-   `autoOffsets`: Boolean, default `true`. If set to true, the components will attempt to automatically calculate a fitToParent offset based on the dimensions of any slot elements provided.
+-   `paused`: Boolean, default `false`. If set to true, the player will pause; if false, the player will play.
+-   `muted`: Boolean, default `false`. If set to true, Vimeo player will start muted.
 
 **Slots**
 
-*   `before`: Renders directly before the element that holds the iframe.
-*   `after`: Renders directly after the element that holds the iframe.
+-   `before`: Renders directly before the element that holds the iframe.
+-   `after`: Renders directly after the element that holds the iframe.
 
 **Notes**
 
-*   This component uses [`fitToParent`](https://github.com/funkhaus/fitToParent) to automatically scale and center the iframe within the dimensions of the nearest positioned parent element. Example usage:
+-   This component uses [`fitToParent`](https://github.com/funkhaus/fitToParent) to automatically scale and center the iframe within the dimensions of the nearest positioned parent element. Example usage:
     `<video-stage src="https://vimeo.com/123456789" @ended="goToNextPage" />`.
 
 **Events**
 
-*   Events are only supported for Vimeo-based videos.
-*   `ended`: fires once the video has reached the end.
-*   `play`: fires any time the video begins playback
-*   `pause`: fires any time the video is paused
+-   Events are only supported for Vimeo-based videos.
+-   `ended`: fires once the video has reached the end.
+-   `play`: fires any time the video begins playback
+-   `pause`: fires any time the video is paused
 
 ## `wp-content`
 
 **Props**
 
-*   `html`: String, default `''`. HTML that can function as a Vue template. The component will dynamically compile the contents, and inject the results into the vue component tree.
-*   `unwrap`: Array, default `['p > img', 'p > iframe']`. Array of CSS selectors describing elements to unwrap from their parent nodes. (WordPress automatically wraps newlines in `<p>` tags, so this is a useful feature to remove standalone media from those `<p>` tags.)
-*   `fitvids`: Boolean, default `true`. When set to true, the component will run fitvids on all content inside.
-*   `replace`: Array, default `[]`. Array of objects containing:
+-   `html`: String, default `''`. HTML that can function as a Vue template. The component will dynamically compile the contents, and inject the results into the vue component tree.
+-   `unwrap`: Array, default `['p > img', 'p > iframe']`. Array of CSS selectors describing elements to unwrap from their parent nodes. (WordPress automatically wraps newlines in `<p>` tags, so this is a useful feature to remove standalone media from those `<p>` tags.)
+-   `fitvids`: Boolean, default `true`. When set to true, the component will run fitvids on all content inside.
+-   `replace`: Array, default `[]`. Array of objects containing:
 
-    *   `selector` - String with CSS selector for elements to replace
-    *   `callback` - Function describing what to replace old element with. Accepts one argument referring to the old element; should return a String or Node with the element's replacement.
+    -   `selector` - String with CSS selector for elements to replace
+    -   `callback` - Function describing what to replace old element with. Accepts one argument referring to the old element; should return a String or Node with the element's replacement.
 
     This feature lets you replace items in `wp-content`. For example:
 
@@ -505,12 +508,12 @@ This will make the h2 fade in, then the h3 fade in and p tag slide in from the l
 
 **Classes**
 
-*   `wp-content-placeholder`: only present when no html template is provided
-*   `wp-content-rendered`: only present when an html template was provided and successfully rendered
+-   `wp-content-placeholder`: only present when no html template is provided
+-   `wp-content-rendered`: only present when an html template was provided and successfully rendered
 
 **Notes**
 
-*   This was built to allow components to be used with the the contents of a Wordpress post. It's very effective for that purpose, but more generally can be used to compile any dynamically loaded template and render it into the component tree. Be aware that this should only ever be used when the template going into the `html` prop is trusted.
+-   This was built to allow components to be used with the the contents of a Wordpress post. It's very effective for that purpose, but more generally can be used to compile any dynamically loaded template and render it into the component tree. Be aware that this should only ever be used when the template going into the `html` prop is trusted.
 
 ## wp-menu
 
@@ -525,8 +528,8 @@ This will make the h2 fade in, then the h3 fade in and p tag slide in from the l
 
 ### Classes
 
-*   `menu`
-*   `${ slug }`: Either the `slug` prop or a kebab-cased version of the `name` prop, whichever is available.
+-   `menu`
+-   `${ slug }`: Either the `slug` prop or a kebab-cased version of the `name` prop, whichever is available.
 
 ### Slots
 
@@ -575,10 +578,10 @@ Directives may also have "modifiers" to go with them. Modifiers can be used like
 
 **Notes**:
 
-*   Applies a class to an element on hover or focus. Only removes that class when an animation is finished with its current iteration. See [this pen](https://codepen.io/SanderMoolin/full/yMGxgw) for an example - the arrows will always finish their bounce animations.
-*   Must be more than 1 animation iteration to remove class correctly.
-*   Accepts one argument, the class name to apply. Default `animating`.
-*   Recommended use:
+-   Applies a class to an element on hover or focus. Only removes that class when an animation is finished with its current iteration. See [this pen](https://codepen.io/SanderMoolin/full/yMGxgw) for an example - the arrows will always finish their bounce animations.
+-   Must be more than 1 animation iteration to remove class correctly.
+-   Accepts one argument, the class name to apply. Default `animating`.
+-   Recommended use:
 
 ```html
 <template>
@@ -608,65 +611,65 @@ Directives may also have "modifiers" to go with them. Modifiers can be used like
 
 **Notes**:
 
-*   Sticks the bottom edge of an element to the bottom edge of the screen. Like position: sticky, but keeps the element stuck.
-*   Jittery in Firefox and Safari. Works in Chrome.
+-   Sticks the bottom edge of an element to the bottom edge of the screen. Like position: sticky, but keeps the element stuck.
+-   Jittery in Firefox and Safari. Works in Chrome.
 
 ## `draggable`
 
 **Notes**
 
-*   Gives the user access to mousedowm/move/up events and deltas.
-*   User needs to full functionality in arguments - directive just handles communicating data to those events.
+-   Gives the user access to mousedowm/move/up events and deltas.
+-   User needs to full functionality in arguments - directive just handles communicating data to those events.
 
 **Arguments**
 
-*   `dragStart`: Function, default null. Called when the user clicks on an element. Takes two arguments, the event itself and an object with the clientX and clientY properties in `x` and `y`.
-*   `drag`: Function, default null. Called when the user clicks on an element. Takes two arguments, the event itself and an object with:
-    *   `lastPos`: the clientX and clientY properties in `x` and `y`
-    *   `delta`: the change in pixels between this frame and the previous in `x` and `y`.
-    *   `totalDelta`: the change in pixels of the drag from start to the current frame, in `x` and `y`.
-*   `dragStop`: Function, default null. Called when the user releases a click on an element. Takes two arguments, the event itself and an object with:
-    *   `lastPos`: the clientX and clientY properties in `x` and `y`
-    *   `totalDelta`: the change in pixels of the drag from start to finish, in `x` and `y`.
+-   `dragStart`: Function, default null. Called when the user clicks on an element. Takes two arguments, the event itself and an object with the clientX and clientY properties in `x` and `y`.
+-   `drag`: Function, default null. Called when the user clicks on an element. Takes two arguments, the event itself and an object with:
+    -   `lastPos`: the clientX and clientY properties in `x` and `y`
+    -   `delta`: the change in pixels between this frame and the previous in `x` and `y`.
+    -   `totalDelta`: the change in pixels of the drag from start to the current frame, in `x` and `y`.
+-   `dragStop`: Function, default null. Called when the user releases a click on an element. Takes two arguments, the event itself and an object with:
+    -   `lastPos`: the clientX and clientY properties in `x` and `y`
+    -   `totalDelta`: the change in pixels of the drag from start to finish, in `x` and `y`.
 
 ## `full-height`
 
 **Notes**:
 
-*   Sizes the element to 100% of the window height. Replacement for the occasionally buggy 100vh css value.
+-   Sizes the element to 100% of the window height. Replacement for the occasionally buggy 100vh css value.
 
 **Modifiers**
 
-*   `min`: If provided, directive will use the `min-height` css property rather than `height`.
+-   `min`: If provided, directive will use the `min-height` css property rather than `height`.
 
 ## `in-view`
 
 **Arguments**
 
-*   `above`: String, default `above-view`. Class when element is above the viewport.
-*   `below`: String, default `below-view`. Class when element is below the viewport.
-*   `left`: String, default `left-of-view`. Class when element is left of viewport.
-*   `right`: String, default `right-of-view`. Class when element is right of viewport.
-*   `inView`: String, default `in-view`. Class when element is within the viewport.
-*   `onEnter`: Function, default `null`. Method to call when an element enters view from anywhere. Accepts one argument, the element that has entered the viewport.
-*   `onEnterAbove`: Function, default `null`. Method to call when an element enters view from the top of the screen. Accepts one argument, the element that has entered the viewport.
-*   `onEnterBelow`: Function, default `null`. Method to call when an element enters view from below the screen. Accepts one argument, the element that has entered the viewport.
-*   `onEnterLeft`: Function, default `null`. Method to call when an element enters view from left of the screen. Accepts one argument, the element that has entered the viewport.
-*   `onEnterRight`: Function, default `null`. Method to call when an element enters view from right of the screen. Accepts one argument, the element that has entered the viewport.
-*   `onLeave`: Function, default `null`. Method to call when an element leaves view from anywhere. Accepts one argument, the element that has ;eft the viewport.
-*   `onLeaveAbove`: Function, default `null`. Method to call when an element leaves view, going above the screen. Accepts one argument, the element that has left the viewport.
-*   `onLeaveBelow`: Function, default `null`. Method to call when an element leaves view, going below the screen. Accepts one argument, the element that has left the viewport.
-*   `onLeaveLeft`: Function, default `null`. Method to call when an element leaves view, going left of the screen. Accepts one argument, the element that has left the viewport.
-*   `onLeaveRight`: Function, default `null`. Method to call when an element leaves view, going right of screen. Accepts one argument, the element that has left the viewport.
+-   `above`: String, default `above-view`. Class when element is above the viewport.
+-   `below`: String, default `below-view`. Class when element is below the viewport.
+-   `left`: String, default `left-of-view`. Class when element is left of viewport.
+-   `right`: String, default `right-of-view`. Class when element is right of viewport.
+-   `inView`: String, default `in-view`. Class when element is within the viewport.
+-   `onEnter`: Function, default `null`. Method to call when an element enters view from anywhere. Accepts one argument, the element that has entered the viewport.
+-   `onEnterAbove`: Function, default `null`. Method to call when an element enters view from the top of the screen. Accepts one argument, the element that has entered the viewport.
+-   `onEnterBelow`: Function, default `null`. Method to call when an element enters view from below the screen. Accepts one argument, the element that has entered the viewport.
+-   `onEnterLeft`: Function, default `null`. Method to call when an element enters view from left of the screen. Accepts one argument, the element that has entered the viewport.
+-   `onEnterRight`: Function, default `null`. Method to call when an element enters view from right of the screen. Accepts one argument, the element that has entered the viewport.
+-   `onLeave`: Function, default `null`. Method to call when an element leaves view from anywhere. Accepts one argument, the element that has ;eft the viewport.
+-   `onLeaveAbove`: Function, default `null`. Method to call when an element leaves view, going above the screen. Accepts one argument, the element that has left the viewport.
+-   `onLeaveBelow`: Function, default `null`. Method to call when an element leaves view, going below the screen. Accepts one argument, the element that has left the viewport.
+-   `onLeaveLeft`: Function, default `null`. Method to call when an element leaves view, going left of the screen. Accepts one argument, the element that has left the viewport.
+-   `onLeaveRight`: Function, default `null`. Method to call when an element leaves view, going right of screen. Accepts one argument, the element that has left the viewport.
 
 **Modifiers**
 
-*   `appear`: If set, events and classes will be calculated on insertion.
+-   `appear`: If set, events and classes will be calculated on insertion.
 
 **Notes**
 
-*   Applies classes to an element based on its viewport visibility.
-*   Can also fire callbacks when an element has entered or left the viewport.
+-   Applies classes to an element based on its viewport visibility.
+-   Can also fire callbacks when an element has entered or left the viewport.
 
 ## `interact`
 
@@ -676,18 +679,18 @@ You can pass either a function or an object to `v-interact`. If you pass a funct
 
 If you pass an object, your available parameters are:
 
-*   `callback`: Function, default `() => {}`. Callback to fire when any event triggers.
-*   `events`: Array of objects, default `{ mouseenter: callback, focus: callback }` or `{ mouseleave: callback, blur: callback }`, depending on whether the `end` modifier exists (see below). The keys in this object are event types, the values are the functions to call on those events.
+-   `callback`: Function, default `() => {}`. Callback to fire when any event triggers.
+-   `events`: Array of objects, default `{ mouseenter: callback, focus: callback }` or `{ mouseleave: callback, blur: callback }`, depending on whether the `end` modifier exists (see below). The keys in this object are event types, the values are the functions to call on those events.
 
 **Modifiers**
 
-*   `end` - Consolidates `mouseleave` and `blur` instead of `mouseenter` and `focus`.
+-   `end` - Consolidates `mouseleave` and `blur` instead of `mouseenter` and `focus`.
 
 **Notes**
 
-*   Event consolidator that handles both `mouseenter`/`focus` and `mouseleave`/`blur`.
-*   `v-interact` funnels multiple events into one callback and/or event. It's designed to consolidate mouseenter/focus and mouseleave/blur, but it can be used with any set of events.
-*   Example:
+-   Event consolidator that handles both `mouseenter`/`focus` and `mouseleave`/`blur`.
+-   `v-interact` funnels multiple events into one callback and/or event. It's designed to consolidate mouseenter/focus and mouseleave/blur, but it can be used with any set of events.
+-   Example:
 
     ```
     <!-- method defined in Vue instance - receives event as argument -->
@@ -707,11 +710,11 @@ If you pass an object, your available parameters are:
 
 **Modifiers**
 
-*   `esc` - Only run callback on `esc` keydown.
-*   `up` - Only run callback on `up arrow` keydown.
-*   `right` - Only run callback on `right arrow` keydown.
-*   `down` - Only run callback on `down arrow` keydown.
-*   `left` - Only run callback on `left arrow` keydown.
+-   `esc` - Only run callback on `esc` keydown.
+-   `up` - Only run callback on `up arrow` keydown.
+-   `right` - Only run callback on `right arrow` keydown.
+-   `down` - Only run callback on `down arrow` keydown.
+-   `left` - Only run callback on `left arrow` keydown.
 
 **Notes**
 
@@ -738,14 +741,14 @@ But this won't:
 
 **Arguments**
 
-*   `containerActivatedClass`: String, default `rh-active-within`. When a triggering component is hovered over or focused, the target element will have this class added to it.
-*   `elActivatedClass`: String, default `rh-active`. A triggering component that is hovered over or focused will have this class added to it.
-*   `processedClass`: String, default `rh-processed`. Triggering components will have this class added to them. (Usually left alone - mainly for internal directive use.)
-*   `selectors`: Array or String, default `['a']`. All children of the target element that match this selector will become triggering components, reverse-hover listeners attached.
+-   `containerActivatedClass`: String, default `rh-active-within`. When a triggering component is hovered over or focused, the target element will have this class added to it.
+-   `elActivatedClass`: String, default `rh-active`. A triggering component that is hovered over or focused will have this class added to it.
+-   `processedClass`: String, default `rh-processed`. Triggering components will have this class added to them. (Usually left alone - mainly for internal directive use.)
+-   `selectors`: Array or String, default `['a']`. All children of the target element that match this selector will become triggering components, reverse-hover listeners attached.
 
 **Notes**
 
-*   Allows for a "reverse hover" effect, where hovering over one element of a set affects all elements of a set. For example:
+-   Allows for a "reverse hover" effect, where hovering over one element of a set affects all elements of a set. For example:
 
 ```html
 <ul class="container" v-reverse-hover>
@@ -769,13 +772,13 @@ But this won't:
 
 When hovering/focusing over any `.link` element, the `.container` will receive the `rh-active-within` class (giving it a gray background) and all non-hovered/focused `.link`s will be reduced to 0.5 opacity. The element that triggered the reverse-hover (the original hovered/focused `.link`) will have its font-weight set to 700.
 
-*   You can set the class names yourself by passing an object:
+-   You can set the class names yourself by passing an object:
 
 ```html
 <ul v-reverse-hover="{ containerActivatedClass: 'container-activated' /* etc... */ }">
 ```
 
-*   You can also choose which selectors will act as triggers:
+-   You can also choose which selectors will act as triggers:
 
 ```html
 <ul v-reverse-hover="{ selectors: ['a', 'button'] /* <a> and <button> tags will trigger the reverse-hover */ }">
@@ -847,9 +850,9 @@ Like [Masonry](https://masonry.desandro.com/) but more lightweight and based on 
 
 ### Notes
 
-*   Best used with [waitFor](#waitFor) so that content is rendered before sizes are calculated.
-*   Set each block to translate up by its corresponding `transforms` value to create a Masonry-style, tightly-packed grid.
-*   Add gaps between columns and rows with `-gap` properties.
+-   Best used with [waitFor](#waitFor) so that content is rendered before sizes are calculated.
+-   Set each block to translate up by its corresponding `transforms` value to create a Masonry-style, tightly-packed grid.
+-   Add gaps between columns and rows with `-gap` properties.
 
 Example:
 
@@ -1024,12 +1027,12 @@ Reusable components are only helpful if they're easy to reuse! Fill in this temp
 
 **Classes**
 
-*   `always-applied`
-*   `conditional`: explanation of when class will/won't be applied
+-   `always-applied`
+-   `conditional`: explanation of when class will/won't be applied
 
 **Notes**
 
-*   Miscellaneous notes and information here. Why add this custom component? When can it be used?
+-   Miscellaneous notes and information here. Why add this custom component? When can it be used?
 ```
 
 ## Tests

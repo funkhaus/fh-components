@@ -20,7 +20,8 @@
                 :is="slideWrap"
                 v-for="(slide, i) in slides"
                 v-if="activeIndex == i"
-                :key="i">
+                :key="i"
+                class="slide-wrap">
 
                 <slot
                     :slide="slide"
@@ -344,16 +345,22 @@ export default {
             }
         },
         proxyEnter(el, done) {
+            // ignore if using CSS
+            if (this.css) return
+
             if (this.enter) {
                 this.enter(...arguments)
-            } else if (!this.css) {
+            } else {
                 done()
             }
         },
         proxyLeave(el, done) {
+            // ignore if using CSS
+            if (this.css) return
+
             if (this.leave) {
                 this.leave(...arguments)
-            } else if (!this.css) {
+            } else {
                 done()
             }
         },
@@ -378,6 +385,7 @@ export default {
     &:focus {
         outline: none;
     }
+    .slide-wrap,
     .slide {
         position: absolute;
         height: 100%;
