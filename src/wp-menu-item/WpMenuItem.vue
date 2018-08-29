@@ -14,15 +14,15 @@
                 :to="item.relativePath"
                 v-html="item.title"
             />
-        </slot>
 
-        <ul v-if="children.length">
-            <menu-item
-                v-for="(child, i) in children"
-                :item="child"
-                :key="i"
-            />
-        </ul>
+            <ul v-if="children.length">
+                <menu-item
+                    v-for="(child, i) in children"
+                    :item="child"
+                    :key="i"
+                />
+            </ul>
+        </slot>
 
     </li>
 </template>
