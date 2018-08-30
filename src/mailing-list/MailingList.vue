@@ -109,7 +109,7 @@ export default {
             success: false,
             errorMessage: '',
             loading: false,
-            email: 'test'
+            email: ''
         }
     },
     computed: {
