@@ -159,6 +159,7 @@ This component will keep track of its own scroll position, and when it enters th
 -   `loading`: if mailing list request has been submitted
 -   `state-${ state }`: either `state-success`, `state-error`, or `state-none`, depending on submission state
 -   `provider-${ provider }`: either `provider-mailchimp` or `provider-madmimi`
+-   `empty`: Added if the email input field is empty.
 
 **Slots**
 

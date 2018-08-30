@@ -1,5 +1,5 @@
 <template>
-    <div :class="['fh-mailing-list', `state-${ state }`, `provider-${ provider }`, { loading }]">
+    <div :class="classes">
 
         <slot name="top" />
         <slot />
@@ -10,21 +10,30 @@
 
                 <form v-if="isMadMimi" ref="form" @submit.prevent="onSubmit" target="_blank" :action="actionUrl" accept-charset="UTF-8" method="POST">
                     <input name="utf8" type="hidden" value="✓"/>
+
                     <slot name="label">
                         <label for="mailing_list_email">Email</label>
                     </slot>
-                    <input id="mailing_list_email" class="email" name="signup[email]" type="text" :placeholder="placeholder" />
+
+                    <input id="mailing_list_email"
+                        class="email"
+                        name="signup[email]"
+                        type="text"
+                        :placeholder="placeholder"
+                        v-model="email" />
+
                     <div style="background: white; font-size:1px; height: 0; overflow: hidden" aria-hidden="true">
                         <input type="text" :name="token" tabindex="-1" style="font-size: 1px; width: 1px !important; height:1px !important; border:0 !important; line-height: 1px !important; padding: 0 0; min-height:1px !important;"/>
                         <input class="checkbox" type="checkbox" name="beacon"/>
                     </div>
+
                     <slot name="within-form" />
                     <input type="submit" class="submit" :value="submitText" />
                 </form>
 
                 <form v-else-if="isMailchimp" ref="form" :action="actionUrl" method="GET" target="_blank" novalidate @submit.prevent="onSubmit">
                     <label for="mailing_list_email">Email</label>
-                    <input id="mailing_list_email" type="email" class="email" name="EMAIL" :placeholder="placeholder" />
+                    <input id="mailing_list_email" type="email" class="email" name="EMAIL" :placeholder="placeholder" v-model="email" />
                     <div style="position: absolute; left: -5000px;" aria-hidden="true">
                         <input type="text" :name="token" tabindex="-1" value="">
                     </div>
@@ -99,7 +108,8 @@ export default {
         return {
             success: false,
             errorMessage: '',
-            loading: false
+            loading: false,
+            email: 'test'
         }
     },
     computed: {
@@ -126,6 +136,15 @@ export default {
                 return `${modified}&`
             }
             return ''
+        },
+        classes() {
+            return [
+                'fh-mailing-list',
+                `state-${this.state}`,
+                `provider-${this.provider}`,
+                { loading: this.loading },
+                { empty: !this.email }
+            ]
         }
     },
     methods: {
