@@ -39,6 +39,8 @@ Reusable components and directives for Vue. Designed for [Vuepress](https://gith
     1.  [Rect](#rect)
     1.  [Sequence](#sequence)
     1.  [WaitFor](#waitfor)
+1.  [Animations](#animations)
+    1. [Slide-Toggle](#slide-toggle)
 1.  [Testing](#testing)
 1.  [Contributing](#contributing)
     1.  [Prep](#prep)
@@ -977,6 +979,38 @@ export default {
 }
 </script>
 ```
+
+# Animations
+
+fh-components comes with built-in [Popmotion](https://popmotion.io/) animations. To use, import the `enter` and `leave` methods and call in a JS transition. For example, this is all you need for a working slide-toggle:
+
+```html
+<template>
+    <transition @enter="enter" @leave="leave" :css="false">
+        <button v-if="shown">Toggle me!</button>
+    </transition>
+</template>
+
+<script>
+import { enter, leave } from 'fh-components/animations/slide-toggle'
+
+export default {
+    data(){
+        return {
+            shown: true
+        }
+    },
+    methods: {
+        enter,
+        leave
+    }
+}
+</script>
+```
+
+## `slide-toggle`
+
+Mimics jQuery's [slide-toggle](http://api.jquery.com/slidetoggle/). See [above](#animations) for example.
 
 # Testing
 
