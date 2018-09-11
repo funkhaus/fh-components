@@ -13,6 +13,9 @@ export default {
                 return
             }
 
+            // convenience vars
+            const childCount = el.childNodes.length
+
             // count the number of columns in the CSS grid
             const computedColumns = getComputedStyle(el).gridTemplateColumns
             // computed grid-template-columns looks like this:
@@ -31,7 +34,7 @@ export default {
             // if the column count is 1, reset all transforms to 0 and exit -
             // no layout is necessary
             if (columnCount == 1) {
-                this.transforms = Array(el.childNodes.length).fill(0)
+                this.transforms = Array(childCount).fill(0)
                 return
             }
 
@@ -41,7 +44,7 @@ export default {
             // and the total real height for each column here
             const columnHeights = Array(columnCount).fill(0)
             // and the final desired height for each column here
-            this.heights = Array(el.childNodes.length).fill('')
+            this.heights = Array(childCount).fill('')
 
             // for each block...
             const blocks = el.childNodes
@@ -80,40 +83,51 @@ export default {
                 columnHeights[columnIndex] += contentHeight
             })
 
-            // finally, account for any extra space at the bottom of the wrapper
+            // finally, account for any extra space at the bottom of the wrapper:
 
-            // find the tallest column in the packed content
-            const tallestHeight = columnHeights.reduce((acc, curr) => {
-                if (curr > acc) return curr
-                return acc
-            }, 0)
+            // find the tallest column in the packed content...
+            const tallestHeight = columnHeights.reduce(
+                (acc, curr) => (curr > acc ? curr : acc),
+                0
+            )
 
-            // find the height of the wrapper
+            // ...then find the height of the containing el...
             const wrapperHeight = el.getBoundingClientRect().height
 
-            // find how tall the final row will need to be
-            const finalRowHeight = wrapperHeight - tallestHeight
+            // ...and save the difference between the two
+            const extraSpace = wrapperHeight - tallestHeight
+            let accountedSpace = 0
+            let row = 0
 
-            let tallestInFinalRow = 0
+            while (extraSpace > accountedSpace) {
+                // create an array of all the blocks in the current row
+                const finalRowLength = childCount % columnCount || columnCount
+                const startIndex =
+                    childCount - finalRowLength - columnCount * row
+                const endIndex = childCount - columnCount * row
 
-            for (let i = 1; i <= columnCount; i++) {
-                const index = el.childNodes.length - i
-                const currentHeight = el.childNodes[
-                    index
-                ].getBoundingClientRect().height
+                const currentRow = [...el.childNodes].slice(
+                    startIndex,
+                    endIndex
+                )
 
-                if (currentHeight > tallestInFinalRow) {
-                    tallestInFinalRow = currentHeight
+                let tallestInRow = 0
+                currentRow.map(block => {
+                    const currentHeight = block.getBoundingClientRect().height
+
+                    if (currentHeight > tallestInRow) {
+                        tallestInRow = currentHeight
+                    }
+                }, 0)
+
+                const desiredHeight = Math.max(tallestInRow - extraSpace, 0)
+
+                for (let i = 0; i < endIndex - startIndex; i++) {
+                    this.heights[endIndex - i - 1] = desiredHeight
                 }
-            }
 
-            // console.log(tallestInFinalRow - finalRowHeight)
-
-            let i = el.childNodes.length - 1
-            console.log(i)
-            while ((i - 1) % columnCount) {
-                this.heights[i] = tallestInFinalRow - finalRowHeight
-                i--
+                accountedSpace += tallestInRow - desiredHeight
+                row++
             }
         }
     }
