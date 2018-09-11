@@ -99,36 +99,38 @@ export default {
             let accountedSpace = 0
             let row = 0
 
-            while (extraSpace > accountedSpace) {
-                // create an array of all the blocks in the current row
-                const finalRowLength = childCount % columnCount || columnCount
-                const startIndex =
-                    childCount - finalRowLength - columnCount * row
-                const endIndex = childCount - columnCount * row
+            // while (extraSpace > accountedSpace) {
+            // create an array of all the blocks in the current row
+            const finalRowLength = childCount % columnCount || columnCount
+            const startIndex = childCount - finalRowLength - columnCount * row
+            const endIndex = childCount - columnCount * row
 
-                const currentRow = [...el.childNodes].slice(
-                    startIndex,
-                    endIndex
-                )
+            const currentRow = [...el.childNodes].slice(
+                startIndex,
+                endIndex + 1
+            )
 
-                let tallestInRow = 0
-                currentRow.map(block => {
-                    const currentHeight = block.getBoundingClientRect().height
+            let tallestInRow = 0
+            currentRow.map(block => {
+                const currentHeight = block.getBoundingClientRect().height
 
-                    if (currentHeight > tallestInRow) {
-                        tallestInRow = currentHeight
-                    }
-                }, 0)
-
-                const desiredHeight = Math.max(tallestInRow - extraSpace, 0)
-
-                for (let i = 0; i < endIndex - startIndex; i++) {
-                    this.heights[endIndex - i - 1] = desiredHeight
+                if (currentHeight > tallestInRow) {
+                    tallestInRow = currentHeight
                 }
+            }, 0)
 
-                accountedSpace += tallestInRow - desiredHeight
-                row++
+            let desiredHeight = Math.max(tallestInRow - extraSpace, 0)
+
+            for (let i = startIndex; i <= endIndex; i++) {
+                if (i < this.heights.length) {
+                    this.heights[i] = desiredHeight
+                }
             }
+
+            // accountedSpace += tallestInRow - desiredHeight
+            accountedSpace = extraSpace
+            row++
         }
+        // }
     }
 }
