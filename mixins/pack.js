@@ -112,6 +112,11 @@ export default {
 
             let tallestInRow = 0
             currentRow.map(block => {
+                // ignore if no bounding box
+                if (!block.getBoundingClientRect) {
+                    return
+                }
+
                 const currentHeight = block.getBoundingClientRect().height
 
                 if (currentHeight > tallestInRow) {
