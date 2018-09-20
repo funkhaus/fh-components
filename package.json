@@ -1,6 +1,6 @@
 {
     "name": "fh-components",
-    "version": "1.3.07",
+    "version": "1.3.08",
     "description": "Reusable Vuepress components.",
     "main": "index.js",
     "scripts": {

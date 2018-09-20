@@ -13,6 +13,7 @@ Reusable components and directives for Vue. Designed for [Vuepress](https://gith
     1.  [load-on-view](#load-on-view)
     1.  [mailing-list](#mailing-list)
     1.  [responsive-image](#responsive-image)
+    1.  [reveal-footer](#reveal-footer)
     1.  [scroll-to](#scroll-to)
     1.  [slide-show](#slide-show)
     1.  [split-text](#split-text)
@@ -223,6 +224,17 @@ This component will keep track of its own scroll position, and when it enters th
 -   If you add a link to an .mp4 video in the "Alt" field in WordPress, this element will create and render a video, using the provided image as the poster (see "Poster" under "Attributes" [here](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video)).
 -   Also works when `object` is set to an Advanced Custom Fields image array. Only provides `fullscreen` size and image alt in this case.
 -   Works with [Focushaus](https://github.com/funkhaus/focushaus), if installed, to set a custom focal point for an image. Defaults to standard browser behavior, focal point in the center of the image.
+
+## `reveal-footer`
+
+A component that reveals the section at the bottom of a page. Like the footer on the [Funkhaus site](http://funkhaus.us/).
+
+Adds a slot wrapped with an empty div `footer-wrap`, preceded by an empty div that expands to match the `footer-wrap` height. `footer-wrap` is `position: fixed` and has `right`, `bottom`, and `left` set to 0.
+
+### Classes
+
+-   `reveal-footer`
+-   `footer-wrap`
 
 ## `scroll-to`
 
