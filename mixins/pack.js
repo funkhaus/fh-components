@@ -35,6 +35,7 @@ export default {
             // no layout is necessary
             if (columnCount == 1) {
                 this.transforms = Array(childCount).fill(0)
+                this.heights = Array(childCount).fill('')
                 return
             }
 
@@ -118,6 +119,7 @@ export default {
                 }
 
                 const currentHeight = block.getBoundingClientRect().height
+                console.log(currentHeight)
 
                 if (currentHeight > tallestInRow) {
                     tallestInRow = currentHeight
