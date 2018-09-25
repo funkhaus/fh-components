@@ -119,7 +119,6 @@ export default {
                 }
 
                 const currentHeight = block.getBoundingClientRect().height
-                console.log(currentHeight)
 
                 if (currentHeight > tallestInRow) {
                     tallestInRow = currentHeight
