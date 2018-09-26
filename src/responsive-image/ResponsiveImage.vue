@@ -109,6 +109,9 @@ export default {
         this.setFocalPoint()
     },
     created() {
+        // ignore if our src is undefined
+        if (!this.parsedSrc) return
+
         const img = new Image()
         img.src = this.parsedSrc
 
@@ -169,7 +172,8 @@ export default {
     computed: {
         aspectPadding() {
             // default to defined aspect, or calculate
-            const calculatedAspect = this.parsedHeight / this.parsedWidth * 100
+            const calculatedAspect =
+                (this.parsedHeight / this.parsedWidth) * 100
             return this.aspect || calculatedAspect || 56.25
         },
         classes() {
