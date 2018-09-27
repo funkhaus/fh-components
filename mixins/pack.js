@@ -3,6 +3,7 @@ export default {
         return {
             transforms: [],
             heights: [],
+            containerHeight: '',
             emptySpace: 0
         }
     },
@@ -15,9 +16,10 @@ export default {
 
             // convenience vars
             const childCount = el.childNodes.length
+            const computedStyle = getComputedStyle(el)
 
             // count the number of columns in the CSS grid
-            const computedColumns = getComputedStyle(el).gridTemplateColumns
+            const computedColumns = computedStyle.gridTemplateColumns
             // computed grid-template-columns looks like this:
             // 120px 120x 120px
             // split by whitespace to determine the number of columns
@@ -36,6 +38,7 @@ export default {
             if (columnCount == 1) {
                 this.transforms = Array(childCount).fill(0)
                 this.heights = Array(childCount).fill('')
+                this.containerHeight = ''
                 return
             }
 
@@ -87,56 +90,22 @@ export default {
             // finally, account for any extra space at the bottom of the wrapper:
 
             // find the tallest column in the packed content...
-            const tallestHeight = columnHeights.reduce(
+            let tallestHeight = columnHeights.reduce(
                 (acc, curr) => (curr > acc ? curr : acc),
                 0
             )
 
-            // ...then find the height of the containing el...
-            const wrapperHeight = el.getBoundingClientRect().height
-
-            // ...and save the difference between the two
-            const extraSpace = wrapperHeight - tallestHeight
-            let accountedSpace = 0
-            let row = 0
-
-            // while (extraSpace > accountedSpace) {
-            // create an array of all the blocks in the current row
-            const finalRowLength = childCount % columnCount || columnCount
-            const startIndex = childCount - finalRowLength - columnCount * row
-            const endIndex = childCount - columnCount * row
-
-            const currentRow = [...el.childNodes].slice(
-                startIndex,
-                endIndex + 1
-            )
-
-            let tallestInRow = 0
-            currentRow.map(block => {
-                // ignore if no bounding box
-                if (!block.getBoundingClientRect) {
-                    return
-                }
-
-                const currentHeight = block.getBoundingClientRect().height
-
-                if (currentHeight > tallestInRow) {
-                    tallestInRow = currentHeight
-                }
-            }, 0)
-
-            let desiredHeight = Math.max(tallestInRow - extraSpace, 0)
-
-            for (let i = startIndex; i <= endIndex; i++) {
-                if (i < this.heights.length) {
-                    this.heights[i] = desiredHeight
-                }
+            let rowGap = computedStyle.gridRowGap.match(/\d+/)
+            if (rowGap) {
+                rowGap = rowGap[0]
+                const gapInstances = Math.max(
+                    Math.floor(childCount / columnCount),
+                    0
+                )
+                tallestHeight += gapInstances * rowGap
             }
 
-            // accountedSpace += tallestInRow - desiredHeight
-            accountedSpace = extraSpace
-            row++
+            this.containerHeight = tallestHeight + 'px'
         }
-        // }
     }
 }
