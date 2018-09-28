@@ -2,9 +2,7 @@ export default {
     data() {
         return {
             transforms: [],
-            heights: [],
-            containerHeight: '',
-            emptySpace: 0
+            containerHeight: ''
         }
     },
     methods: {
@@ -15,7 +13,7 @@ export default {
             }
 
             // convenience vars
-            const childCount = el.childNodes.length
+            const childCount = el.childElementCount
             const computedStyle = getComputedStyle(el)
 
             // count the number of columns in the CSS grid
@@ -29,9 +27,6 @@ export default {
             // reset current transforms
             // each masonry block will get its transform from this array
             this.transforms = []
-
-            // reset empty space tracker
-            this.emptySpace = 0
 
             // if the column count is 1, reset all transforms to 0 and exit -
             // no layout is necessary
@@ -47,23 +42,21 @@ export default {
             const columnTotalOffsets = Array(columnCount).fill(0)
             // and the total real height for each column here
             const columnHeights = Array(columnCount).fill(0)
-            // and the final desired height for each column here
-            this.heights = Array(childCount).fill('')
 
             // for each block...
-            const blocks = el.childNodes
+            const blocks = [...el.children]
             blocks.forEach((block, i) => {
                 // ...find which column we're in...
                 const columnIndex = i % columnCount
 
                 // ...apply the accumulated offset, pushing it up against
                 // its upstairs neighbor...
-                this.transforms.push(columnTotalOffsets[columnIndex])
+                this.transforms.push(columnTotalOffsets[columnIndex] + 'px')
 
                 // ...calculate the difference between our content height
                 // and cell height...
                 const myHeight = block.clientHeight
-                const contentHeight = [...block.childNodes].reduce(
+                const contentHeight = [...block.children].reduce(
                     (acc, curr) => {
                         // if we're a text node, get the container
                         if (curr.nodeType == Node.TEXT_NODE) {
@@ -88,23 +81,31 @@ export default {
             })
 
             // finally, account for any extra space at the bottom of the wrapper:
-
-            // find the tallest column in the packed content...
+            // first,find the tallest column in the packed content...
             let tallestHeight = columnHeights.reduce(
                 (acc, curr) => (curr > acc ? curr : acc),
                 0
             )
 
+            // ...then find the row gaps declared by the grid...
             let rowGap = computedStyle.gridRowGap.match(/\d+/)
             if (rowGap) {
+                // get the gap size, in px
                 rowGap = rowGap[0]
+
+                // find the number of times that gap repeats
+                // (rounded down b/c there's always
+                // 1 less gap than there are blocks in a column)
                 const gapInstances = Math.max(
                     Math.floor(childCount / columnCount),
                     0
                 )
+
+                // add that total row gap size to the accumulated height
                 tallestHeight += gapInstances * rowGap
             }
 
+            // tell the container to match the height of the tallest column
             this.containerHeight = tallestHeight + 'px'
         }
     }

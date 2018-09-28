@@ -858,32 +858,32 @@ Like [Masonry](https://masonry.desandro.com/) but more lightweight and based on 
 
 ### Adds
 
-| Name         | Type     | Description                                                                   |
-| ------------ | -------- | ----------------------------------------------------------------------------- |
-| `transforms` | Array    | Array of pixel lengths to offset each packed block.                           |
-| `pack`       | Function | Recalculate the packing values. Requires one argument, the container element. |
+| Name              | Type             | Description                                                                   |
+| ----------------- | ---------------- | ----------------------------------------------------------------------------- |
+| `transforms`      | Array of strings | Array of pixel lengths to offset each packed block.                           |
+| `containerHeight` | String           | Height of the container element in pixels.                                    |
+| `pack`            | Function         | Recalculate the packing values. Requires one argument, the container element. |
 
 ### Notes
 
 -   Best used with [waitFor](#waitFor) so that content is rendered before sizes are calculated.
 -   Set each block to translate up by its corresponding `transforms` value to create a Masonry-style, tightly-packed grid.
--   Add gaps between columns and rows with `-gap` properties.
+-   It's a good idea to watch the window width in a debounce function and rerun `pack` when it changes.
+-   **Known bugs**:
+    -   Sometimes, child content wrapped in a flexbox won't calculate height correctly. To solve, wrap the flexbox in a container div.
+    -   Sometimes when watching the `window.innerWidth` directly, the sizes and transforms don't calculate correctly. To solve, debounce or throttle the window width watcher.
 
 Example:
 
 ```html
 <template>
 
-    <ul ref="container" class="container">
-        <li
-            v-for="(item, i) in list"
+    <section :style="{ height: containerHeight }" ref="container">
+        <repeated-block
+            v-for="(block, i) in ..."
             :key="i"
-            :style="{ transform: `translateY(${ transforms[i] }px)` }">
-
-            <!-- Your variable-height content here -->
-
-        </li>
-    </ul>
+            :style="{transform: transforms[i]}"/>
+    </section>
 
 </template>
 
@@ -899,6 +899,7 @@ export default {
         this.waitFor('$refs.container', this.pack)
     },
     watch: {
+        // assuming a debounced/throttled window width value on the root element
         '$root.winWidth'() {
             // pack when the window width changes
             this.pack(this.$refs.container)
