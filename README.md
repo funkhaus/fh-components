@@ -41,6 +41,7 @@ Reusable components and directives for Vue. Designed for [Vuepress](https://gith
     1.  [Sequence](#sequence)
     1.  [WaitFor](#waitfor)
 1.  [Animations](#animations)
+    1. [Sequential Fade](#sequential-fade)
     1. [Slide-Toggle](#slide-toggle)
 1.  [Testing](#testing)
 1.  [Contributing](#contributing)
@@ -1000,7 +1001,7 @@ export default {
 
 # Animations
 
-fh-components comes with built-in [Popmotion](https://popmotion.io/) animations. To use, import the `enter` and `leave` methods and call in a JS transition. For example, this is all you need for a working slide-toggle:
+fh-components comes with built-in [Popmotion](https://popmotion.io/) animations. To use, either import the `enter` and `leave` methods and call in a JS transition, or call dynamically. For example, this is all you need for a working slide-toggle:
 
 ```html
 <template>
@@ -1021,6 +1022,48 @@ export default {
     methods: {
         enter,
         leave
+    }
+}
+</script>
+```
+
+## `sequential-fade`
+
+Fade in a series of items using Popmotion's [stagger](https://popmotion.io/api/stagger/). Example:
+
+```html
+<template>
+    <ul ref="list">
+        <li>Item one</li>
+        <li>Item two</li>
+        <li>Item three</li>
+    </ul>
+</template>
+
+<script>
+import { sequentialFade } from 'fh-components/animations/sequential-fade'
+
+export default {
+    mounted(){
+        // Pass an array of nodes to the function to fade in sequentially.
+
+        // using defaults:
+        sequentialFade([...this.$refs.querySelectorAll('li')])
+
+        // using options:
+        sequentialFade(
+            // items to fade
+            [...this.$refs.querySelectorAll('li')],
+
+            // object to pass directly to tween options
+            {
+                from: { opacity: 0, y: 200 },
+                to: { opacity: 1, y: 0 }
+            },
+
+            // interval between tween starts, in ms
+            100
+        })
     }
 }
 </script>
