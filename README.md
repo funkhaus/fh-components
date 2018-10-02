@@ -1025,7 +1025,7 @@ export default {
         // Pass an array of nodes to the function to fade in sequentially.
 
         // using defaults:
-        sequentialFade([...this.$refs.querySelectorAll('li')])
+        sequentialFade([...this.$refs.list.querySelectorAll('li')])
 
         // using options:
         sequentialFade(
