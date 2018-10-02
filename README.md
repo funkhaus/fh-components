@@ -42,7 +42,8 @@ Reusable components and directives for Vue. Designed for [Vuepress](https://gith
     1.  [WaitFor](#waitfor)
 1.  [Animations](#animations)
     1. [Sequential Fade](#sequential-fade)
-    1. [Slide-Toggle](#slide-toggle)
+1.  [Transitions](#transitions)
+    1.  [Slide-Toggle](#slide-toggle)
 1.  [Testing](#testing)
 1.  [Contributing](#contributing)
     1.  [Prep](#prep)
@@ -1001,31 +1002,7 @@ export default {
 
 # Animations
 
-fh-components comes with built-in [Popmotion](https://popmotion.io/) animations. To use, either import the `enter` and `leave` methods and call in a JS transition, or call dynamically. For example, this is all you need for a working slide-toggle:
-
-```html
-<template>
-    <transition @enter="enter" @leave="leave" :css="false">
-        <button v-if="shown">Toggle me!</button>
-    </transition>
-</template>
-
-<script>
-import { enter, leave } from 'fh-components/animations/slide-toggle'
-
-export default {
-    data(){
-        return {
-            shown: true
-        }
-    },
-    methods: {
-        enter,
-        leave
-    }
-}
-</script>
-```
+fh-components comes with built-in [Popmotion](https://popmotion.io/) animations.
 
 ## `sequential-fade`
 
@@ -1069,9 +1046,37 @@ export default {
 </script>
 ```
 
-## `slide-toggle`
+# Transitions
 
-Mimics jQuery's [slide-toggle](http://api.jquery.com/slidetoggle/). See [above](#animations) for example.
+fh-components also comes with built-in [Popmotion](https://popmotion.io/) transitions. To use, either import the `enter` and `leave` methods and call in a JS transition. See any entry below for an example.
+
+## slide-toggle
+
+Mimics jQuery's [slideToggle](http://api.jquery.com/slidetoggle/). Example:
+
+```html
+<template>
+    <transition @enter="enter" @leave="leave" :css="false">
+        <button v-if="shown">Toggle me!</button>
+    </transition>
+</template>
+
+<script>
+import { enter, leave } from 'fh-components/animations/slide-toggle'
+
+export default {
+    data(){
+        return {
+            shown: true
+        }
+    },
+    methods: {
+        enter,
+        leave
+    }
+}
+</script>
+```
 
 # Testing
 
