@@ -89,6 +89,12 @@ export default {
             type: Boolean,
             default: true
         },
+        // controls if slideshow should return to
+        // beginning after reaching the end on a manual navigation
+        manualLoop: {
+            type: Boolean,
+            default: false
+        },
         // if true, slideshow will continue in
         // one direction while looping
         infinite: {
@@ -199,11 +205,14 @@ export default {
         activeIndex(next, prv) {
             this.$emit('change', next)
 
-            if (this.transitionRef == 'manual') return
+            if (this.transitionRef == 'manual' && !this.manualLoop) return
             else {
-                const didLoop = prv - next == this.slides.length - 1
-                if (this.infinite && didLoop) {
-                    return (this.direction = 'next')
+                const didLoop =
+                    prv - next == this.slides.length - 1 ||
+                    (next == this.slides.length - 1 && prv == 0)
+
+                if ((this.infinite || this.manualLoop) && didLoop) {
+                    return (this.direction = next < prv ? 'next' : 'prev')
                 }
                 // otherwise go in natural direction of indexes
                 if (next > prv) this.direction = 'next'
