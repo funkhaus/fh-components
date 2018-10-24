@@ -295,6 +295,17 @@ This component creates a basic slideshow element that will cycle through a list 
 -   `first-slide`: Active when the current index is the first slide
 -   `last-slide`: Active when the current index is the last slide
 
+### Common Tasks
+
+To use a transition other than the built-in one (for example, a fade transition):
+
+```html
+<slide-show
+    force-transition="fade">
+    ...
+</slide-show>
+```
+
 ### Slots
 
 In order to use this component, you'll have to utilize the [Scoped Slots](https://vuejs.org/v2/guide/components.html#Scoped-Slots) feature of vue components. This component has 4 available slots, and 2 of them are scoped.
