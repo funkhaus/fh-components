@@ -4,14 +4,14 @@
         <slot>
             <a
                 v-if="item.is_external"
-                :href="item.permalink"
+                :href="item.permalink | removeTrailingSlash"
                 target="_blank"
                 v-html="item.title"
             />
 
             <router-link
                 v-else
-                :to="item.relativePath"
+                :to="item.relativePath | removeTrailingSlash"
                 v-html="item.title"
             />
 
@@ -30,6 +30,11 @@
 <script>
 export default {
     name: 'menu-item',
+    filters: {
+        removeTrailingSlash(val) {
+            return val == '/' ? val : val.replace(/\/$/, '')
+        }
+    },
     props: {
         item: {
             type: Object,
