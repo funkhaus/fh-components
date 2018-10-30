@@ -7,6 +7,7 @@ Reusable components and directives for Vue. Designed for [Vuepress](https://gith
 1.  [Installation](#installation)
 1.  [Components](#components)
     1.  [a-div](#a-div)
+    1.  [count-up](#count-up)
     1.  [flex-text](#flex-text)
     1.  [hamburger-button](#hamburger-button)
     1.  [image-loader](#image-loader)
@@ -94,6 +95,32 @@ Vue.component('component-name', require('fh-components/component-name'))
 -   Renders content in a `<router-to>` tag if `href` starts with `/`
 -   Renders content in an `<a>` tag if `href` is a truthy value not starting with `/`
 -   Renders content in a given tag (`replace-with`, default `div`) if `href` is falsey.
+
+## `count-up`
+
+Count up to a specified number over a period of time. Requires [Popmotion](https://popmotion.io/).
+
+### Props
+
+| Name     | Type             | Default | Description                                    |
+| -------- | ---------------- | ------- | ---------------------------------------------- |
+| appear   | Boolean          | false   | Whether or not to start counting on `mounted`. |
+| delay    | Number           | 0       | How long to delay before starting the count.   |
+| duration | Number           | 700     | How long, in ms, to count up to `to`.          |
+| from     | [String, Number] | 0       | Number to start at.                            |
+| to       | [String, Number] | 100     | Number to count up to.                         |
+
+### Notes
+
+Set `running` to `true` to start counting. `running` will automatically be set back to `false` when complete. For example:
+
+```html
+<template>
+    <count-up ref="count"/>
+
+    <button @click="$refs.count.running = true">Start Counting</button>
+</template>
+```
 
 ## `flex-text`
 
