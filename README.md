@@ -255,10 +255,11 @@ Wrap this component around any element to add "scroll-to" functionality, where t
 | `duration` |    Number     |     `1000`      | The duration of the scroll animation in ms.                                                       |
 | `easing`   |    String     |   `inOutQuad`   | The animation easing to use. See [ease](https://github.com/component/ease) for all valid options. |
 | `offset`   |    Number     |       `0`       | Number of pixels to offset the scroll target by. Can be positive or negative.                     |
+| `debug`    |    Boolean    |     `false`     | Whether or not to display debug information on click.                                             |
 
 ### Events
 
--   `complete`: Fires when the page has finished scrolling to the target.
+-   `complete`: Fires when the page has finished scrolling to the target. Fired immediately if `target` is not found.
 
 ## `slide-show`
 

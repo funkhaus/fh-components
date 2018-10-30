@@ -25,6 +25,10 @@ export default {
         offset: {
             type: Number,
             default: 0
+        },
+        debug: {
+            type: Boolean,
+            default: false
         }
     },
     methods: {
@@ -35,8 +39,23 @@ export default {
                 _get(this, `$parent.$refs[${this.target}].$el`)
 
             // target fallback to CSS selector or DOM element
-            const scrollTarget = refTarget || this.target
+            const scrollTarget =
+                refTarget || this.$parent.$el.querySelector(this.target)
 
+            // complete and exit if there's nothing to scroll to
+            if (!scrollTarget) {
+                this.$emit('complete')
+
+                if (this.debug) {
+                    console.log('No scroll target found, exiting...')
+                }
+
+                return
+            }
+
+            if (this.debug) {
+                console.log('Scrolling to element:', scrollTarget)
+            }
             // scroll
             const scroller = scrollToElement(scrollTarget, {
                 duration: this.duration,
