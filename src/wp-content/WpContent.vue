@@ -26,7 +26,19 @@ export default {
         },
         replace: {
             type: Array,
-            default: () => []
+            default: () => [
+                {
+                    selector: `a[href^="${window.location.href}"]`,
+                    callback: el => {
+                        const href = el
+                            .getAttribute('href')
+                            .replace(window.location.href, '')
+                        return `<router-link to="/${href}">${
+                            el.innerHTML
+                        }</router-link>`
+                    }
+                }
+            ]
         },
         fitvids: {
             type: Boolean,
