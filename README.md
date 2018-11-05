@@ -292,6 +292,28 @@ Wrap this component around any element to add "scroll-to" functionality, where t
 
 This component creates a basic slideshow element that will cycle through a list of items that you provide.
 
+Requires:
+
+-   An array of `slides` that will serve as the source for the individual slides
+-   A `slide` slot describing the format of an individual slide
+
+The simplest possible `slide-show` looks like this:
+
+```html
+<slide-show :slides="[1, 2, 3]">
+
+    <div class="slide" slot="slide" slot-scope="{ slide }">
+
+        <!-- This will create a slideshow of the numbers 1, 2, and 3, as specified in the "slides" prop-->
+        {{ slide }}
+
+    </div>
+
+</slide-show>
+```
+
+See the [slots](https://github.com/funkhaus/fh-components#slots) section for more information.
+
 ### Props
 
 | Name               |     Type      | Default | Description                                                                                                                                                                                                                                                                                                                                               |
