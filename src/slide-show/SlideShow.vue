@@ -109,7 +109,7 @@ export default {
         // time to delay before initiating auto
         delay: {
             type: Number,
-            default: 500
+            default: 4000
         },
         // used to manually control slide index
         // can be bidirectionally bound with .sync
