@@ -28,7 +28,6 @@ Reusable components and directives for Vue. Designed for [Vuepress](https://gith
     1.  [wp-menu](#wp-menu)
 1.  [Directives](#directives)
     1.  [animated](#animated)
-    1.  [coverup](#coverup)
     1.  [draggable](#draggable)
     1.  [full-height](#full-height)
     1.  [in-view](#in-view)
@@ -692,6 +691,8 @@ Directives may also have "modifiers" to go with them. Modifiers can be used like
 ```
 
 ## `coverup`
+
+**Not supported!** Note that the `v-coverup` directive is very buggy on Safari and Firefox and probably won't be fixed any time soon.
 
 **Notes**:
 
