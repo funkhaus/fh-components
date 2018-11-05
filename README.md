@@ -302,7 +302,7 @@ The simplest possible `slide-show` looks like this:
 ```html
 <slide-show :slides="[1, 2, 3]">
 
-    <div class="slide" slot="slide" slot-scope="{ slide }">
+    <div slot="slide" slot-scope="{ slide }">
 
         <!-- This will create a slideshow of the numbers 1, 2, and 3, as specified in the "slides" prop-->
         {{ slide }}
