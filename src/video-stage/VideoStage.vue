@@ -26,7 +26,7 @@ export default {
             default: true
         },
         autoOffsets: {
-            type: [Boolean, String, Number],
+            type: Boolean,
             default: false
         },
         paused: {
