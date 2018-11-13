@@ -99,16 +99,6 @@ export default {
         }
     },
     async mounted() {
-        this.setMediaClass()
-        this.setVolume()
-
-        // make sure the wrapped image is rendered
-        await Vue.nextTick()
-
-        // set focal point
-        this.setFocalPoint()
-    },
-    created() {
         // ignore if our src is undefined
         if (!this.parsedSrc) return
 
@@ -130,6 +120,15 @@ export default {
             this.imageWidth = img.width
             this.imageHeight = img.height
         })
+
+        this.setMediaClass()
+        this.setVolume()
+
+        // make sure the wrapped image is rendered
+        await Vue.nextTick()
+
+        // set focal point
+        this.setFocalPoint()
     },
     methods: {
         setFocalPoint() {
