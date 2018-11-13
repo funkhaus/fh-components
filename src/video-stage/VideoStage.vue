@@ -4,7 +4,11 @@
         :class="classes"
     >
         <slot name="before" />
-        <div class="iframe" v-html="iframeCode || ''" />
+        <div
+            class="iframe"
+            v-html="iframeCode || ''"
+            :style="frameStyles"
+        />
         <slot name="after" />
     </div>
 </template>
@@ -40,13 +44,18 @@ export default {
         playsinline: {
             type: Boolean,
             default: false
+        },
+        isResponsive: {
+            type: Boolean,
+            default: false
         }
     },
     data() {
         return {
             iframeCode: '',
             loadingEmbed: false,
-            player: null
+            player: null,
+            aspect: null
         }
     },
     watch: {
@@ -86,8 +95,18 @@ export default {
             return [
                 'video-stage-module',
                 'size-parent',
-                { loading: this.loadingEmbed }
+                { loading: this.loadingEmbed },
+                { 'is-responsive': this.isResponsive },
+                { 'not-responsive': !this.isResponsive }
             ]
+        },
+        frameStyles() {
+            if (this.isResponsive && this.aspect) {
+                return {
+                    'padding-bottom': `${this.aspect * 100}%`
+                }
+            }
+            return {}
         }
     },
     methods: {
@@ -129,6 +148,16 @@ export default {
         getIframe() {
             return this.$el.querySelector && this.$el.querySelector('iframe')
         },
+        setAspect() {
+            const frame = this.$el.querySelector('iframe')
+            if (frame) {
+                const aspect = frame.dataset.aspect
+                if (aspect) {
+                    this.aspect = 1 / aspect
+                    this.$nextTick(this.sizeVideo)
+                }
+            }
+        },
         sizeVideo() {
             let frame
             if ((frame = this.getIframe())) {
@@ -150,10 +179,24 @@ export default {
                     )
                 }
 
-                fitToParent({
-                    element: frame,
-                    heightOffset
-                })
+                // defaults
+                let newWidth = 16,
+                    newHeight = 9
+
+                // run ftp
+                try {
+                    fitToParent({
+                        element: frame,
+                        heightOffset
+                    })
+                } catch (err) {
+                    this.$emit('error', err)
+                }
+
+                // set aspect ratio once we know it
+                if (this.aspect === null) {
+                    this.setAspect()
+                }
             }
         },
         destroyVimeoPlayer() {
@@ -192,14 +235,23 @@ export default {
 
 <style lang="scss">
 .video-stage-module {
-    position: absolute;
     justify-content: center;
     flex-direction: column;
     align-items: center;
+    position: absolute;
     display: flex;
     bottom: 0;
     right: 0;
     left: 0;
     top: 0;
+
+    &.is-responsive {
+        position: relative;
+
+        .iframe {
+            width: 100%;
+            height: 0;
+        }
+    }
 }
 </style>

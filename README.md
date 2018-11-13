@@ -551,6 +551,7 @@ This will make the h2 fade in, then the h3 fade in and p tag slide in from the l
 -   `autoOffsets`: Boolean, default `true`. If set to true, the components will attempt to automatically calculate a fitToParent offset based on the dimensions of any slot elements provided.
 -   `paused`: Boolean, default `false`. If set to true, the player will pause; if false, the player will play.
 -   `muted`: Boolean, default `false`. If set to true, Vimeo player will start muted.
+-   `is-responsive`: Boolean, default `false`. If set to true the video will behave like [fitVids](http://fitvidsjs.com/), pushing down content on the page according to its natural aspect ratio rather than filling the available space.
 
 **Slots**
 
