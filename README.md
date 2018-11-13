@@ -569,6 +569,9 @@ This will make the h2 fade in, then the h3 fade in and p tag slide in from the l
 -   `ended`: fires once the video has reached the end.
 -   `play`: fires any time the video begins playback
 -   `pause`: fires any time the video is paused
+-   `width`: fires any time the video is resized by fitToParent. Value is the new width in pixels.
+-   `height`: fires any time the video is resized by fitToParent. Value is the new height in pixels.
+-   `error`: fires if there is an error during calculation. Value will be the error object that was triggered.
 
 ## `wp-content`
 

@@ -185,10 +185,12 @@ export default {
 
                 // run ftp
                 try {
-                    fitToParent({
+                    let [newWidth, newHeight] = fitToParent({
                         element: frame,
                         heightOffset
                     })
+                    this.$emit('width', newWidth)
+                    this.$emit('height', newHeight)
                 } catch (err) {
                     this.$emit('error', err)
                 }
