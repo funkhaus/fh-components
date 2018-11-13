@@ -80,6 +80,7 @@ Vue.component('component-name', require('fh-components/component-name'))
 
 **Props**
 
+-   `force-new`: Boolean, default `false`. Whether the link should always open in a new window.
 -   `href`: String, default empty. URL to link to.
 -   `new-window`: Boolean, default `true`. If component renders as an `<a>` tag, open in a new window.
 -   `replace-with`: String, default `div`. If the `href` isn't a link, render contents inside this tag instead.
@@ -91,8 +92,8 @@ Vue.component('component-name', require('fh-components/component-name'))
 
 **Notes**:
 
--   Renders content in a `<router-to>` tag if `href` starts with `/`
--   Renders content in an `<a>` tag if `href` is a truthy value not starting with `/`
+-   Renders content in a `<router-to>` tag if `href` starts with `/` or includes the same `location.origin`.
+-   Renders content in an `<a>` tag if `href` is a truthy value not starting with `/`.
 -   Renders content in a given tag (`replace-with`, default `div`) if `href` is falsey.
 
 ## `count-up`
