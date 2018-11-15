@@ -113,13 +113,15 @@ export default {
         this.setObjectDimensions()
 
         // wait for image to load...
-        imagesLoaded(img, () => {
-            this.loading = false
+        if (document) {
+            imagesLoaded(img, () => {
+                this.loading = false
 
-            // update stats
-            this.imageWidth = img.width
-            this.imageHeight = img.height
-        })
+                // update stats
+                this.imageWidth = img.width
+                this.imageHeight = img.height
+            })
+        }
 
         this.setMediaClass()
         this.setVolume()
