@@ -78,19 +78,31 @@ Vue.component('component-name', require('fh-components/component-name'))
 
 ## `a-div`
 
+`<a-div :href="myString">Link text</a-div>`
+
+Safe way to render internal, external, or missing links.
+
+| Standalone | Enhanced by Vuehaus | Requires Vuehaus | SSR Capable |
+| ---------- | ------------------- | ---------------- | ----------- |
+| ✅         | ❌                  | ❌               | ✅          |
+
 **Props**
 
--   `force-new`: Boolean, default `false`. Whether the link should always open in a new window.
--   `href`: String, default empty. URL to link to.
--   `new-window`: Boolean, default `true`. If component renders as an `<a>` tag, open in a new window.
--   `replace-with`: String, default `div`. If the `href` isn't a link, render contents inside this tag instead.
+| Name           | Type      | Default | Description                                                                                                                         |
+| -------------- | --------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| `force-new`    | `Boolean` | `false` | Whether the link should always open in a new window.                                                                                |
+| `href`         | `String`  | empty   | URL to link to. Handles same-origin URLs with `router-link`, external URLs with `a`, and falsey values with the `replace-with` tag. |
+| `new-window`   | `Boolean` | `true`  | If component renders as an `<a>` tag, open in a new window.                                                                         |
+| `replace-with` | `String`  | `'div'` | If the href isn't a link, render contents inside this tag instead.                                                                  |
 
 **Classes**
 
--   `anchor-div`
--   `a-${ replace-with }` (substitutes with the `replace-with` tag name)
+| Name                  | Conditions | Notes                                       |
+| --------------------- | ---------- | ------------------------------------------- |
+| `anchor-div`          | Always     |                                             |
+| `a-${ replace-with }` | Always     | Substitutes with the replace-with tag name. |
 
-**Notes**:
+**Notes**
 
 -   Renders content in a `<router-to>` tag if `href` starts with `/` or includes the same `location.origin`.
 -   Renders content in an `<a>` tag if `href` is a truthy value not starting with `/`.
@@ -1212,9 +1224,9 @@ Brief description.
 
 **Classes**
 
-| Name        | Conditions                  |
-| ----------- | --------------------------- |
-| `className` | When applied, if applicable |
+| Name        | Conditions                  | Notes                        |
+| ----------- | --------------------------- | ---------------------------- |
+| `className` | When applied, if applicable | Extra notes about this class |
 
 **Notes**
 
