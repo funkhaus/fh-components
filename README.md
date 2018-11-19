@@ -147,20 +147,37 @@ Count up to a specified number over a period of time. Requires [Popmotion](https
 
 ## `hamburger-button`
 
+```html
+<hamburger-button/>
+
+<hamburger-button>
+    <svg-image src="custom-hamburger.svg" />
+</hamburger-button>
+```
+
+Brief description.
+
+| Standalone | Enhanced by Vuehaus | SSR Capable |
+| ---------- | ------------------- | ----------- |
+| ❌         | ✅                  | ✅          |
+
+**Events**
+
+| Name        | Signature    | Description      |
+| ----------- | ------------ | ---------------- |
+| `eventName` | `(response)` | About this event |
+
 **Classes**
 
--   `hamburger`
--   `activated`: when `$store.state.menuOpened` is `true`
+| Name        | Conditions                               | Notes |
+| ----------- | ---------------------------------------- | ----- |
+| `hamburger` | Always                                   |       |
+| `activated` | when `$store.state.menuOpened` is `true` |       |
 
 **Notes**
 
 -   Lightweight hamburger SVG with open and closed states. Calls Vuehaus's `'OPEN_MENU'` or `'CLOSE_MENU'` when clicked, depending on current `activated` state. Will also update correctly when menu is opened or closed elsewhere.
 -   Default slot is a three-line hamburger icon that changes to an "X" when activated. The user can replace this with their own svg using the `svg-image` component. For example:
-    ```
-    <hamburger-button>
-        <svg-image src="hamburger.svg" />
-    </hamburger-button>
-    ```
 
 ## `image-loader`
 
