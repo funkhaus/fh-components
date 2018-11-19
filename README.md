@@ -1183,21 +1183,38 @@ When you're ready to build your component, run `npm run build` in `fh-components
 
 ## Documentation
 
-Reusable components are only helpful if they're easy to reuse! Fill in this template to start your documentation:
+Reusable components are only helpful if they're easy to reuse! Fill in this template to start your documentation, deleting any unnecessary sections.
+
+("SSR Capable" refers to an element being renderable by a server - ie, the element does not rely on `document` or `window`.)
 
 ```md
 ## `component-name`
 
+`<component-name :example-prop="123"> I'm an example ready to be copied and pasted into a Vue component. </component-name>`
+
+Brief description.
+
+| Standalone | Enhanced by Vuehaus | Requires Vuehaus | SSR Capable |
+| ---------- | ------------------- | ---------------- | ----------- |
+| ✅         | ✅                  | ❌               | ❌          |
+
 **Props**
 
-| Name       | Type | Default   | Description     |
-| ---------- | ---- | --------- | --------------- |
-| `propName` | Type | `default` | About this prop |
+| Name       | Type   | Default   | Description     |
+| ---------- | ------ | --------- | --------------- |
+| `propName` | `Type` | `default` | About this prop |
+
+**Events**
+
+| Name        | Signature    | Description      |
+| ----------- | ------------ | ---------------- |
+| `eventName` | `(response)` | About this event |
 
 **Classes**
 
--   `always-applied`
--   `conditional`: explanation of when class will/won't be applied
+| Name        | Conditions                  |
+| ----------- | --------------------------- |
+| `className` | When applied, if applicable |
 
 **Notes**
 
