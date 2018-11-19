@@ -161,12 +161,6 @@ Lightweight hamburger SVG with open and closed states. Requires Vuehaus.
 | ---------- | ------------------- | ----------- |
 | ❌         | ✅                  | ✅          |
 
-**Events**
-
-| Name        | Signature    | Description      |
-| ----------- | ------------ | ---------------- |
-| `eventName` | `(response)` | About this event |
-
 **Classes**
 
 | Name        | Conditions                               | Notes |
