@@ -177,18 +177,24 @@ Brief description.
 **Notes**
 
 -   Lightweight hamburger SVG with open and closed states. Calls Vuehaus's `'OPEN_MENU'` or `'CLOSE_MENU'` when clicked, depending on current `activated` state. Will also update correctly when menu is opened or closed elsewhere.
--   Default slot is a three-line hamburger icon that changes to an "X" when activated. The user can replace this with their own svg using the `svg-image` component. For example:
+-   Default slot is a three-line hamburger icon that changes to an "X" when activated. The user can replace this with their own svg using the `svg-image` component.
 
 ## `image-loader`
 
-This component will, given a list of serialized images, preload those images.
+`<image-loader :images="arrayOfImagesToLoad"/>`
 
-### Props
+This component will, given a list of serialized images, preload those images. Will handle Vuehaus image objects or image URL strings. All images are set to `display: none`.
 
-| Name     | Type   | Default | Description                                        |
-| -------- | ------ | ------- | -------------------------------------------------- |
-| `images` | Array  | `[]`    | Array of serialized images or URL strings to load. |
-| `size`   | String | `full`  | WordPress name for image size to load.             |
+| Standalone | Enhanced by Vuehaus | SSR Capable |
+| ---------- | ------------------- | ----------- |
+| ✅         | ✅                  | ✅          |
+
+**Props**
+
+| Name     | Type    | Default | Description                                        |
+| -------- | ------- | ------- | -------------------------------------------------- |
+| `images` | `Array` | `[]`    | Array of serialized images or URL strings to load. |
+| `size`   | String  | `full`  | WordPress name for image size to load.             |
 
 ## `load-on-view`
 
