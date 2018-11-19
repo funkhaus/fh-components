@@ -192,25 +192,44 @@ This component will, given a list of serialized images, preload those images. Wi
 
 ## `load-on-view`
 
+```html
+<load-on-view
+    :url="urlToFetchWhenInView"
+    @data="handleAnyData"
+    @text="handleTextResponse"
+    @json="handleJsonResponse"
+    @error="handleError"/>
+```
+
 This component will keep track of its own scroll position, and when it enters the viewport will send a fetch request to a provided URL, emitting any resulting error or data through events. This is most useful for "infinite-scroll" functionality, where you feed pagination URLs into this component and use the resulting request data.
 
-### Props
+| Standalone | Enhanced by Vuehaus | SSR Capable |
+| ---------- | ------------------- | ----------- |
+| ✅         | ❌                  | ❌          |
 
-| Name          |  Type   |             Default              | Description                                                                                  |
-| ------------- | :-----: | :------------------------------: | -------------------------------------------------------------------------------------------- |
-| `url`         | String  |               `''`               | Target URL to send a fetch request to once the component is in view.                         |
-| `repeatUrl`   | Boolean |             `false`              | If set to false, load-on-view will not send the next request until the provided URL changes. |
+**Props**
+
+| Name          | Type    | Default                          | Description                                                                                  |
+| ------------- | ------- | -------------------------------- | -------------------------------------------------------------------------------------------- |
+| `url`         | String  | `''`                             | Target URL to send a fetch request to once the component is in view.                         |
+| `repeatUrl`   | Boolean | `false`                          | If set to false, load-on-view will not send the next request until the provided URL changes. |
 | `fetchConfig` | Object  | `{ credentials: 'same-origin' }` | An configuration object to be used with the fetch request.                                   |
 
-### Events
+**Events**
 
-| Name        | Callback Signature | Description                                                                                           |
-| ----------- | :----------------: | ----------------------------------------------------------------------------------------------------- |
-| `data`      |     (response)     | Fired whenever a fetch request is completed and returns a 2xx status code                             |
-| `error`     |       (err)        | Fired whenever an error occurs during the fetch request, or when the request returns a non-2xx status |
-| `on-text`   |     (textData)     | Fired when a fetch is completed and the contentType of the response is text                           |
-| `on-json`   |     (jsonData)     | Fired when a fetch is completed and the contentType of the response is json                           |
-| `on-buffer` |   (arrayBuffer)    | Fired when a fetch is completed and the contentType of the response is neither text nor json          |
+| Name        | Signature     | Description                                                                                           |
+| ----------- | ------------- | ----------------------------------------------------------------------------------------------------- |
+| `data`      | (response)    | Fired whenever a fetch request is completed and returns a 2xx status code                             |
+| `error`     | (err)         | Fired whenever an error occurs during the fetch request, or when the request returns a non-2xx status |
+| `on-text`   | (textData)    | Fired when a fetch is completed and the contentType of the response is text                           |
+| `on-json`   | (jsonData)    | Fired when a fetch is completed and the contentType of the response is json                           |
+| `on-buffer` | (arrayBuffer) | Fired when a fetch is completed and the contentType of the response is neither text nor json          |
+
+**Classes**
+
+| Name           | Conditions | Notes |
+| -------------- | ---------- | ----- |
+| `load-on-view` | Always     |       |
 
 ## `mailing-list`
 
