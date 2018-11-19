@@ -1,6 +1,6 @@
 Reusable components and directives for Vue. Designed for [Vuehaus](https://github.com/funkhaus/vuehaus), but most components work in regular Vue apps.
 
-    `fh-components` saves you the trouble of rewriting common components like images, video players, svgs, and several other elements. If you're looking at writing a custom component in Vuehaus, check if one already exists here first - and if it doesn't, feel free to [contribute](#contributing)!
+`fh-components` saves you the trouble of rewriting common components like images, video players, svgs, and several other elements. If you're looking at writing a custom component in Vuehaus, check if one already exists here first - and if it doesn't, feel free to [contribute](#contributing)!
 
 # Table of Contents
 
@@ -40,6 +40,7 @@ Reusable components and directives for Vue. Designed for [Vuehaus](https://githu
     1.  [Rect](#rect)
     1.  [Sequence](#sequence)
     1.  [WaitFor](#waitfor)
+1.  [Plugins](#plugins)
 1.  [Animations](#animations)
     1. [Sequential Fade](#sequential-fade)
 1.  [Transitions](#transitions)
@@ -82,9 +83,9 @@ Vue.component('component-name', require('fh-components/component-name'))
 
 Safe way to render internal, external, or missing links.
 
-| Standalone | Enhanced by Vuehaus | Requires Vuehaus | SSR Capable |
-| ---------- | ------------------- | ---------------- | ----------- |
-| ✅         | ❌                  | ❌               | ✅          |
+| Standalone | Enhanced by Vuehaus | SSR Capable |
+| ---------- | ------------------- | ----------- |
+| ✅         | ❌                  | ✅          |
 
 **Props**
 
@@ -110,29 +111,37 @@ Safe way to render internal, external, or missing links.
 
 ## `count-up`
 
-Count up to a specified number over a period of time. Requires [Popmotion](https://popmotion.io/).
-
-### Props
-
-| Name     | Type             | Default | Description                                    |
-| -------- | ---------------- | ------- | ---------------------------------------------- |
-| appear   | Boolean          | false   | Whether or not to start counting on `mounted`. |
-| delay    | Number           | 0       | How long to delay before starting the count.   |
-| duration | Number           | 700     | How long, in ms, to count up to `to`.          |
-| from     | [String, Number] | 0       | Number to start at.                            |
-| to       | [String, Number] | 100     | Number to count up to.                         |
-
-### Notes
-
-Set `running` to `true` to start counting. `running` will automatically be set back to `false` when complete. For example:
-
 ```html
-<template>
-    <count-up ref="count"/>
+<count-up :to="1000" :duration="1000" ref="count"/>
 
-    <button @click="$refs.count.running = true">Start Counting</button>
-</template>
+<button @click="$refs.count.running = true">Start Counting</button>
 ```
+
+Count up to a specified number over a period of time. Requires [Popmotion](https://popmotion.io/) (`npm install popmotion` if this component throws errors).
+
+| Standalone | Enhanced by Vuehaus | SSR Capable |
+| ---------- | ------------------- | ----------- |
+| ✅         | ❌                  | ✅          |
+
+**Props**
+
+| Name       | Type               | Default | Description                                    |
+| ---------- | ------------------ | ------- | ---------------------------------------------- |
+| `appear`   | `Boolean`          | `false` | Whether or not to start counting on `mounted`. |
+| `delay`    | `Number`           | `0`     | How long to delay before starting the count.   |
+| `duration` | `Number`           | `700`   | How long, in ms, to count up to `to`.          |
+| `from`     | `[String, Number]` | `0`     | Number to start at.                            |
+| `to`       | `[String, Number]` | `100`   | Number to count up to.                         |
+
+**Classes**
+
+| Name       | Conditions | Notes |
+| ---------- | ---------- | ----- |
+| `count-up` | Always     |       |
+
+**Notes**
+
+-   Set `running` to `true` to start counting. `running` will automatically be set back to `false` when complete.
 
 ## `flex-text`
 
@@ -1080,6 +1089,12 @@ export default {
 </script>
 ```
 
+# Plugins
+
+Plugins are outside the scope of fh-components, but here's a list of Funkhaus-maintained Vue plugins:
+
+-   [Can-Vue](https://github.com/funkhaus/can-vue), Vue + reactive HTML5 Canvas
+
 # Animations
 
 fh-components comes with built-in [Popmotion](https://popmotion.io/) animations.
@@ -1206,9 +1221,9 @@ Reusable components are only helpful if they're easy to reuse! Fill in this temp
 
 Brief description.
 
-| Standalone | Enhanced by Vuehaus | Requires Vuehaus | SSR Capable |
-| ---------- | ------------------- | ---------------- | ----------- |
-| ✅         | ✅                  | ❌               | ❌          |
+| Standalone | Enhanced by Vuehaus | SSR Capable |
+| ---------- | ------------------- | ----------- |
+| ✅         | ✅                  | ❌          |
 
 **Props**
 
