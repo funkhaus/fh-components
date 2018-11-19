@@ -1,6 +1,6 @@
-Reusable components and directives for Vue. Designed for [Vuepress](https://github.com/funkhaus/vuepress), but most components work in regular Vue apps.
+Reusable components and directives for Vue. Designed for [Vuehaus](https://github.com/funkhaus/vuehaus), but most components work in regular Vue apps.
 
-`fh-components` saves you the trouble of rewriting common components like images, video players, svgs, and several other elements. If you're looking at writing a custom component in Vuepress, check if one already exists here first - and if it doesn't, feel free to [contribute](#contributing)!
+    `fh-components` saves you the trouble of rewriting common components like images, video players, svgs, and several other elements. If you're looking at writing a custom component in Vuehaus, check if one already exists here first - and if it doesn't, feel free to [contribute](#contributing)!
 
 # Table of Contents
 
@@ -133,7 +133,7 @@ Set `running` to `true` to start counting. `running` will automatically be set b
 
 **Notes**
 
--   Lightweight hamburger SVG with open and closed states. Calls Vuepress's `'OPEN_MENU'` or `'CLOSE_MENU'` when clicked, depending on current `activated` state. Will also update correctly when menu is opened or closed elsewhere.
+-   Lightweight hamburger SVG with open and closed states. Calls Vuehaus's `'OPEN_MENU'` or `'CLOSE_MENU'` when clicked, depending on current `activated` state. Will also update correctly when menu is opened or closed elsewhere.
 -   Default slot is a three-line hamburger icon that changes to an "X" when activated. The user can replace this with their own svg using the `svg-image` component. For example:
     ```
     <hamburger-button>
@@ -605,7 +605,7 @@ This will make the h2 fade in, then the h3 fade in and p tag slide in from the l
 
 ## wp-menu
 
-[Vuepress](https://github.com/funkhaus/vuepress)-specific component to build WordPress menus. Uses the `wp-menu-item` component internally.
+[Vuehaus](https://github.com/funkhaus/vuehaus)-specific component to build WordPress menus. Uses the `wp-menu-item` component internally.
 
 ### Props
 
@@ -1161,13 +1161,13 @@ cd ~/your-misc-repo-directory
 git clone https://github.com/funkhaus/fh-components
 ```
 
-Then, in your Vuepress instance:
+Then, in your Vuehaus instance:
 
 ```sh
 npm link fh-components ~/your-misc-repo-directory/fh-components
 ```
 
-This will create a symlink from Vuepress's `npm_modules/fh-components` to the master fh-components install.
+This will create a symlink from Vuehaus's `npm_modules/fh-components` to the master fh-components install.
 
 ## New Components
 
