@@ -155,7 +155,7 @@ Count up to a specified number over a period of time. Requires [Popmotion](https
 </hamburger-button>
 ```
 
-Brief description.
+Lightweight hamburger SVG with open and closed states. Requires Vuehaus.
 
 | Standalone | Enhanced by Vuehaus | SSR Capable |
 | ---------- | ------------------- | ----------- |
@@ -176,7 +176,7 @@ Brief description.
 
 **Notes**
 
--   Lightweight hamburger SVG with open and closed states. Calls Vuehaus's `'OPEN_MENU'` or `'CLOSE_MENU'` when clicked, depending on current `activated` state. Will also update correctly when menu is opened or closed elsewhere.
+-   Calls Vuehaus's `'OPEN_MENU'` or `'CLOSE_MENU'` when clicked, depending on current `activated` state. Will also update correctly when menu is opened or closed elsewhere.
 -   Default slot is a three-line hamburger icon that changes to an "X" when activated. The user can replace this with their own svg using the `svg-image` component.
 
 ## `image-loader`
