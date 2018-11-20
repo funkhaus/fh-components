@@ -1193,7 +1193,7 @@ Mimics jQuery's [slideToggle](http://api.jquery.com/slidetoggle/). Example:
 </template>
 
 <script>
-import { enter, leave } from 'fh-components/animations/slide-toggle'
+import { enter, leave } from 'fh-components/transitions/slide-toggle'
 
 export default {
     data(){
