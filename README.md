@@ -233,6 +233,20 @@ This component will keep track of its own scroll position, and when it enters th
 
 ## `mailing-list`
 
+```html
+<mailing-list
+    submit-text="Sign Up"
+    placeholder=""
+    action-url="http://mailchimp.com"
+    :token="token"/>
+```
+
+Flexible newsletter signup component. Supports Mailchimp and Madmimi.
+
+| Standalone | Enhanced by Vuehaus | SSR Capable |
+| ---------- | ------------------- | ----------- |
+| ✅         | ✅                  | ❌          |
+
 **Props**
 
 | Name             | Type   | Default             | Description                                                   |
@@ -246,14 +260,6 @@ This component will keep track of its own scroll position, and when it enters th
 | `transitionName` | String | `newsletter-submit` | Name for transition wrapping mailing-list element             |
 | `delay`          | Number | 5000                | Time in ms to wait before firing `cookieCreated` event        |
 | `cookieLength`   | Number | 30                  | Time in days until cookie expires                             |
-
-**Classes**
-
--   `fh-mailing-list`
--   `loading`: if mailing list request has been submitted
--   `state-${ state }`: either `state-success`, `state-error`, or `state-none`, depending on submission state
--   `provider-${ provider }`: either `provider-mailchimp` or `provider-madmimi`
--   `empty`: Added if the email input field is empty.
 
 **Slots**
 
@@ -269,10 +275,20 @@ This component will keep track of its own scroll position, and when it enters th
 
 **Events**
 
-| Name               | Payload                                      | Trigger                                                                  |
+| Name               | Signature                                    | Description                                                              |
 | ------------------ | -------------------------------------------- | ------------------------------------------------------------------------ |
 | `addressSubmitted` | `{ success: Boolean, errorMessage: String }` | Fires when an email address is submitted                                 |
 | `cookieCreated`    | null                                         | Fired when a cookie is created. (Designed to trigger overlay activation) |
+
+**Classes**
+
+| Name                     | Conditions                                 | Notes                                                                                 |
+| ------------------------ | ------------------------------------------ | ------------------------------------------------------------------------------------- |
+| `fh-mailing-list`        | Always                                     |                                                                                       |
+| `loading`                | If mailing list request has been submitted |                                                                                       |
+| `state-${ state }`       | Always                                     | Either `state-success`, `state-error`, or `state-none`, depending on submission state |
+| `provider-${ provider }` | Always                                     | Either `provider-mailchimp` or `provider-madmimi`                                     |
+| `empty`                  | If the email input field is empty          |                                                                                       |
 
 **Notes**
 
@@ -1266,6 +1282,12 @@ Brief description.
 | Name       | Type   | Default   | Description     |
 | ---------- | ------ | --------- | --------------- |
 | `propName` | `Type` | `default` | About this prop |
+
+**Slots**
+
+| Name        | Location                     |
+| ----------- | ---------------------------- |
+| `slot-name` | Slot location and extra info |
 
 **Events**
 
