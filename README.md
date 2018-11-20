@@ -236,8 +236,8 @@ This component will keep track of its own scroll position, and when it enters th
 ```html
 <mailing-list
     submit-text="Sign Up"
-    placeholder=""
-    action-url="http://mailchimp.com"
+    placeholder="Your email address"
+    :action-url="actionUrl"
     :token="token"/>
 ```
 
@@ -245,7 +245,7 @@ Flexible newsletter signup component. Supports Mailchimp and Madmimi.
 
 | Standalone | Enhanced by Vuehaus | SSR Capable |
 | ---------- | ------------------- | ----------- |
-| ✅         | ✅                  | ❌          |
+| ✅         | ❌                  | ✅          |
 
 **Props**
 
@@ -299,35 +299,52 @@ Flexible newsletter signup component. Supports Mailchimp and Madmimi.
 
 ## `responsive-image`
 
+`<responsive-image :src="sourceUrl" :object="serializedRestEasyObject"/>`
+
+Creates and fades in an image. Adds a placeholder for the image with a given background-color to prevent content jumping when the image loads.
+
+| Standalone | Enhanced by Vuehaus | SSR Capable |
+| ---------- | ------------------- | ----------- |
+| ✅         | ✅                  | ❌          |
+
 **Props**
 
--   `object`: Object, default `{}`. Serialized [Rest-Easy attachment](https://github.com/funkhaus/Rest-Easy#serializer-filters). Fills out the rest of these props automatically except `fit`.
--   `html`: String, default ''. Desired <img> element as an HTML string. Provides all the sizing, fade-in, etc. benefits of a regular responsive-image.
--   `src`: String, default empty. Works like `<img src>`.
--   `video-src`: String, default empty. an optional video URL if the component should display a looping video rather than an image.
--   `height`: String or number, default empty. Natural image height in pixels.
--   `width`: String or number, default empty. Natural image width in pixels.
--   `aspect`: String or number, default empty. Aspect ratio of desired image, as a percentage. `aspect="56.25"` would evaluate to a 56.25% aspect ratio. Calculated from height and width if not explicitly stated.
--   `size`: String, default `'full'`. WordPress image size.
--   `color`: String, default `'transparent'`. Background placeholder color. Any CSS-compatible color is valid.
--   `respect-max`: Boolean, default `false`. Whether the image will have a `max-width` and `max-height` based on its natural dimensions.
--   `fill-space`: Boolean, default `false`. When `true`, position absolutely and force the image to take up all available space; when `false`, use the image's natural aspect ratio.
--   `fit`: String, default `'cover'`. Object-fit value for the image - `cover` or `contain`.
--   `poster`: String or post, default `''`. URL to [poster](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video) for video. If `false`, no poster used; if blank, defaults to the parsed image source.
--   `volume`: Number, default `0`. Controls the volume when rendering a video. If set to 0 (or not set) the video will be muted and will be able to autoplay.
+| Name          | Type             | Default         | Description                                                                                                                                                            |
+| ------------- | ---------------- | --------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `aspect`      | [String, Number] | `''`            | Aspect ratio of desired image, as a percentage. `aspect="56.25"` would evaluate to a 56.25% aspect ratio. Calculated from height and width if not explicitly stated.   |
+| `color`       | String           | `'transparent'` | Background placeholder color. Any CSS-compatible color is valid.                                                                                                       |
+| `fill-space`  | Boolean          | `false`         | When `true`, position absolutely and force the image to take up all available space; when `false`, use the image's natural aspect ratio.                               |
+| `fit`         | String           | `'cover'`       | Object-fit value for the image - `cover` or `contain`.                                                                                                                 |
+| `height`      | [String, Number] | `''`            | Natural image height in pixels.                                                                                                                                        |
+| `html`        | String           | `''`            | Desired <img> element as an HTML string. Provides all the sizing, fade-in, etc. benefits of a regular responsive-image.                                                |
+| `object`      | Object           | `{}`            | Serialized [Rest-Easy attachment](https://github.com/funkhaus/Rest-Easy#serializer-filters). Fills out the rest of these props automatically except `fit`.             |
+| `poster`      | String           | `''`            | URL to [poster](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video) for video. If `false`, no poster used; if blank, defaults to the parsed image source. |
+| `respect-max` | Boolean          | `false`         | Whether the image will have a `max-width` and `max-height` based on its natural dimensions.                                                                            |
+| `size`        | String           | `'full'`        | WordPress image size.                                                                                                                                                  |
+| `src`         | String           | `''`            | Same functionality as `<img src="...">`.                                                                                                                               |
+| `video-src`   | String           | `''`            | An optional video URL if the component should display a looping video rather than an image.                                                                            |
+| `volume`      | Number           | `0`             | Controls the volume when rendering a video. If set to 0 (or not set) the video will be muted and will be able to autoplay.                                             |
+| `width`       | [String, Number] | `''`            | Natural image width in pixels.                                                                                                                                         |
+
+**Slots**
+
+| Name    | Location                                      |
+| ------- | --------------------------------------------- |
+| Default | Content inside of image-padding, after image. |
 
 **Classes**
 
--   `rsp-image-module`
--   `responsive-image`
--   `fit-${fit}`: Either `fit-cover` or `fit-contain`, depending on the `fit` prop.
--   `loading`: only active when image hasn't finished loading
--   `fill-space`: only active if `fill-space` prop is set to `true`
--   `has-video`: only active if `videoSrc` is truthy (see notes below).
+| Name               | Conditions                            | Notes                                                             |
+| ------------------ | ------------------------------------- | ----------------------------------------------------------------- |
+| `fill-space`       | if `fill-space` prop is set to `true` |
+| `fit-${fit}`       | Always                                | Either `fit-cover` or `fit-contain`, depending on the `fit` prop. |
+| `has-video`        | if `videoSrc` is truthy               |                                                                   |
+| `loading`          | Image hasn't finished loading         |                                                                   |
+| `responsive-image` | Always                                |                                                                   |
+| `rsp-image-module` | Always                                |                                                                   |
 
 **Notes**
 
--   Creates and fades in an image. Adds a placeholder for the image with a given background-color to prevent content jumping when the image loads.
 -   If you add a link to an .mp4 video in the "Alt" field in WordPress, this element will create and render a video, using the provided image as the poster (see "Poster" under "Attributes" [here](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video)).
 -   Also works when `object` is set to an Advanced Custom Fields image array. Only provides `fullscreen` size and image alt in this case.
 -   Works with [Focushaus](https://github.com/funkhaus/focushaus), if installed, to set a custom focal point for an image. Defaults to standard browser behavior, focal point in the center of the image.
