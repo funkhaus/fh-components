@@ -351,14 +351,30 @@ Creates and fades in an image. Adds a placeholder for the image with a given bac
 
 ## `reveal-footer`
 
+`<component-name :example-prop="123"> I'm an example ready to be copied and pasted into a Vue component. </component-name>`
+
 A component that reveals the section at the bottom of a page. Like the footer on the [Funkhaus site](http://funkhaus.us/).
 
-Adds a slot wrapped with an empty div `footer-wrap`, preceded by an empty div that expands to match the `footer-wrap` height. `footer-wrap` is `position: fixed` and has `right`, `bottom`, and `left` set to 0.
+| Standalone | Enhanced by Vuehaus | SSR Capable |
+| ---------- | ------------------- | ----------- |
+| ✅         | ❌                  | ❌          |
 
-### Classes
+**Slots**
 
--   `reveal-footer`
--   `footer-wrap`
+| Name    | Location |
+| ------- | -------- |
+| Default |          |
+
+**Classes**
+
+| Name            | Conditions | Notes |
+| --------------- | ---------- | ----- |
+| `reveal-footer` | Always     |       |
+| `footer-wrap`   | Always     |       |
+
+**Notes**
+
+-   Adds a slot wrapped with an empty div `footer-wrap`, preceded by an empty div that expands to match the `footer-wrap` height. `footer-wrap` is `position: fixed` and has `right`, `bottom`, and `left` set to 0.
 
 ## `scroll-to`
 
