@@ -351,7 +351,11 @@ Creates and fades in an image. Adds a placeholder for the image with a given bac
 
 ## `reveal-footer`
 
-`<component-name :example-prop="123"> I'm an example ready to be copied and pasted into a Vue component. </component-name>`
+```html
+<reveal-footer>
+    <footer>I'm the footer content.</footer>
+</reveal-footer>
+```
 
 A component that reveals the section at the bottom of a page. Like the footer on the [Funkhaus site](http://funkhaus.us/).
 
@@ -378,21 +382,41 @@ A component that reveals the section at the bottom of a page. Like the footer on
 
 ## `scroll-to`
 
+`<scroll-to target=".scroll-target">Scroll to Target</scroll-to>`
+
 Wrap this component around any element to add "scroll-to" functionality, where the window is scrolled to a target element when the wrapped element is clicked.
 
-### Props
+| Standalone | Enhanced by Vuehaus | SSR Capable |
+| ---------- | ------------------- | ----------- |
+| ✅         | ❌                  | ❌          |
 
-| Name       |     Type      |     Default     | Description                                                                                       |
-| ---------- | :-----------: | :-------------: | ------------------------------------------------------------------------------------------------- |
+**Props**
+
+| Name       | Type          | Default         | Description                                                                                       |
+| ---------- | ------------- | --------------- | ------------------------------------------------------------------------------------------------- |
 | `target`   | String/Object | `scroll-target` | Target element to scroll to. This can be the name of a $ref, a CSS selector, or a DOM element.    |
-| `duration` |    Number     |     `1000`      | The duration of the scroll animation in ms.                                                       |
-| `easing`   |    String     |   `inOutQuad`   | The animation easing to use. See [ease](https://github.com/component/ease) for all valid options. |
-| `offset`   |    Number     |       `0`       | Number of pixels to offset the scroll target by. Can be positive or negative.                     |
-| `debug`    |    Boolean    |     `false`     | Whether or not to display debug information on click.                                             |
+| `duration` | Number        | `1000`          | The duration of the scroll animation in ms.                                                       |
+| `easing`   | String        | `inOutQuad`     | The animation easing to use. See [ease](https://github.com/component/ease) for all valid options. |
+| `offset`   | Number        | `0`             | Number of pixels to offset the scroll target by. Can be positive or negative.                     |
+| `debug`    | Boolean       | `false`         | Whether or not to display debug information on click.                                             |
 
-### Events
+**Slots**
 
--   `complete`: Fires when the page has finished scrolling to the target. Fired immediately if `target` is not found.
+| Name    | Location                                    |
+| ------- | ------------------------------------------- |
+| Default | Content to be wrapped by `scroll-to` button |
+
+**Events**
+
+| Name       | Signature | Description                                                                                           |
+| ---------- | --------- | ----------------------------------------------------------------------------------------------------- |
+| `complete` | `()`      | Fires when the page has finished scrolling to the target. Fired immediately if `target` is not found. |
+
+**Classes**
+
+| Name        | Conditions | Notes |
+| ----------- | ---------- | ----- |
+| `scroll-to` | Always     |       |
 
 ## `slide-show`
 

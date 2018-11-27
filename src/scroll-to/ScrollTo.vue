@@ -69,8 +69,8 @@ export default {
 }
 </script>
 
-<style lang="scss">
-// reset button styling
+<style>
+/* reset button styling */
 .scroll-to {
     background-color: transparent;
     -webkit-appearance: none;
