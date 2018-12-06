@@ -358,7 +358,7 @@ export default {
             if (this.css) return
 
             if (this.enter) {
-                this.enter(...arguments)
+                this.enter(...arguments, this.direction)
             } else {
                 done()
             }
@@ -368,7 +368,7 @@ export default {
             if (this.css) return
 
             if (this.leave) {
-                this.leave(...arguments)
+                this.leave(...arguments, this.direction)
             } else {
                 done()
             }

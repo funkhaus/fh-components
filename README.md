@@ -420,12 +420,24 @@ Wrap this component around any element to add "scroll-to" functionality, where t
 
 ## `slide-show`
 
+```
+<slide-show :slides="[1, 2, 3, 4]">
+    <div class="slide" slot="slide" slot-scope="args">
+        {{ args }}
+    </div>
+</slide-show>
+```
+
 This component creates a basic slideshow element that will cycle through a list of items that you provide.
 
 Requires:
 
 -   An array of `slides` that will serve as the source for the individual slides
 -   A `slide` slot describing the format of an individual slide
+
+| Standalone | Enhanced by Vuehaus | SSR Capable |
+| ---------- | ------------------- | ----------- |
+| ✅         | ❌                  | ✅          |
 
 The simplest possible `slide-show` looks like this:
 
@@ -446,27 +458,27 @@ See the [slots](https://github.com/funkhaus/fh-components#slots) section for mor
 
 ### Props
 
-| Name               |     Type      | Default | Description                                                                                                                                                                                                                                                                                                                                               |
-| ------------------ | :-----------: | :-----: | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `slides`           |     Array     |  `[]`   | Array of items to be iterated over and turned into slides.                                                                                                                                                                                                                                                                                                |
-| `auto`             |    Boolean    | `true`  | Controls if slideshow should auto-advance.                                                                                                                                                                                                                                                                                                                |
-| `swipe`            |    Boolean    | `true`  | Controls if left/right swipe should be enabled                                                                                                                                                                                                                                                                                                            |
-| `loop`             |    Boolean    | `true`  | If true, slideshow will loop from last item back to first on automatic playthroughs                                                                                                                                                                                                                                                                       |
-| `manual-loop`      |    Boolean    | `false` | If true, slideshow will loop from last item back to first on automatic and manual slide changes                                                                                                                                                                                                                                                           |
-| `infinite`         |    Boolean    | `true`  | If true, slideshow will do a `next` style transition when looping from last to first and vice versa.                                                                                                                                                                                                                                                      |
-| `interval`         |    Number     | `4000`  | Time between auto slide transitions.                                                                                                                                                                                                                                                                                                                      |
-| `delay`            |    Number     |  `500`  | Time to delay before initiating auto slide interval.                                                                                                                                                                                                                                                                                                      |
-| `index`            | Number/Object | `null`  | Used to manually control the current active slide of the slideshow. This prop can be bidirectionally bound using the `sync` modifier - `<slide-show :index.sync="myLocalIndex"/>` will keep `myLocalIndex` up to date and reflect updates immediately if changed. Note that the value will also wrap correctly if under 0 or over the total slide number. |
-| `pagination`       |    Boolean    | `true`  | Controls if pagination elements should be rendered or not.                                                                                                                                                                                                                                                                                                |
-| `localKeyboard`    |    Boolean    | `false` | If true, slideshow will bind keyboard listeners to the slideshow DOM element. If false, keyboard events will be bound to window.                                                                                                                                                                                                                          |
-| `nextKey`          |    Number     |  `39`   | Keycode for which key will trigger the next action. Default is the right arrow.                                                                                                                                                                                                                                                                           |
-| `prevKey`          |    Number     |  `37`   | Keycode for which key will trigger the prev action. Default is the left arrow.                                                                                                                                                                                                                                                                            |
-| `css`              |    Boolean    | `true`  | Controls if the transition should use CSS classes or not. Use this when overriding the default transition using the provided javascript hooks.                                                                                                                                                                                                            |
-| `can-control`      |    Boolean    | `true`  | Controls whether or not the user has any manual control over this slideshow progression.                                                                                                                                                                                                                                                                  |
-| `force-transition` |    String     |  `''`   | Tell the slideshow to use this transition name instead of the default `next` and `prev` classes. Useful if the transition will not change depending on slideshow direction.                                                                                                                                                                               |
-| `slide-wrap`       |    String     |  `div`  | The element to wrap each individual slide in. Required to use the transition correctly.                                                                                                                                                                                                                                                                   |
-| `enter`            |   Function    | `null`  | The `enter` function for the JS transition. Only runs if `css` is set to `false`.                                                                                                                                                                                                                                                                         |
-| `leave`            |   Function    | `null`  | The `leave` function for the JS transition. Only runs if `css` is set to `false`.                                                                                                                                                                                                                                                                         |
+| Name               |                Type                | Default | Description                                                                                                                                                                                                                                                                                                                                               |
+| ------------------ | :--------------------------------: | :-----: | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `slides`           |               Array                |  `[]`   | Array of items to be iterated over and turned into slides.                                                                                                                                                                                                                                                                                                |
+| `auto`             |              Boolean               | `true`  | Controls if slideshow should auto-advance.                                                                                                                                                                                                                                                                                                                |
+| `swipe`            |              Boolean               | `true`  | Controls if left/right swipe should be enabled                                                                                                                                                                                                                                                                                                            |
+| `loop`             |              Boolean               | `true`  | If true, slideshow will loop from last item back to first on automatic playthroughs                                                                                                                                                                                                                                                                       |
+| `manual-loop`      |              Boolean               | `false` | If true, slideshow will loop from last item back to first on automatic and manual slide changes                                                                                                                                                                                                                                                           |
+| `infinite`         |              Boolean               | `true`  | If true, slideshow will do a `next` style transition when looping from last to first and vice versa.                                                                                                                                                                                                                                                      |
+| `interval`         |               Number               | `4000`  | Time between auto slide transitions.                                                                                                                                                                                                                                                                                                                      |
+| `delay`            |               Number               |  `500`  | Time to delay before initiating auto slide interval.                                                                                                                                                                                                                                                                                                      |
+| `index`            |           Number/Object            | `null`  | Used to manually control the current active slide of the slideshow. This prop can be bidirectionally bound using the `sync` modifier - `<slide-show :index.sync="myLocalIndex"/>` will keep `myLocalIndex` up to date and reflect updates immediately if changed. Note that the value will also wrap correctly if under 0 or over the total slide number. |
+| `pagination`       |              Boolean               | `true`  | Controls if pagination elements should be rendered or not.                                                                                                                                                                                                                                                                                                |
+| `localKeyboard`    |              Boolean               | `false` | If true, slideshow will bind keyboard listeners to the slideshow DOM element. If false, keyboard events will be bound to window.                                                                                                                                                                                                                          |
+| `nextKey`          |               Number               |  `39`   | Keycode for which key will trigger the next action. Default is the right arrow.                                                                                                                                                                                                                                                                           |
+| `prevKey`          |               Number               |  `37`   | Keycode for which key will trigger the prev action. Default is the left arrow.                                                                                                                                                                                                                                                                            |
+| `css`              |              Boolean               | `true`  | Controls if the transition should use CSS classes or not. Use this when overriding the default transition using the provided javascript hooks.                                                                                                                                                                                                            |
+| `can-control`      |              Boolean               | `true`  | Controls whether or not the user has any manual control over this slideshow progression.                                                                                                                                                                                                                                                                  |
+| `force-transition` |               String               |  `''`   | Tell the slideshow to use this transition name instead of the default `next` and `prev` classes. Useful if the transition will not change depending on slideshow direction.                                                                                                                                                                               |
+| `slide-wrap`       |               String               |  `div`  | The element to wrap each individual slide in. Required to use the transition correctly.                                                                                                                                                                                                                                                                   |
+| `enter`            | Function(element, done, direction) | `null`  | The `enter` function for the JS transition. Only runs if `css` is set to `false`. `done` is a function that must be called when transition completes; `direction` will either be `prev` or `next` depending on the slideshow direction.                                                                                                                   |
+| `leave`            | Function(element, done, direction) | `null`  | The `leave` function for the JS transition. Only runs if `css` is set to `false`. `done` is a function that must be called when transition completes; `direction` will either be `prev` or `next` depending on the slideshow direction.                                                                                                                   |
 
 ### Classes
 
@@ -572,26 +584,32 @@ If css transitions alone are not enough for the effect you want, you can opt to 
 
 ## `sticky-wrap`
 
-**Props**
-
--   `wrapper`: String, default `div`. Element that wraps the entire component.
--   `margin`: Number or String, default `0`. Distance in pixels to pad the top of the sticky element.
--   `max`: Number or String, default `-1`. The maximum distance this element will be able to translate.
-
-**Classes**
-
--   `sticky-wrap`
-
-**Notes**
-
--   Mimics `position: sticky` using a wrapper element and translation. Sticks an element to the top of the screen without breaking page flow. Place content to be stuck inside the main slot - for example:
-
 ```html
 <sticky-wrap>
     <h2>I'm stuck content</h2>
     <p>I'll be stuck too</p>
 </sticky-wrap>
 ```
+
+Mimics `position: sticky` using a wrapper element and translation. Sticks an element to the top of the screen without breaking page flow. Place content to be stuck inside the main slot
+
+| Standalone | Enhanced by Vuehaus | SSR Capable |
+| ---------- | ------------------- | ----------- |
+| ✅         | ❌                  | ❌          |
+
+**Props**
+
+| Name      | Type          | Default | Description                                                  |
+| --------- | ------------- | ------- | ------------------------------------------------------------ |
+| `wrapper` | String        | `div`   | Element that wraps the entire component.                     |
+| `margin`  | Number/String | `0`     | Distance in pixels to pad the top of the sticky element.     |
+| `max`     | Number/String | `-1`    | The maximum distance this element will be able to translate. |
+
+**Classes**
+
+| Name          | Conditions | Notes |
+| ------------- | ---------- | ----- |
+| `sticky-wrap` | Always     |       |
 
 ## `text-typer`
 
