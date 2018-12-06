@@ -176,13 +176,17 @@ export default {
         leave: {
             type: Function,
             default: null
+        },
+        startingSlide: {
+            type: Number,
+            default: 0
         }
     },
     data() {
         return {
             transitioning: false,
             direction: 'next',
-            internalIndex: 0,
+            internalIndex: this.startingSlide,
             timer: null,
             delayTimeout: null,
             hammertime: null,
