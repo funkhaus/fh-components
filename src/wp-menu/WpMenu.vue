@@ -4,6 +4,7 @@
             v-for="(item, i) in menuItems"
             :key="i"
             :item="item"
+            :forceRouterLink="forceRouterLink"
         >
             <slot name="menu-item" :menu-item="item" :index="i" />
         </menu-item>
@@ -22,6 +23,10 @@ export default {
         name: {
             type: String,
             default: 'Main Menu'
+        },
+        forceRouterLink: {
+            type: Boolean,
+            default: false
         }
     },
     components: {

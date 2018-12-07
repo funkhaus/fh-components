@@ -2,16 +2,23 @@
     <li :class="classes">
 
         <slot>
-            <a
-                v-if="item.is_external"
-                :href="item.permalink | removeTrailingSlash"
-                target="_blank"
+
+            <router-link
+                v-if="forceRouterLink"
+                :to="(item.relativePath || item.permalink) | removeTrailingSlash"
                 v-html="item.title"
             />
 
             <router-link
-                v-else
+                v-else-if="!item.is_external"
                 :to="item.relativePath | removeTrailingSlash"
+                v-html="item.title"
+            />
+
+            <a
+                v-else
+                :href="item.permalink | removeTrailingSlash"
+                target="_blank"
                 v-html="item.title"
             />
 
@@ -20,6 +27,7 @@
                     v-for="(child, i) in children"
                     :item="child"
                     :key="i"
+                    :forceRouterLink="forceRouterLink"
                 />
             </ul>
         </slot>
@@ -41,6 +49,10 @@ export default {
             default: () => {
                 return {}
             }
+        },
+        forceRouterLink: {
+            type: Boolean,
+            default: false
         }
     },
     computed: {

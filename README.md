@@ -758,10 +758,11 @@ This will make the h2 fade in, then the h3 fade in and p tag slide in from the l
 
 ### Props
 
-| Name   |  Type  |    Default    | Description                            |
-| ------ | :----: | :-----------: | -------------------------------------- |
-| `slug` | String |     `''`      | The WordPress slug of the menu to use. |
-| `name` | String | `'Main Menu'` | The WordPress name of the menu to use. |
+| Name              |  Type   |    Default    | Description                                                                             |
+| ----------------- | :-----: | :-----------: | --------------------------------------------------------------------------------------- |
+| `slug`            | String  |     `''`      | The WordPress slug of the menu to use.                                                  |
+| `name`            | String  | `'Main Menu'` | The WordPress name of the menu to use.                                                  |
+| `forceRouterLink` | Boolean |     false     | Whether or not this wp-menu should force the use of `router-link`s instead of `a` tags. |
 
 ### Classes
 
