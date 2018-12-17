@@ -1100,6 +1100,8 @@ Requires `load-on-view` (see [above](#load-on-view)). Use like this:
                 :url="nextUrl"
                 @data="loadNext"/>
 
+        </div>
+
     </main>
 </template>
 
