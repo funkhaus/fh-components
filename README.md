@@ -36,6 +36,7 @@ Reusable components and directives for Vue. Designed for [Vuehaus](https://githu
     1.  [reverse-hover](#reverse-hover)
 1.  [Mixins](#mixins)
     1.  [Idle](#idle)
+    1.  [Infinite Scroll](#infiniteScroll)
     1.  [Pack](#pack)
     1.  [Rect](#rect)
     1.  [Sequence](#sequence)
@@ -1066,6 +1067,52 @@ export default {
 ```
 
 This will hide the image after 5 seconds of inactivity and show it again when the user scrolls or moves the mouse.
+
+## `infiniteScroll`
+
+A very easy-to-use infinite scroll mixin for Vuehaus.
+
+### Adds
+
+| Name      | Type   | Description                                                                          |
+| --------- | ------ | ------------------------------------------------------------------------------------ |
+| `nextUrl` | string | URL containing next batch of posts.                                                  |
+| `grid`    | Array  | Array of Rest-Easy serialized posts, representing the full list of posts to display. |
+
+### Notes
+
+Requires `load-on-view`. Use like this:
+
+```html
+<template>
+    <main class="archive">
+
+        <div class="post-grid">
+            <div
+                class="post-block"
+                v-for="(post, i) in grid"
+                :key="i">
+                <!-- Your post-block templating here - eg: -->
+                <h2 v-html="post.title"/>
+            </div>
+
+            <load-on-view
+                :url="nextUrl"
+                @data="loadNext"/>
+
+    </main>
+</template>
+
+<script>
+import infiniteScroll from 'fh-components/mixins/infiniteScroll'
+
+export default {
+    mixins: [infiniteScroll]
+}
+</script>
+```
+
+`nextUrl` will update as long as there are more pages to display, and `grid` will stay populated with all posts loaded so far.
 
 ## `rect`
 

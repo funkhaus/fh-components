@@ -91,3 +91,10 @@ export default {
     }
 }
 </script>
+
+<style lang="scss">
+.load-on-view {
+    // required so there's something to trigger v-in-view
+    min-height: 1px;
+}
+</style>
