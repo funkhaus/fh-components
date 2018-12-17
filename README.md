@@ -1081,7 +1081,7 @@ A very easy-to-use infinite scroll mixin for Vuehaus.
 
 ### Notes
 
-Requires `load-on-view`. Use like this:
+Requires `load-on-view` (see [above](#load-on-view)). Use like this:
 
 ```html
 <template>
