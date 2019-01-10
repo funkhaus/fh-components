@@ -323,7 +323,7 @@ Creates and fades in an image. Adds a placeholder for the image with a given bac
 | `respect-max` | Boolean          | `false`         | Whether the image will have a `max-width` and `max-height` based on its natural dimensions.                                                                            |
 | `size`        | String           | `'full'`        | WordPress image size.                                                                                                                                                  |
 | `src`         | String           | `''`            | Same functionality as `<img src="...">`.                                                                                                                               |
-| `video-src`   | String           | `''`            | An optional video URL if the component should display a looping video rather than an image.                                                                            |
+| `video-src`   | String           | `''`            | An optional video URL if the component should display a looping video rather than an image. Set to `null` to disable the video option.                                                                            |
 | `volume`      | Number           | `0`             | Controls the volume when rendering a video. If set to 0 (or not set) the video will be muted and will be able to autoplay.                                             |
 | `width`       | [String, Number] | `''`            | Natural image width in pixels.                                                                                                                                         |
 
